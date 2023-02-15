@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+.main-contents {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.main-content__intro{
+    margin-left: 24px;
+}
+
+.main-content__bar {
+    width: 100%;
+    height: 12px;
+    margin-top: 42px;
+    background-color: var(--color-main-skyblue);
+}
+
+.main-content__intro_top {
+    margin-top: 42px;
+    color: var(--color-main-blue);
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.main-content__intro_bottom {
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.main-content__recommend_title {
+    text-align: center;
+    margin-top: 110px;
+    color: var(--color-main-jinblue);
+}
+
+.main-content__recommend_lists {
+    width: 100%;
+    height: 110px;
+    background-color: var(--color-main-skyblue);
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+.main-content__recommend_img {
+    width: 60px;
+    height: 60px;
+    /* border-radius: 50%; */
+    /* background-color: var(--color-main-grey); */
+    margin: 0 auto;
+}
+
+.main-content__recommend_img_title{
+    margin-top: 3px;
+    font-size: 8px;
+    text-align: center;
+}
+
+.move-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 75px;
+    margin-bottom: 65px; /* temp */
+}
+
+.move-login button{
+    width: 130px;
+    height: 45px;
+    background-color: var(--color-main-skyblue);
+    border: 1px solid var(--color-main-skyblue);
+    border-radius: 10px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}

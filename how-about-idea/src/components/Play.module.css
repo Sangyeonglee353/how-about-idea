@@ -1,0 +1,25 @@
+.play-config__intro {
+    font-family: inherit;
+    text-align: center;
+    margin-top: 235px;
+}
+
+.leaf-img {
+    display: block;
+    margin: 70px auto 0 auto;
+}
+
+.play-config__sentence{
+    display: block;
+    width: 280px;
+    height: 70px;
+    border: 5px solid var(--color-main-blue);
+    border-radius: 20px;
+    margin: 66px auto 0 auto;
+    padding: 5px;
+    text-align: center;
+}
+
+.play-config__sentence:focus {
+    outline: none;
+}
