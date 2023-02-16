@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
 :root {
-  --color-main-jinblue: #0AAFF1;
+  --color-main-jinblue: #0aaff1;
   --color-main-blue: #00b6ff;
-  --color-main-skyblue: #BEEBFD;
+  --color-main-skyblue: #beebfd;
   --color-main-grey: #999;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
