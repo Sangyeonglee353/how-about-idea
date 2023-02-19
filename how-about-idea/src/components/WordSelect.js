@@ -30,7 +30,7 @@ height:100vh;
 
   .menu{
     display:flex;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    
     .title{
       margin:0;
       padding: 1vh 0;
@@ -39,39 +39,85 @@ height:100vh;
       align-items:center;
       justify-content:center;
       font-size:18px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
     .menu1{
       border-right: 1px solid rgba(0,0,0,0.1);
     }
   } 
-  .words{
 
+
+
+
+  .words{
+    width:200%;
     display:flex;
-    transform:translate(0vw);
-    .word{
+    transform:translate(0%);
+    transition:0.5s;
+
+
+
+    .selected{
+
       padding:2% 4%;
       margin:0;
-      width:100vw;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:left;
+      width:50%;
       overflow-y:auto;
-      .node{
+
+      .word{
+
         display:flex;
-        margin:1% 1.5%;
-        padding:1vh 1vw;
-        width:auto;
-        align-items:center;
-        justify-content:center;
-        background: #ffffff;
+        flex-wrap:wrap;
+        justify-content:left;
+
+        .node{
+          display:flex;
+          margin:1% 1.5%;
+          padding:1vh 1vw;
+          width:auto;
+          align-items:center;
+          justify-content:center;
+          background: #ffffff;
+          border: 2px solid skyblue;
+          border-radius:12px;
+          font-size:16px;
+        }
+
+      }
+
+    }
+
+
+    .tools{
+      padding:2% 4%;
+      margin:0;
+      width:50%;
+      height:${props=>props.vh*100-400}px;
+
+
+      .word_input{
+        
+        width:80%;
+        margin-left:10%;
+        border:0;
         border: 2px solid skyblue;
         border-radius:12px;
-        font-size:16px;
-        \
+        padding:1vh 2%;
       }
+
+      
+      .word_input:focus{
+        
+
+        outline:none;
+
+      }
+
     }
+
   }
 
+    
 
 
 }
@@ -85,7 +131,7 @@ function Wordselect() {
   let select = []
   const [size,setSize] = useState(window.innerHeight<600?window.screen.availHeight:window.innerHeight)
   const [selected,setselect] = useState([])
-
+  const menu = useRef()
   class word {
 
 
@@ -161,7 +207,7 @@ function Wordselect() {
   },[])
 
   return (
-    <Appcss vh={size/100}>
+    <Appcss vh={size/100} >
 
     <Cvs ref={cvs}  width={350}  height={350} onClick={(e)=>{
       const desktop = window.innerWidth/2-200
@@ -193,16 +239,25 @@ function Wordselect() {
     }}>
         
     </Cvs>
-    <div className="screen" onClick={()=>{console.log(select,selected)}}>
+    <div className="screen" >
       <div className='menu'> 
-        <p className='title menu1'>brain storming</p>
-        <p className='title'>selected words</p>
+        <p className='title menu1' onClick={()=>{menu.current.style.transform="translate(0%)"}}>selected words</p>
+        <p className='title menu2' onClick={()=>{menu.current.style.transform="translate(-50%)"}}>tools</p>
       </div>
-      <div className="words" >
-        <div className="word" ref={w}>
+      <div className="words" ref={menu}>
+        <div className="selected" >
+          <div className="word" ref={w}>
 
 
+          </div>
         </div>
+        <div className="tools" >
+          <div className='time'> 
+            
+          </div>
+           <input className='word_input' type={"text"}/>
+        </div>
+
       </div>
 
     </div>
