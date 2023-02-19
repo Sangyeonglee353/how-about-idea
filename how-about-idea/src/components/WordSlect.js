@@ -17,14 +17,28 @@ const Appcss = styled.div`
 width:100%;
 overflow:hidden;
 background:	#f5f7fa;
+height:100vh;
 .screen{
   
   width:90%;
-  height:${props=>props.vh*100-485}px;
+  height:${props=>props.vh*100-500}px;
   border-radius:12px 12px 0 0;
   overflow:hidden;
   background:#ffffff;
   margin:0 5%;
+  border-radius:12px;
+
+  .title{
+    margin:0;
+    padding: 1vh 0;
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
   .words{
 
     display:flex;
@@ -48,6 +62,7 @@ background:	#f5f7fa;
         border: 2px solid skyblue;
         border-radius:12px;
         font-size:16px;
+        \
       }
     }
   }
@@ -61,7 +76,7 @@ function WordSlect() {
   const cvs = useRef('')
   const w = useRef('')
   let list = ["개","고양이","말","소","염소", "돼지", "닭","토끼", "원숭이","판다"]
-  let prev=0
+
   let slect = []
   const [size,setSize] = useState(window.innerHeight<600?window.screen.availHeight:window.innerHeight)
   const [slected,setSlect] = useState([])
@@ -88,7 +103,7 @@ function WordSlect() {
 
     draw(){
       let ctx = document.getElementsByTagName("canvas").item(0).getContext("2d")
-      ctx.font = "36px serif";
+      ctx.font = "24px serif";
       ctx.fillStyle =this.color
       ctx.fillText(this.text,this.x,this.y)
     }
@@ -108,8 +123,6 @@ function WordSlect() {
     
     if(timer%100===0){
       let w = new word();
-      let ctx1 =document.getElementsByTagName("canvas").item(0)
-      prev = w.y
       words.push(w)
 
     }
@@ -184,7 +197,7 @@ function WordSlect() {
         
     </Cvs>
     <div className="screen" onClick={()=>{console.log(slect,slected)}}>
-
+      <p className='title'>brain storming results</p>
       <div className="words" >
         <div className="word" ref={w}>
 
