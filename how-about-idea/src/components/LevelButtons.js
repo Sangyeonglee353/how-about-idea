@@ -1,3 +1,4 @@
+import React from 'react'
 import LevelButton from "./LevelButton";
 import styled from 'styled-components';
 

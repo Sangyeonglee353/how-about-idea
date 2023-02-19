@@ -2,7 +2,7 @@ import LoginForm from "./LoginForm";
 import bottomSubImage from "../images/leaf_img.png";
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-
+import React from 'react'
 const LoginBlock = styled.div`
     display: block;
     margin: 215px auto 0 auto;

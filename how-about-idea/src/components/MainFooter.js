@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-
+import React from 'react'
 const Footer = styled.div`
   /* width: 100%; */
   width: 428px;
@@ -60,7 +60,7 @@ const MainFooter = () => {
           </Link>
         </BottomNav>
         <BottomNav>
-          <Link to={"/login"}>
+          <Link to={"/wordslect"}>
             <PlayBtn icon="fa-play" />
           </Link>
         </BottomNav>
@@ -73,3 +73,4 @@ const MainFooter = () => {
 };
 
 export default MainFooter;
+  

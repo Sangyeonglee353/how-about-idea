@@ -1,3 +1,4 @@
+import React from 'react'
 import Feeds from './Feeds.js';
 import HomeFooter from './HomeFooter.js';
 import { useState } from 'react';

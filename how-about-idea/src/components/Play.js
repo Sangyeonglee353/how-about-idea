@@ -2,7 +2,7 @@ import leafImage from "../images/leaf_img.png";
 import HomeFooter from "./HomeFooter";
 import LevelButtons from "./LevelButtons";
 import styled from "styled-components";
-
+import React from 'react'
 const PlayConfig = styled.div`
   & h2 {
     font-family: inherit;
