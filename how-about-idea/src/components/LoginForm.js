@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import React from 'react'
+
 const UserDataForm = styled.form`
   & .titles {
     font-size: 28px;

@@ -1,5 +1,3 @@
-
-import React from 'react'
 import logo from './images/howai_logo.jpg';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link} from 'react-router-dom';
@@ -9,7 +7,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import Play from './components/Play';
 import Mind from './components/MindMap/Mind';
-import WordSlect from './components/WordSlect';
+
 /* icon */
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHouse, faUser, faPlay, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +28,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/play" element={<Play />} />
           <Route path="/mind" element={<Mind />} />
-          <Route path='/wordslect' element={<WordSlect/>}/>
         </Routes>
       </div>
     </BrowserRouter>

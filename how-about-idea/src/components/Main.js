@@ -4,7 +4,7 @@ import student_logo from "../images/student.png";
 import ceo_logo from "../images/ceo.png";
 import planner_logo from "../images/planner.png";
 import styled from "styled-components";
-import React from 'react'
+
 const MainContents = styled.div`
   font-family: "Noto Sans KR", sans-serif;
 `;

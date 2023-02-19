@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MindMap from "./MindMap";
-
 // import * as go from "./go-debug.js";
 // import * as go from "./go.js";
 import * as go from 'gojs';

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import React from 'react'
+
 const UserDataForm = styled.form`
   & .titles {
     font-size: 28px;
