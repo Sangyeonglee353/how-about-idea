@@ -1,3 +1,4 @@
+import React from 'react'
 import FeedItem from './FeedItem';
 import styled from 'styled-components';
 

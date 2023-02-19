@@ -1,3 +1,4 @@
+import React from 'react'
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import tempImg from "../images/feed_1.png";

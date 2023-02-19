@@ -1,3 +1,4 @@
+import React from 'react'
 import tempImage from "../images/feed_1.png";
 import styled from "styled-components";
 

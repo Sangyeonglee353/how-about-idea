@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import React from 'react'
 // import * as go from "./go-debug.js";
 // import * as go from "./go.js";
 import * as go from 'gojs';

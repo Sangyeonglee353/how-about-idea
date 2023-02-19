@@ -1,6 +1,6 @@
 import RegisterForm from "./RegisterForm.js";
 import styled from "styled-components";
-
+import React from 'react'
 const RegisterBlock = styled.div`
   display: block;
   margin: 215px auto 0 auto;
