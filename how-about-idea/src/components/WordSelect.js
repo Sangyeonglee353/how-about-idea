@@ -21,24 +21,29 @@ height:100vh;
 .screen{
   
   width:90%;
-  height:${props=>props.vh*100-500}px;
+  height:${props=>props.vh*100-400}px;
   border-radius:12px 12px 0 0;
   overflow:hidden;
   background:#ffffff;
   margin:0 5%;
   border-radius:12px;
 
-  .title{
-    margin:0;
-    padding: 1vh 0;
+  .menu{
     display:flex;
-    width:100%;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-  }
-
+    .title{
+      margin:0;
+      padding: 1vh 0;
+      display:flex;
+      width:100%;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+    }
+    .menu1{
+      border-right: 1px solid rgba(0,0,0,0.1);
+    }
+  } 
   .words{
 
     display:flex;
@@ -72,14 +77,14 @@ height:100vh;
 }
 
 `
-function WordSlect() {
+function Wordselect() {
   const cvs = useRef('')
   const w = useRef('')
   let list = ["개","고양이","말","소","염소", "돼지", "닭","토끼", "원숭이","판다"]
 
-  let slect = []
+  let select = []
   const [size,setSize] = useState(window.innerHeight<600?window.screen.availHeight:window.innerHeight)
-  const [slected,setSlect] = useState([])
+  const [selected,setselect] = useState([])
 
   class word {
 
@@ -133,9 +138,9 @@ function WordSlect() {
         arr.splice(idx,1)
       }
 
-      for(let i =0; i<slect.length;i++){
+      for(let i =0; i<select.length;i++){
 
-        if(slect[i]===e.text){
+        if(select[i]===e.text){
           arr.splice(idx,1)
           break
         }
@@ -159,33 +164,25 @@ function WordSlect() {
     <Appcss vh={size/100}>
 
     <Cvs ref={cvs}  width={350}  height={350} onClick={(e)=>{
-
-      const x = e.clientX
-      const y = e.clientY
-      let min=0;
+      const desktop = window.innerWidth/2-200
+      const x = window.navigator.userAgent.includes("Window") ?e.clientX-desktop:e.clientX
+      const y = window.navigator.userAgent.includes("Window") ?e.clientY:e.clientY
+      let min=70000;
       let click_word
       let idx;
-      for(let i =0;i<words.length ;i++){
 
+      for(let i =0;i<words.length ;i++){
         let gap = (x-words[i].x)*(x-words[i].x)+(y-words[i].y)*(y-words[i].y)
-        if(i===0){
+        if(min>gap&&gap<20000){
           min = gap
           click_word = words[i].text
           idx=i
-        }
-        else{
-
-          if(min>gap){
-            min = gap
-            click_word = words[i].text
-            idx=i
-          }
         }
         
       }
       if(click_word!==undefined){
         list.splice(idx,1)
-        slect.push(click_word)
+        select.push(click_word)
         let element =  document.createElement( 'p' );
         element.className="node"
         let element_text = document.createTextNode(click_word);
@@ -196,8 +193,11 @@ function WordSlect() {
     }}>
         
     </Cvs>
-    <div className="screen" onClick={()=>{console.log(slect,slected)}}>
-      <p className='title'>brain storming results</p>
+    <div className="screen" onClick={()=>{console.log(select,selected)}}>
+      <div className='menu'> 
+        <p className='title menu1'>brain storming</p>
+        <p className='title'>selected words</p>
+      </div>
       <div className="words" >
         <div className="word" ref={w}>
 
@@ -213,4 +213,4 @@ function WordSlect() {
   
 }
 
-export default WordSlect;
+export default Wordselect;
