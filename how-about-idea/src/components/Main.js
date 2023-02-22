@@ -79,7 +79,7 @@ const Main = () => {
   return (
     <div>
       <MainContents>
-        <MainContentBar />
+        {/* <MainContentBar /> */}
         <div className="intro">
           <p className="top">
             브레인스토밍 중인 여러분.
@@ -118,7 +118,7 @@ const Main = () => {
             <button type="button">로그인하러 가기</button>
           </Link>
         </div>
-        <MainContentBar />
+        {/* <MainContentBar /> */}
       </MainContents>
       <MainFooter />
     </div>
