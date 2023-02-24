@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
@@ -13,18 +13,18 @@ const Footer = styled.div`
   /* position: relative;
     transform: translateY(-100%); */
   background-color: white;
-`;
-
-const BottomNavs = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  list-style-type: none;
-  height: 100%;
-`;
-
-const BottomNav = styled.li`
-  padding: 10px 0px;
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+  }
+  li {
+    padding: 10px 0px;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 
 const HomeBtn = styled(FontAwesomeIcon)`
@@ -54,21 +54,21 @@ const MypageBtn = styled(FontAwesomeIcon)`
 function HomeFooter() {
   return (
     <Footer>
-      <BottomNavs>
-        <BottomNav>
+      <ul>
+        <li>
           <Link to={"/"}>
             <HomeBtn icon="fa-house" />
           </Link>
-        </BottomNav>
-        <BottomNav>
+        </li>
+        <li>
           <Link to={"/play"}>
             <PlayBtn icon="fa-play" />
           </Link>
-        </BottomNav>
-        <BottomNav>
+        </li>
+        <li>
           <MypageBtn icon="fa-user" />
-        </BottomNav>
-      </BottomNavs>
+        </li>
+      </ul>
     </Footer>
   );
 }
