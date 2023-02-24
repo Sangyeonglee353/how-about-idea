@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import React from 'react'
+import React from "react";
 const UserDataForm = styled.form`
   & .titles {
     font-size: 28px;
@@ -9,11 +9,11 @@ const UserDataForm = styled.form`
     color: var(--color-main-blue);
   }
 
-  & .inputs{
+  & .inputs {
     margin-top: 40px;
   }
 
-  & .input input{
+  & .input input {
     width: 100%;
     height: 30px;
     border: 0px;
@@ -21,15 +21,16 @@ const UserDataForm = styled.form`
     line-height: 30px;
   }
 
-  & .input input:focus{
-    outline:none;
+  & .input input:focus {
+    outline: none;
   }
 
-  & .input:last-child, .actions{
+  & .input:last-child,
+  .actions {
     margin-top: 30px;
   }
 
-  & .actions button[type = submit] {
+  & .actions button[type="submit"] {
     width: 100%;
     height: 64px;
     background-color: var(--color-main-blue);

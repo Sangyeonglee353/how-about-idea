@@ -1,6 +1,6 @@
 import RegisterForm from "./RegisterForm.js";
 import styled from "styled-components";
-import React from 'react'
+import React from "react";
 const RegisterBlock = styled.div`
   display: block;
   margin: 215px auto 0 auto;
@@ -18,6 +18,10 @@ const RegisterBlock = styled.div`
   & .strong-blue {
     font-weight: bold;
     color: var(--color-main-blue);
+  }
+  @media screen and (max-width: 500px) {
+    width: calc(100vw - 40px);
+    height: 100vh;
   }
 `;
 function Register() {
