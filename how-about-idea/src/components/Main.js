@@ -7,8 +7,12 @@ import styled from "styled-components";
 import React from "react";
 const MainContents = styled.div`
   font-family: "Noto Sans KR", sans-serif;
+  width: 100%;
+  height: 100%;
+
   .intro {
     margin-left: 24px;
+
     p.top {
       margin-top: 42px;
       color: var(--color-main-blue);
@@ -20,6 +24,20 @@ const MainContents = styled.div`
       margin-top: 30px;
       font-size: 15px;
       line-height: 32px;
+    }
+    .break_desktop {
+      display: block;
+    }
+    @media screen and (max-width: 500px) {
+      margin: 0;
+      text-align: center;
+
+      .break_mobile {
+        display: block;
+      }
+      .break_desktop {
+        display: inline;
+      }
     }
   }
   .recommend {
@@ -48,12 +66,17 @@ const MainContents = styled.div`
       font-size: 8px;
       text-align: center;
     }
+    @media screen and (max-width: 500px) {
+      .title {
+        margin-top: 20px;
+      }
+    }
   }
   .move {
     display: flex;
     justify-content: center;
-    margin-top: 75px;
-    margin-bottom: 65px; /* temp */
+    margin-top: 70px;
+    height: 193px;
 
     button {
       width: 130px;
@@ -65,6 +88,8 @@ const MainContents = styled.div`
       font-weight: bold;
       cursor: pointer;
     }
+  }
+  @media screen and (max-width: 500px) {
   }
 `;
 
@@ -89,9 +114,11 @@ const Main = () => {
           <p className="bottom">
             협업을 위한 첫 걸음 아이디어에서부터 시작합니다.
             <br />
-            마음에 드는 아이디어가 나올 때까지 원하는 트리즈 기법을
-            <br />
-            이용해서 아이디어를 생성해보세요.
+            마음에 드는 아이디어가 나올 때까지
+            <span className="break_mobile"> 원하는 트리즈 기법을</span>
+            <span className="break_desktop">
+              이용해서 아이디어를 생성해보세요.
+            </span>
           </p>
         </div>
         <div>

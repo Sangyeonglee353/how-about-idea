@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import React from 'react'
+import React from "react";
 const Footer = styled.div`
   /* width: 100%; */
   width: 428px;
@@ -10,67 +10,67 @@ const Footer = styled.div`
   position: fixed;
   bottom: 0;
   /* position: relative;
-    transform: translateY(-100%); */
+  transform: translateY(-100%); */
   background-color: white;
-`;
-
-const BottomNavs = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  list-style-type: none;
-  height: 100%;
-`;
-
-const BottomNav = styled.li`
-  padding: 10px 0px;
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    height: 100%;
+  }
+  li {
+    padding: 10px 0px;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100vw;
+  }
 `;
 
 const HomeBtn = styled(FontAwesomeIcon)`
-    /* width: 32px; */
-    height: 27px;
-    color: var(--color-main-grey);
-    cursor: pointer;
+  /* width: 32px; */
+  height: 27px;
+  color: var(--color-main-grey);
+  cursor: pointer;
 `;
 
 const PlayBtn = styled(FontAwesomeIcon)`
-    height: 20px;
-    background-color: var(--color-main-skyblue);
-    border: 1px soild var(--color-main-skyblue);
-    border-radius: 10px;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.35);
-    padding: 16px;
-    color: #fff;
-    cursor: pointer;
+  height: 20px;
+  background-color: var(--color-main-skyblue);
+  border: 1px soild var(--color-main-skyblue);
+  border-radius: 10px;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.35);
+  padding: 16px;
+  color: #fff;
+  cursor: pointer;
 `;
 
 const ExitBtn = styled(FontAwesomeIcon)`
-    height: 30px;
-    color: var(--color-main-grey);
-    cursor: pointer;
+  height: 30px;
+  color: var(--color-main-grey);
+  cursor: pointer;
 `;
 
 const MainFooter = () => {
   return (
     <Footer>
-      <BottomNavs>
-        <BottomNav>
+      <ul>
+        <li>
           <Link to={"/"}>
             <HomeBtn icon="fa-house" />
           </Link>
-        </BottomNav>
-        <BottomNav>
+        </li>
+        <li>
           <Link to={"/wordslect"}>
             <PlayBtn icon="fa-play" />
           </Link>
-        </BottomNav>
-        <BottomNav>
+        </li>
+        <li>
           <ExitBtn icon="fa-right-from-bracket" />
-        </BottomNav>
-      </BottomNavs>
+        </li>
+      </ul>
     </Footer>
   );
 };
 
 export default MainFooter;
-  

@@ -29,9 +29,13 @@ const AppCSS = styled.div`
 
   .App-logo {
     display: block;
-    margin: 15px auto 0px auto;
+    margin: 15px auto 15px auto;
     width: 235px;
     height: 85px;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100vw;
+    height: 100vh;
   }
 `;
 function App() {
