@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import tempImage from "../images/feed_1.png";
 import styled from "styled-components";
 
@@ -9,7 +9,8 @@ const FeedItemElement = styled.li`
   cursor: pointer;
 
   &:last-child {
-    border-bottom: 10px solid var(--color-main-skyblue);
+    /* border-bottom: 10px solid var(--color-main-skyblue); */
+    padding-bottom: 100px;
   }
 
   & h3 {

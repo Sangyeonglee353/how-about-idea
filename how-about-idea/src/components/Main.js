@@ -89,8 +89,6 @@ const MainContents = styled.div`
       cursor: pointer;
     }
   }
-  @media screen and (max-width: 500px) {
-  }
 `;
 
 const MainContentBar = styled.div`
