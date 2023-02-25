@@ -18,7 +18,6 @@ const Footer = styled.div`
     align-items: center;
     justify-content: space-around;
     list-style-type: none;
-    /* height: 100%; */
   }
   li {
     padding: 10px 0px;
