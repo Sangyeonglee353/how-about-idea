@@ -2,8 +2,8 @@ import leafImage from "../images/leaf_img.png";
 import HomeFooter from "./HomeFooter";
 import LevelButtons from "./LevelButtons";
 import styled from "styled-components";
-import React from 'react'
-const PlayConfig = styled.div`
+import React from "react";
+const PlayCSS = styled.div`
   & h2 {
     font-family: inherit;
     text-align: center;
@@ -29,10 +29,15 @@ const PlayConfig = styled.div`
   & input:focus {
     outline: none;
   }
+  @media screen and (max-width: 500px) {
+    & h2 {
+      margin-top: 50px;
+    }
+  }
 `;
 const Play = () => {
   return (
-    <PlayConfig>
+    <PlayCSS>
       <h2>
         원하시는 문장을 입력하고
         <br />
@@ -42,7 +47,7 @@ const Play = () => {
       <input type="text"></input>
       <LevelButtons />
       <HomeFooter />
-    </PlayConfig>
+    </PlayCSS>
   );
 };
 

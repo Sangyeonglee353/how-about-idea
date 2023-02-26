@@ -5,8 +5,6 @@ import styled from "styled-components";
 const FeedList = styled.ul`
   list-style-type: none;
   /* margin-top: 150px; */
-  list-style-type: none;
-  /* margin-top: 150px; */
 `;
 
 const FeedsList = (props) => {
