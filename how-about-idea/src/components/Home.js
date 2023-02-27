@@ -3,6 +3,7 @@ import Feeds from "./Feeds.js";
 import HomeFooter from "./HomeFooter.js";
 import { useState } from "react";
 import FeedDetail from "./FeedDetail";
+import styled from "styled-components";
 
 const Home = () => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);

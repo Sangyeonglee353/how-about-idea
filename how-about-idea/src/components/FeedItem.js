@@ -5,12 +5,15 @@ import styled from "styled-components";
 const FeedItemElement = styled.li`
   width: 100%;
   padding: 10px 0px;
-  border-top: 10px solid var(--color-main-skyblue);
+  margin-bottom: 5px;
+  /* border-top: 10px solid var(--color-main-skyblue); */
+  border: 2px solid var(--color-main-skyblue);
+  border-radius: 10px;
   cursor: pointer;
 
   &:last-child {
     /* border-bottom: 10px solid var(--color-main-skyblue); */
-    padding-bottom: 100px;
+    /* padding-bottom: 100px; */
   }
 
   & h3 {
@@ -21,14 +24,24 @@ const FeedItemElement = styled.li`
 
   & img {
     display: block;
+    border-radius: 10px;
     margin: 0 auto;
-    padding-bottom: 10px;
   }
 
-  & p {
-    font-family: inherit;
-    font-size: 15px;
-    margin-left: 45px;
+  .summary {
+    margin-top: 10px;
+    p {
+      font-family: inherit;
+      font-size: 15px;
+      margin-left: 45px;
+      .bold {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-main-skyblue);
   }
 `;
 const FeedItem = (props) => {
@@ -40,8 +53,14 @@ const FeedItem = (props) => {
       {/* <img src={source} alt={props.id} /> */}
       {/* <img src={require(source).default} alt={props.id} />*/}
       <img src={tempImage} alt={props.id} />
-      <p>트리즈 기법: {props.trizType}</p>
-      <p>트리즈 문장: {props.sentence}</p>
+      <div className="summary">
+        <p>
+          <span className="bold">트리즈 기법:</span> {props.trizType}
+        </p>
+        <p>
+          <span className="bold">트리즈 문장:</span> {props.sentence}
+        </p>
+      </div>
     </FeedItemElement>
   );
 };

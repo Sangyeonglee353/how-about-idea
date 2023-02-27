@@ -4,6 +4,7 @@ import LevelButtons from "./LevelButtons";
 import styled from "styled-components";
 import React from "react";
 const PlayCSS = styled.div`
+  height: 640px;
   & h2 {
     font-family: inherit;
     text-align: center;
