@@ -5,7 +5,8 @@ import styled from "styled-components";
 import React from "react";
 const LoginBlock = styled.div`
   display: block;
-  margin: 215px auto 0 auto;
+  /* margin: 215px auto 0 auto; */
+  margin: 21.5vh auto 0 auto;
   font-family: "Noto Sans KR", sans-serif;
   width: 388px;
   height: 350px;
@@ -24,9 +25,10 @@ const LoginBlock = styled.div`
     display: block;
     margin: 0 auto;
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 430px) {
     width: calc(100vw - 40px);
     height: 100vh;
+    /* margin: 2vh auto 0 auto; */
   }
 `;
 

@@ -80,6 +80,7 @@ const LoginForm = () => {
             onChange={idChangeHandler}
             id="userid"
             placeholder="아이디"
+            autoFocus
           />
         </div>
         <div className="input">
