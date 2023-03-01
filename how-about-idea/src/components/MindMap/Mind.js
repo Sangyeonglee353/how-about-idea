@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import MindMap from "./MindMap";
 
-// import * as go from "./go-debug.js";
+// import * as go from "./go-debug.js"; // 방법 1_Remove Copyright -> local 이상 없음, bulid시 에러 발생
 // import * as go from "./go.js";
-import * as go from 'gojs';
+import * as go from "gojs"; // 방법 2_Have Copyright -> local & build 이상 없음
 // import * as go from "./goCDN.js";
 
 const MindCss = styled.div`
@@ -158,7 +158,6 @@ function Mind() {
         nodeDataArray={nodeDataArray}
         linkDataArray={linkDataArray}
       />
-      
     </MindCss>
   );
 }
