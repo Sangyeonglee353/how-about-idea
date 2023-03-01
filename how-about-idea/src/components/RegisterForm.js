@@ -22,7 +22,7 @@ const UserDataForm = styled.form`
 
   .input input:focus {
     outline: none;
-    border-bottom: 2px solid var(--color-main-skyblue);
+    border-bottom: 2px solid var(--color-main-blue);
   }
 
   .input,
@@ -42,7 +42,6 @@ const UserDataForm = styled.form`
       props.validConfirmPassword
         ? "var(--color-main-blue)"
         : "var(--color-sub-grey)"};
-    /* border: 1px solid var(--color-sub-grey); */
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -51,7 +50,6 @@ const UserDataForm = styled.form`
 
     &:hover {
       background-color: var(--color-main-blue);
-      /* border: 1px solid var(--color-sub-grey); */
     }
   }
 
@@ -169,7 +167,7 @@ const RegisterForm = () => {
 
         {!validID && (
           <p className="caution">
-            2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능
+            2-10자의 영문과 숫자와 일부 특수문자(._-)만 사용하세요.
           </p>
         )}
 
@@ -184,7 +182,7 @@ const RegisterForm = () => {
           />
         </div>
 
-        {!validEmail && <p className="caution">이메일 형식이 올바르지 않음</p>}
+        {!validEmail && <p className="caution">이메일 형식을 확인해주세요.</p>}
 
         <div className="input">
           <input
@@ -198,7 +196,7 @@ const RegisterForm = () => {
         </div>
 
         {!validPassword && (
-          <p className="caution">최소 8자, 대소문자, 특수문자를 포함해야 함</p>
+          <p className="caution">최소 8자, 대소문자, 특수문자를 사용하세요.</p>
         )}
         <div className="input">
           <input
@@ -212,7 +210,7 @@ const RegisterForm = () => {
         </div>
       </div>
       {!validConfirmPassword && (
-        <p className="caution">입력한 비밀번호가 서로 다름</p>
+        <p className="caution">입력한 비밀번호를 확인해주세요.</p>
       )}
       <div className="actions">
         <button type="submit">가입하기</button>
