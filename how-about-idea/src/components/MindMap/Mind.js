@@ -12,31 +12,65 @@ const MindCss = styled.div`
   }
 `;
 
-function Mind() {
-  //   let DUMMY_nodeDataArray = [
-  //     { key: 0, text: "선풍기", color: "pink", loc: "0 0" },
-  //     { key: 1, text: "전동기", color: "orange", loc: "150 0" },
-  //     { key: 2, text: "바람", color: "lightblue", loc: "0 150" },
-  //     { key: 3, text: "날개", color: "purple", loc: "150 150" },
-  //   ];
-
-  //   let DUMMY_linkDataArray = [
-  //     { key: -1, from: 0, to: 1 },
-  //     { key: -2, from: 0, to: 2 },
-  //     { key: -3, from: 1, to: 1 },
-  //     { key: -4, from: 2, to: 3 },
-  //     { key: -5, from: 3, to: 0 },
-  //   ];
-  //   const [nodeDataArray, setNodeDataArray] = useState(DUMMY_nodeDataArray);
-  //   const [linkDataArray, setLinkDataArray] = useState(DUMMY_linkDataArray);
+const Mind = () => {
+  const [graphData, setGraphData] = useState({
+    nodes: [
+      { data: { id: "1", label: "선풍기", type: "level1" } },
+      { data: { id: "2", label: "날개", type: "level2" } },
+      { data: { id: "3", label: "바람", type: "level2" } },
+      { data: { id: "4", label: "전동기", type: "level2" } },
+      { data: { id: "5", label: "회전", type: "level3" } },
+      { data: { id: "6", label: "비행기", type: "level3" } },
+      { data: { id: "7", label: "유체", type: "level3" } },
+      { data: { id: "8", label: "공기", type: "level3" } },
+      { data: { id: "9", label: "흐름", type: "level3" } },
+      { data: { id: "10", label: "기압", type: "level3" } },
+      { data: { id: "11", label: "전기", type: "level3" } },
+      { data: { id: "12", label: "회전", type: "level3" } },
+    ],
+    edges: [
+      {
+        data: { source: "1", target: "2", label: "1 -> 2" },
+      },
+      {
+        data: { source: "1", target: "3", label: "1 -> 3" },
+      },
+      {
+        data: { source: "1", target: "4", label: "1 -> 4" },
+      },
+      {
+        data: { source: "2", target: "5", label: "2 -> 5" },
+      },
+      {
+        data: { source: "2", target: "6", label: "2 -> 5" },
+      },
+      {
+        data: { source: "2", target: "7", label: "2 -> 7" },
+      },
+      {
+        data: { source: "3", target: "8", label: "3 -> 8" },
+      },
+      {
+        data: { source: "3", target: "9", label: "3 -> 9" },
+      },
+      {
+        data: { source: "3", target: "10", label: "3 -> 10" },
+      },
+      {
+        data: { source: "4", target: "11", label: "4 -> 11" },
+      },
+      {
+        data: { source: "4", target: "12", label: "4 -> 12" },
+      },
+    ],
+  });
 
   return (
     <MindCss>
-      {/* <div id="myDiagramDiv" className="diagram-component" /> */}
       <p className="title">마인드맵</p>
-      <MindMap />
+      <MindMap graphData={graphData} />
     </MindCss>
   );
-}
+};
 
 export default Mind;

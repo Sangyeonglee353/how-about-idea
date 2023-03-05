@@ -16,13 +16,13 @@ const FeedItemElement = styled.li`
     /* padding-bottom: 100px; */
   }
 
-  & h3 {
+  h3 {
     font-family: inherit;
     font-size: 10px;
     margin-left: 15px;
   }
 
-  & img {
+  img {
     display: block;
     border-radius: 10px;
     margin: 0 auto;

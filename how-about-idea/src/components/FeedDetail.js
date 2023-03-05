@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import tempImg from "../images/feed_1.png";
@@ -37,14 +37,16 @@ const FeedDetail = (props) => {
       {/* <p>Test</p> */}
       <ContentBlock>
         <label>마인드맵</label>
-        <Link to="/mind"><img src={tempImg} alt="tempImg" /></Link>
+        <Link to="/mind">
+          <img src={tempImg} alt="tempImg" />
+        </Link>
         <p>
-          입력 문장: 선풍기 <br/><br/>
-          
-          트리즈 기법: {trizType} <br/>
-          트리즈 문장: {sentence} 
+          입력 문장: 선풍기 <br />
+          <br />
+          트리즈 기법: {trizType} <br />
+          트리즈 문장: {sentence}
         </p>
-        <br/>
+        <br />
         <p>
           <h3>관련 특허</h3>
           <ul>
@@ -54,8 +56,6 @@ const FeedDetail = (props) => {
             <li>회전하는 선풍기</li>
           </ul>
         </p>
-
-        
       </ContentBlock>
     </Modal>
   );

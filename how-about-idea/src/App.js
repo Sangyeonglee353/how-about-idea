@@ -8,7 +8,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Play from "./components/Play";
 // import GoMind from "./components/MindMap/GoMind";
-import Mind from "./components/MindMap/MindMap";
+import Mind from "./components/MindMap/Mind";
 import WordSelect from "./components/WordSelect";
 
 /* icon */
