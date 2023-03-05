@@ -211,8 +211,66 @@ const MindMap = (props) => {
 
   let myCyRef;
 
+  const addNode = () => {
+    // 1. Initalize value
+    let node_id = document.getElementById("node_id").value;
+    let node_label = document.getElementById("node_label").value;
+    let node_type = document.getElementById("node_type").value;
+    let from_node = document.getElementById("from_node").value;
+    let edge_label = node_id + "->" + from_node;
+
+    // 2. Check input value
+    if (
+      node_id.length === 0 ||
+      node_label.length === 0 ||
+      from_node.length === 0
+    ) {
+      alert("Please fill in the input box");
+      return;
+    }
+
+    // 3. Add data of node & edge
+    // console.log("Before -> ");
+    // console.log(props.graphData);
+    props.setGraphData((prev) => [
+      ...prev,
+      {
+        data: {
+          id: node_id,
+          label: node_label,
+          type: node_type,
+        },
+      },
+      {
+        data: {
+          source: from_node,
+          target: node_id,
+          label: edge_label,
+        },
+      },
+    ]);
+  };
+
   return (
     <>
+      <div
+        style={{
+          backgroundColor: "#c1c1c1",
+        }}
+      >
+        <input type="text" id="node_id" placeholder="enter new node id" />
+        <br />
+        <input
+          type="text"
+          id="node_label"
+          placeholder="enter new node name(label)"
+        />
+        <br />
+        <input type="text" id="node_type" placeholder="enter new node type" />
+        <br />
+        <input type-="text" id="from_node" placeholder="enter from node id" />
+        <button onClick={addNode}>Add Node</button>
+      </div>
       <div>
         <div
           style={{
@@ -220,6 +278,7 @@ const MindMap = (props) => {
             backgroundColor: "#f5f6fe",
           }}
         >
+          {console.log("Update", props.graphData)}
           <CytoscapeComponent
             elements={CytoscapeComponent.normalizeElements(props.graphData)}
             // pan={{ x: 200, y: 200 }}
@@ -233,17 +292,16 @@ const MindMap = (props) => {
             stylesheet={styleSheet}
             cy={(cy) => {
               myCyRef = cy;
-
               console.log("EVT", cy);
-
+              // 각 노드 클릭시 데이터 출력
               cy.on("tap", "node", (evt) => {
                 var node = evt.target;
-                // console.log("EVT", evt);
-                // console.log("TARGET", node.data());
-                // console.log("TARGET TYPE", typeof node[0]);
+                console.log("EVT", evt);
+                console.log("TARGET", node.data());
+                console.log("TARGET TYPE", typeof node[0]);
               });
             }}
-            // abc={console.log("myCyRef", myCyRef)}
+            abc={console.log("myCyRef", myCyRef)}
           />
         </div>
       </div>
