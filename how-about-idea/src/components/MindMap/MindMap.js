@@ -6,21 +6,23 @@ import cytoscape from "cytoscape";
 cytoscape.use(fcose); // 확장 레이아웃 사용 등록
 
 const MindMap = (props) => {
-  const [width, setWith] = useState("100%");
+  const [width, setWidth] = useState("100%");
   const [height, setHeight] = useState("500px");
 
+  /* Change node size for depth(pageRank) */
+  // 1. rank를 활용하기 위해 data만 입력한 cytoscape 객체
+  const cy_for_rank = cytoscape({ elements: props.graphData });
+  // 2. elements들의 rank
+  const pageRank = cy_for_rank.elements().pageRank();
+  // 3. node & font size
+  const nodeMaxSize = 130;
+  const nodeMinSize = 100;
+  const fontMaxSize = 30;
+  const fontMinSize = 20;
+
+  /* Layout Setting */
   const layout = {
-    // name: "breadthfirst",
     name: "fcose",
-    // fit: true,
-    // circle: true,
-    // directed: true,
-    // padding: 50,
-    // // spacingFactor: 1.5,
-    // animate: true,
-    // animationDuration: 1000,
-    // avoidOverlap: true,
-    // nodeDimensionsIncludeLabels: false,
 
     /* fcose default option */
     // 'draft', 'default' or 'proof'
@@ -62,7 +64,6 @@ const MindMap = (props) => {
     piTol: 0.0000001,
 
     /* incremental layout options */
-
     // Node repulsion (non overlapping) multiplier
     nodeRepulsion: (node) => 4500,
     // Ideal edge (non nested) length
@@ -113,28 +114,47 @@ const MindMap = (props) => {
     stop: () => {}, // on layoutstop
   };
 
+  /* The stylesheet for the graph */
   const styleSheet = [
     {
       selector: "node",
       style: {
-        width: 120, // size of node circle
-        height: 120,
+        /* Before style */
+        // width: 120, // size of node circle
+        // height: 120,
+        // label: "data(label)",
+
+        // /* background props */
+        // backgroundColor: "white",
+
+        // "text-valign": "center",
+        // "text-halign": "center",
+        // "overlay-padding": "6px",
+        // "z-index": "10",
+        // // width: "mapData(score, 0, 0.006769776522008331, 20, 60)",
+        // // height: "mapData(score, 0, 0.006769776522008331, 20, 60)",
+
+        // /* text props */
+        // // "text-outline-color": "#4a56a6",
+        // // "text-outline-width": "2px",
+        // color: "black",
+        // fontSize: 25,
+
+        /* After style */
         label: "data(label)",
-
-        /* background props */
-        backgroundColor: "white",
-
-        // width: "mapData(score, 0, 0.006769776522008331, 20, 60)",
-        // height: "mapData(score, 0, 0.006769776522008331, 20, 60)",
+        color: "black",
+        "background-color": "white",
         "text-valign": "center",
         "text-halign": "center",
-        "overlay-padding": "6px",
-        "z-index": "10",
-        //text props
-        // "text-outline-color": "#4a56a6",
-        // "text-outline-width": "2px",
-        color: "black",
-        fontSize: 25,
+        width: (ele) => {
+          return nodeMaxSize * pageRank.rank("#" + ele.id()) + nodeMinSize;
+        },
+        height: (ele) => {
+          return nodeMaxSize * pageRank.rank("#" + ele.id()) + nodeMinSize;
+        },
+        "font-size": (ele) => {
+          return fontMaxSize * pageRank.rank("#" + ele.id()) + fontMinSize;
+        },
       },
     },
     {
@@ -154,8 +174,8 @@ const MindMap = (props) => {
     {
       selector: "node[type='level1']",
       style: {
-        width: 150,
-        height: 150,
+        // width: 150,
+        // height: 150,
         backgroundColor: "#FF7C80",
         color: "white",
       },
@@ -163,17 +183,12 @@ const MindMap = (props) => {
     {
       selector: "node[type='level2']",
       style: {
-        width: 125,
-        height: 125,
         color: "white",
       },
     },
     {
       selector: "node[type='level3']",
       style: {
-        width: 100,
-        height: 100,
-
         "border-width": "2px",
         "border-color": "#E1E1E1",
       },
@@ -230,8 +245,6 @@ const MindMap = (props) => {
     }
 
     // 3. Add data of node & edge
-    // console.log("Before -> ");
-    // console.log(props.graphData);
     props.setGraphData((prev) => [
       ...prev,
       {
@@ -249,6 +262,11 @@ const MindMap = (props) => {
         },
       },
     ]);
+  };
+
+  const refreshGraph = () => {
+    cytoscape.layout();
+    console.log("Refresh");
   };
 
   return (
@@ -270,6 +288,7 @@ const MindMap = (props) => {
         <br />
         <input type-="text" id="from_node" placeholder="enter from node id" />
         <button onClick={addNode}>Add Node</button>
+        <button onClick={refreshGraph}>Refresh Graph</button>
       </div>
       <div>
         <div

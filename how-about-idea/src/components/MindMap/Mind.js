@@ -29,39 +29,17 @@ const Mind = () => {
     { data: { id: "12", label: "회전", type: "level3" } },
     // ],
     // edges: [
-    {
-      data: { source: "1", target: "2", label: "1 -> 2" },
-    },
-    {
-      data: { source: "1", target: "3", label: "1 -> 3" },
-    },
-    {
-      data: { source: "1", target: "4", label: "1 -> 4" },
-    },
-    {
-      data: { source: "2", target: "5", label: "2 -> 5" },
-    },
-    {
-      data: { source: "2", target: "6", label: "2 -> 5" },
-    },
-    {
-      data: { source: "2", target: "7", label: "2 -> 7" },
-    },
-    {
-      data: { source: "3", target: "8", label: "3 -> 8" },
-    },
-    {
-      data: { source: "3", target: "9", label: "3 -> 9" },
-    },
-    {
-      data: { source: "3", target: "10", label: "3 -> 10" },
-    },
-    {
-      data: { source: "4", target: "11", label: "4 -> 11" },
-    },
-    {
-      data: { source: "4", target: "12", label: "4 -> 12" },
-    },
+    { data: { id: "1->2", source: "2", target: "1" } },
+    { data: { id: "1->3", source: "3", target: "1" } },
+    { data: { id: "1->4", source: "4", target: "1" } },
+    { data: { id: "2->5", source: "5", target: "2" } },
+    { data: { id: "2->6", source: "6", target: "2" } },
+    { data: { id: "2->7", source: "7", target: "2" } },
+    { data: { id: "3->8", source: "8", target: "3" } },
+    { data: { id: "3->9", source: "9", target: "3" } },
+    { data: { id: "3->10", source: "10", target: "3" } },
+    { data: { id: "4->11", source: "11", target: "4" } },
+    { data: { id: "4->12", source: "12", target: "4" } },
     // ],
   ]);
 
