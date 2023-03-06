@@ -232,7 +232,7 @@ const MindMap = (props) => {
     let node_label = document.getElementById("node_label").value;
     let node_type = document.getElementById("node_type").value;
     let from_node = document.getElementById("from_node").value;
-    let edge_label = node_id + "->" + from_node;
+    let edge_id = from_node + "->" + node_id;
 
     // 2. Check input value
     if (
@@ -256,9 +256,9 @@ const MindMap = (props) => {
       },
       {
         data: {
-          source: from_node,
-          target: node_id,
-          label: edge_label,
+          id: edge_id,
+          source: node_id,
+          target: from_node,
         },
       },
     ]);
