@@ -141,7 +141,7 @@ const MindMap = (props) => {
         // fontSize: 25,
 
         /* After style */
-        label: "data(label)",
+        label: "data(id)",
         color: "black",
         "background-color": "white",
         "text-valign": "center",
@@ -192,19 +192,19 @@ const MindMap = (props) => {
       },
     },
     {
-      selector: "node[id='2']",
+      selector: "node[id='날개']",
       style: {
         backgroundColor: "#9933FF",
       },
     },
     {
-      selector: "node[id='3']",
+      selector: "node[id='바람']",
       style: {
         backgroundColor: "#9DC3E6",
       },
     },
     {
-      selector: "node[id='4']",
+      selector: "node[id='전동기']",
       style: {
         backgroundColor: "#FFC000",
       },
@@ -226,15 +226,7 @@ const MindMap = (props) => {
 
   const addNode = () => {
     // 1. Initalize value
-    // let node_id = document.getElementById("node_id").value;
-    let node_id = 0;
-    if (props.graphData.length === 0) {
-      node_id = 0;
-    } else if (props.graphData.length === 1) {
-      node_id = 1;
-    } else {
-      node_id = props.graphData.length - (props.graphData.length - 3) / 2;
-    }
+    let node_id = document.getElementById("node_id").value;
     let node_label = document.getElementById("node_label").value;
     let node_type = document.getElementById("node_type").value;
     let from_node = document.getElementById("from_node").value;
@@ -242,7 +234,7 @@ const MindMap = (props) => {
 
     // 2. Check input value
     if (
-      // node_id.length === 0 ||
+      node_id.length === 0 ||
       node_label.length === 0 ||
       from_node.length === 0
     ) {
@@ -282,8 +274,8 @@ const MindMap = (props) => {
           backgroundColor: "#c1c1c1",
         }}
       >
-        {/* <input type="text" id="node_id" placeholder="enter new node id" /> */}
-        {/* <br /> */}
+        <input type="text" id="node_id" placeholder="enter new node id" />
+        <br />
         <input
           type="text"
           id="node_label"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MindMap from "./MindMap";
+import DummyMindMap from "./DummyMindMap";
 
 const MindCss = styled.div`
   margin-top: 40px;
@@ -43,10 +44,40 @@ const Mind = () => {
     // ],
   ]);
 
+  const [dummyData, setDummyData] = useState([
+    // nodes: [
+    { data: { id: "선풍기", type: "level1" } },
+    { data: { id: "날개", type: "level2" } },
+    { data: { id: "바람", type: "level2" } },
+    { data: { id: "전동기", type: "level2" } },
+    { data: { id: "회전", type: "level3" } },
+    { data: { id: "비행기", type: "level3" } },
+    { data: { id: "유체", type: "level3" } },
+    { data: { id: "공기", type: "level3" } },
+    { data: { id: "흐름", type: "level3" } },
+    { data: { id: "기압", type: "level3" } },
+    { data: { id: "전기", type: "level3" } },
+    { data: { id: "회전", type: "level3" } },
+    // ],
+    // edges: [
+    { data: { id: "선풍기->날개", source: "날개", target: "선풍기" } },
+    { data: { id: "선풍기->바람", source: "바람", target: "선풍기" } },
+    { data: { id: "선풍기->전동기", source: "전동기", target: "선풍기" } },
+    { data: { id: "날개->회전", source: "회전", target: "날개" } },
+    { data: { id: "날개->비행기", source: "비행기", target: "날개" } },
+    { data: { id: "날개->유체", source: "유체", target: "날개" } },
+    { data: { id: "바람->공기", source: "공기", target: "바람" } },
+    { data: { id: "바람->흐름", source: "흐름", target: "바람" } },
+    { data: { id: "바람->기압", source: "기압", target: "바람" } },
+    { data: { id: "전동기->전기", source: "전기", target: "전동기" } },
+    { data: { id: "전동기->회전", source: "회전", target: "전동기" } },
+    // ],
+  ]);
   return (
     <MindCss>
       <p className="title">마인드맵</p>
       <MindMap graphData={graphData} setGraphData={setGraphData} />
+      {/* <DummyMindMap graphData={dummyData} setGraphData={setDummyData} /> */}
     </MindCss>
   );
 };
