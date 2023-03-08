@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import fcose from "cytoscape-fcose"; // 확장 레이아웃
 import cytoscape from "cytoscape";
@@ -280,8 +280,20 @@ const MindMap = (props) => {
 
   /* Refresh Graph */
   const refreshGraph = () => {
-    myCyRef.fit(30);
+    myCyRef.fit(30); // padding: 30
   };
+
+  /* Automatic Resize Graph*/
+  // let resizeTimer;
+  // console.log("resizeTimer: ", resizeTimer);
+
+  window.addEventListener("resize", () => {
+    // this.clearTimeout(resizeTimer);
+    // resizeTimer = this.setTimeout(() => {
+    //   refreshGraph();
+    // }, 200);
+    refreshGraph();
+  });
 
   return (
     <>

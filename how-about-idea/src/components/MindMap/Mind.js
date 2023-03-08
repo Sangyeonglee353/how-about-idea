@@ -15,7 +15,7 @@ const MindCss = styled.div`
 
 const Mind = () => {
   const [width, setWidth] = useState("100%");
-  const [height, setHeight] = useState("500px");
+  const [height, setHeight] = useState("100vh");
   const [graphData, setGraphData] = useState([
     // nodes: [
     { data: { id: "1", label: "선풍기", type: "level1" } },
