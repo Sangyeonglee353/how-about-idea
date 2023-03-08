@@ -6,16 +6,7 @@ import cytoscape from "cytoscape";
 cytoscape.use(fcose); // 확장 레이아웃 사용 등록
 
 const MindMap = (props) => {
-  /* Change node size for depth(pageRank) */
-  // 1. rank를 활용하기 위해 data만 입력한 cytoscape 객체
-  const cy_for_rank = cytoscape({ elements: props.graphData });
-  // 2. elements들의 rank
-  const pageRank = cy_for_rank.elements().pageRank();
-  // 3. node & font size
-  const nodeMaxSize = 130;
-  const nodeMinSize = 100;
-  const fontMaxSize = 30;
-  const fontMinSize = 20;
+  let myCyRef; // grpah에 event를 주기 위한 변수
 
   /* Layout Setting */
   const layout = {
@@ -118,6 +109,17 @@ const MindMap = (props) => {
     let color_b = Math.floor(Math.random() * 127 + 128).toString(16);
     return `#${color_r + color_g + color_b}`;
   };
+
+  /* Change node size for depth(pageRank) */
+  // 1. rank를 활용하기 위해 data만 입력한 cytoscape 객체
+  const cy_for_rank = cytoscape({ elements: props.graphData });
+  // 2. elements들의 rank
+  const pageRank = cy_for_rank.elements().pageRank();
+  // 3. node & font size
+  const nodeMaxSize = 130;
+  const nodeMinSize = 100;
+  const fontMaxSize = 30;
+  const fontMinSize = 20;
 
   /* The stylesheet for the graph */
   const styleSheet = [
@@ -229,8 +231,7 @@ const MindMap = (props) => {
     },
   ];
 
-  let myCyRef;
-
+  /* addNode function */
   const addNode = () => {
     // 1. Initalize value
     // let node_id = document.getElementById("node_id").value;
@@ -277,9 +278,9 @@ const MindMap = (props) => {
     ]);
   };
 
+  /* Refresh Graph */
   const refreshGraph = () => {
-    // cytoscape.layout();
-    console.log("Refresh");
+    myCyRef.fit(30);
   };
 
   return (

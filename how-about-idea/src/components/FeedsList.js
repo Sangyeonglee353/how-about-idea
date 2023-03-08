@@ -2,7 +2,7 @@ import React from "react";
 import FeedItem from "./FeedItem";
 import styled from "styled-components";
 
-const FeedList = styled.ul`
+const FeedsListCSS = styled.ul`
   list-style-type: none;
   /* margin-top: 150px; */
   display: block;
@@ -37,7 +37,7 @@ const FeedsList = (props) => {
   }
 
   return (
-    <FeedList>
+    <FeedsListCSS>
       {props.items.length > 0 &&
         props.items.map((feed) => (
           <FeedItem
@@ -49,7 +49,7 @@ const FeedsList = (props) => {
             onClick={props.onClick}
           />
         ))}
-    </FeedList>
+    </FeedsListCSS>
   );
 };
 
