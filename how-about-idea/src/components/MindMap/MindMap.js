@@ -1,8 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import fcose from "cytoscape-fcose"; // 확장 레이아웃
 import cytoscape from "cytoscape";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
+const MindMapCSS = styled.div`
+  position: relative;
+  border: 1px solid #000;
+  background-color: #f5f6fe;
+`;
+
+const RefreshBtn = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  width: 30px;
+  height: 30px;
+  color: var(--color-sub-grey);
+  cursor: pointer;
+`;
 cytoscape.use(fcose); // 확장 레이아웃 사용 등록
 
 const MindMap = (props) => {
@@ -165,20 +183,6 @@ const MindMap = (props) => {
       },
     },
     {
-      selector: "node:selected",
-      style: {
-        "border-width": "6px",
-        "border-color": "#AAD8FF",
-        "border-opacity": "0.5",
-        "background-color": "#77828C",
-        width: 50,
-        height: 50,
-        //text props
-        "text-outline-color": "#77828C",
-        "text-outline-width": 8,
-      },
-    },
-    {
       selector: "node[type='level1']",
       style: {
         // backgroundColor: "#FF7C80",
@@ -200,24 +204,23 @@ const MindMap = (props) => {
         "border-color": "#E1E1E1",
       },
     },
-    // {
-    //   selector: "node[id='2']",
-    //   style: {
-    //     backgroundColor: "#9933FF",
-    //   },
-    // },
-    // {
-    //   selector: "node[id='3']",
-    //   style: {
-    //     backgroundColor: "#9DC3E6",
-    //   },
-    // },
-    // {
-    //   selector: "node[id='4']",
-    //   style: {
-    //     backgroundColor: "#FFC000",
-    //   },
-    // },
+    {
+      selector: "node:selected",
+      style: {
+        "border-width": "5px",
+        "border-color": "#AAD8FF",
+        "border-opacity": "0.5",
+        "background-color": "#00b6ff",
+        width: 180,
+        height: 180,
+        //text props
+        "text-outline-color": "#beebfd",
+        "text-outline-width": 5,
+        "font-size": "30px",
+        "font-weight": "bold",
+        color: "#000",
+      },
+    },
     {
       selector: "edge",
       style: {
@@ -234,7 +237,6 @@ const MindMap = (props) => {
   /* addNode function */
   const addNode = () => {
     // 1. Initalize value
-    // let node_id = document.getElementById("node_id").value;
     let node_id = 0;
     if (props.graphData.length === 0) {
       node_id = 0;
@@ -249,11 +251,7 @@ const MindMap = (props) => {
     let edge_id = from_node + "->" + node_id;
 
     // 2. Check input value
-    if (
-      // node_id.length === 0 ||
-      node_label.length === 0 ||
-      from_node.length === 0
-    ) {
+    if (node_label.length === 0 || from_node.length === 0) {
       alert("Please fill in the input box");
       return;
     }
@@ -302,8 +300,6 @@ const MindMap = (props) => {
           backgroundColor: "#c1c1c1",
         }}
       >
-        {/* <input type="text" id="node_id" placeholder="enter new node id" /> */}
-        {/* <br /> */}
         <input
           type="text"
           id="node_label"
@@ -314,42 +310,35 @@ const MindMap = (props) => {
         <br />
         <input type-="text" id="from_node" placeholder="enter from node id" />
         <button onClick={addNode}>Add Node</button>
-        <button onClick={refreshGraph}>Refresh Graph</button>
       </div>
-      <div>
-        <div
-          style={{
-            border: "1px solid",
-            backgroundColor: "#f5f6fe",
+      <MindMapCSS>
+        {console.log("Update", props.graphData)}
+        <RefreshBtn icon="fa-arrow-rotate-right" onClick={refreshGraph} />
+        <CytoscapeComponent
+          elements={CytoscapeComponent.normalizeElements(props.graphData)}
+          // pan={{ x: 200, y: 200 }}
+          style={{ width: props.width, height: props.height }}
+          zoomingEnabled={true}
+          maxZoom={3}
+          minZoom={0.1}
+          autounselectify={false}
+          boxSelectionEnabled={true}
+          layout={layout}
+          stylesheet={styleSheet}
+          cy={(cy) => {
+            myCyRef = cy;
+            console.log("EVT", cy);
+            // 각 노드 클릭시 데이터 출력
+            cy.on("tap", "node", (evt) => {
+              var node = evt.target;
+              console.log("EVT", evt);
+              console.log("TARGET", node.data());
+              console.log("TARGET TYPE", typeof node[0]);
+            });
           }}
-        >
-          {console.log("Update", props.graphData)}
-          <CytoscapeComponent
-            elements={CytoscapeComponent.normalizeElements(props.graphData)}
-            // pan={{ x: 200, y: 200 }}
-            style={{ width: props.width, height: props.height }}
-            zoomingEnabled={true}
-            maxZoom={3}
-            minZoom={0.1}
-            autounselectify={false}
-            boxSelectionEnabled={true}
-            layout={layout}
-            stylesheet={styleSheet}
-            cy={(cy) => {
-              myCyRef = cy;
-              console.log("EVT", cy);
-              // 각 노드 클릭시 데이터 출력
-              cy.on("tap", "node", (evt) => {
-                var node = evt.target;
-                console.log("EVT", evt);
-                console.log("TARGET", node.data());
-                console.log("TARGET TYPE", typeof node[0]);
-              });
-            }}
-            abc={console.log("myCyRef", myCyRef)}
-          />
-        </div>
-      </div>
+          abc={console.log("myCyRef", myCyRef)}
+        />
+      </MindMapCSS>
     </>
   );
 };
