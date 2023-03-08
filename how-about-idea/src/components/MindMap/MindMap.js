@@ -6,9 +6,6 @@ import cytoscape from "cytoscape";
 cytoscape.use(fcose); // 확장 레이아웃 사용 등록
 
 const MindMap = (props) => {
-  const [width, setWidth] = useState("100%");
-  const [height, setHeight] = useState("500px");
-
   /* Change node size for depth(pageRank) */
   // 1. rank를 활용하기 위해 data만 입력한 cytoscape 객체
   const cy_for_rank = cytoscape({ elements: props.graphData });
@@ -114,6 +111,14 @@ const MindMap = (props) => {
     stop: () => {}, // on layoutstop
   };
 
+  /* randomColor */
+  const randomColor = () => {
+    let color_r = Math.floor(Math.random() * 127 + 128).toString(16);
+    let color_g = Math.floor(Math.random() * 127 + 128).toString(16);
+    let color_b = Math.floor(Math.random() * 127 + 128).toString(16);
+    return `#${color_r + color_g + color_b}`;
+  };
+
   /* The stylesheet for the graph */
   const styleSheet = [
     {
@@ -174,7 +179,8 @@ const MindMap = (props) => {
     {
       selector: "node[type='level1']",
       style: {
-        backgroundColor: "#FF7C80",
+        // backgroundColor: "#FF7C80",
+        backgroundColor: randomColor(),
         color: "white",
       },
     },
@@ -182,6 +188,7 @@ const MindMap = (props) => {
       selector: "node[type='level2']",
       style: {
         color: "white",
+        backgroundColor: randomColor(),
       },
     },
     {
@@ -191,24 +198,24 @@ const MindMap = (props) => {
         "border-color": "#E1E1E1",
       },
     },
-    {
-      selector: "node[id='2']",
-      style: {
-        backgroundColor: "#9933FF",
-      },
-    },
-    {
-      selector: "node[id='3']",
-      style: {
-        backgroundColor: "#9DC3E6",
-      },
-    },
-    {
-      selector: "node[id='4']",
-      style: {
-        backgroundColor: "#FFC000",
-      },
-    },
+    // {
+    //   selector: "node[id='2']",
+    //   style: {
+    //     backgroundColor: "#9933FF",
+    //   },
+    // },
+    // {
+    //   selector: "node[id='3']",
+    //   style: {
+    //     backgroundColor: "#9DC3E6",
+    //   },
+    // },
+    // {
+    //   selector: "node[id='4']",
+    //   style: {
+    //     backgroundColor: "#FFC000",
+    //   },
+    // },
     {
       selector: "edge",
       style: {
@@ -307,7 +314,7 @@ const MindMap = (props) => {
           <CytoscapeComponent
             elements={CytoscapeComponent.normalizeElements(props.graphData)}
             // pan={{ x: 200, y: 200 }}
-            style={{ width: width, height: height }}
+            style={{ width: props.width, height: props.height }}
             zoomingEnabled={true}
             maxZoom={3}
             minZoom={0.1}

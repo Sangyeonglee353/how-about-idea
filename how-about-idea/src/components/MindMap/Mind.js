@@ -14,6 +14,8 @@ const MindCss = styled.div`
 `;
 
 const Mind = () => {
+  const [width, setWidth] = useState("100%");
+  const [height, setHeight] = useState("500px");
   const [graphData, setGraphData] = useState([
     // nodes: [
     { data: { id: "1", label: "선풍기", type: "level1" } },
@@ -76,7 +78,12 @@ const Mind = () => {
   return (
     <MindCss>
       <p className="title">마인드맵</p>
-      <MindMap graphData={graphData} setGraphData={setGraphData} />
+      <MindMap
+        width={width}
+        height={height}
+        graphData={graphData}
+        setGraphData={setGraphData}
+      />
       {/* <DummyMindMap graphData={dummyData} setGraphData={setDummyData} /> */}
     </MindCss>
   );
