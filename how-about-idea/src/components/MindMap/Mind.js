@@ -4,18 +4,13 @@ import MindMap from "./MindMap";
 import DummyMindMap from "./DummyMindMap";
 
 const MindCss = styled.div`
-  margin-top: 40px;
-  background: white;
-
   .title {
     height: 30px;
     font-weight: bold;
   }
 `;
 
-const Mind = () => {
-  const [width, setWidth] = useState("100%");
-  const [height, setHeight] = useState("300px");
+const Mind = (props) => {
   const [graphData, setGraphData] = useState([
     // nodes: [
     { data: { id: "1", label: "선풍기", type: "level1" } },
@@ -77,12 +72,15 @@ const Mind = () => {
   ]);
   return (
     <MindCss>
-      <p className="title">마인드맵</p>
       <MindMap
-        width={width}
-        height={height}
+        width={props.width}
+        height={props.height}
         graphData={graphData}
         setGraphData={setGraphData}
+        onUserZoom={props.onUserZoom} // Zoom 가능 여부
+        onRefreshBtn={props.onRefreshBtn} // 새로고침 버튼 활성화 여부
+        onUnSelect={props.onUnSelect} // 노드 선택 가능 여부
+        onUnNodeMove={props.onUnNodeMove} // 노트 이동 가능 여부
       />
       {/* <DummyMindMap graphData={dummyData} setGraphData={setDummyData} /> */}
     </MindCss>

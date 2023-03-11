@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import tempImage from "../images/feed_1.png";
 import styled from "styled-components";
+import Mind from "./MindMap/Mind";
 
 const FeedItemElement = styled.li`
   width: 100%;
@@ -28,6 +29,14 @@ const FeedItemElement = styled.li`
     margin: 0 auto;
   }
 
+  .mindmap {
+    display: block;
+    border-radius: 10px;
+    margin: 10px auto;
+    width: 80%;
+    background-color: white;
+  }
+
   .summary {
     margin-top: 10px;
     p {
@@ -45,14 +54,26 @@ const FeedItemElement = styled.li`
   }
 `;
 const FeedItem = (props) => {
+  const [width, setWidth] = useState("90%");
+  const [height, setHeight] = useState("200px");
+
   const source = props.imgSource;
-  // console.log(source);
   return (
     <FeedItemElement onClick={props.onClick}>
       <h3>{props.name}</h3>
       {/* <img src={source} alt={props.id} /> */}
       {/* <img src={require(source).default} alt={props.id} />*/}
-      <img src={tempImage} alt={props.id} />
+      {/* <img src={tempImage} alt={props.id} /> */}
+      <div className="mindmap">
+        <Mind
+          width={width}
+          height={height}
+          onUserZoom={false}
+          onRefreshBtn={false}
+          onUnSelect={true}
+          onUnNodeMove={true}
+        />
+      </div>
       <div className="summary">
         <p>
           <span className="bold">트리즈 기법:</span> {props.trizType}

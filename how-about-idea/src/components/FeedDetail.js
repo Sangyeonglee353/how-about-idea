@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import tempImg from "../images/feed_1.png";
 import { Link } from "react-router-dom";
+import Mind from "./MindMap/Mind";
 
 const ContentBlock = styled.div`
   margin: 30px;
@@ -26,6 +27,9 @@ const ContentBlock = styled.div`
   }
 `;
 const FeedDetail = (props) => {
+  const [width, setWidth] = useState("100%");
+  const [height, setHeight] = useState("300px");
+
   const userName = props.feedData.name;
   const imgSource = props.feedData.imgSource;
   const trizType = props.feedData.trizType;
@@ -33,13 +37,19 @@ const FeedDetail = (props) => {
 
   return (
     <Modal onClick={props.onHideFeedDetail}>
-      {/* <p>{props.feedData.name}</p> */}
-      {/* <p>Test</p> */}
       <ContentBlock>
         <label>마인드맵</label>
-        <Link to="/mind">
+        {/* <Link to="/mind">
           <img src={tempImg} alt="tempImg" />
-        </Link>
+        </Link> */}
+        <Mind
+          width={width}
+          height={height}
+          onUserZoom={true}
+          onRefreshBtn={true}
+          onUnSelect={true}
+          onUnNodeMove={true}
+        />
         <p>
           입력 문장: 선풍기 <br />
           <br />

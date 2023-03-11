@@ -7,8 +7,7 @@ import styled from "styled-components";
 
 const MindMapCSS = styled.div`
   position: relative;
-  border: 1px solid #000;
-  background-color: #f5f6fe;
+  background-color: transparent;
 `;
 
 const RefreshBtn = styled(FontAwesomeIcon)`
@@ -48,7 +47,7 @@ const MindMap = (props) => {
     // Fit the viewport to the repositioned nodes
     fit: true,
     // Padding around layout
-    padding: 30,
+    padding: 15,
     // Whether to include labels in node dimensions. Valid in "proof" quality
     nodeDimensionsIncludeLabels: false,
     // Whether or not simple nodes (non-compound nodes) are of uniform dimensions
@@ -136,7 +135,7 @@ const MindMap = (props) => {
   // 3. node & font size
   const nodeMaxSize = 130;
   const nodeMinSize = 100;
-  const fontMaxSize = 30;
+  const fontMaxSize = 50;
   const fontMinSize = 20;
 
   /* The stylesheet for the graph */
@@ -278,7 +277,7 @@ const MindMap = (props) => {
 
   /* Refresh Graph */
   const refreshGraph = () => {
-    myCyRef.fit(30); // padding: 30
+    myCyRef.fit(15); // padding: 15
   };
 
   /* Automatic Resize Graph*/
@@ -295,7 +294,7 @@ const MindMap = (props) => {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           backgroundColor: "#c1c1c1",
         }}
@@ -310,24 +309,28 @@ const MindMap = (props) => {
         <br />
         <input type-="text" id="from_node" placeholder="enter from node id" />
         <button onClick={addNode}>Add Node</button>
-      </div>
+      </div> */}
       <MindMapCSS>
-        {console.log("Update", props.graphData)}
-        <RefreshBtn icon="fa-arrow-rotate-right" onClick={refreshGraph} />
+        {/* {console.log("Update", props.graphData)} */}
+        {props.onRefreshBtn && (
+          <RefreshBtn icon="fa-arrow-rotate-right" onClick={refreshGraph} />
+        )}
         <CytoscapeComponent
           elements={CytoscapeComponent.normalizeElements(props.graphData)}
           // pan={{ x: 200, y: 200 }}
           style={{ width: props.width, height: props.height }}
+          userZoomingEnabled={props.onUserZoom} // 사용자 zoom controller
           zoomingEnabled={true}
           maxZoom={3}
           minZoom={0.1}
-          autounselectify={false}
+          autounselectify={props.onUnSelect}
+          autoungrabify={props.onUnNodeMove}
           boxSelectionEnabled={true}
           layout={layout}
           stylesheet={styleSheet}
           cy={(cy) => {
             myCyRef = cy;
-            console.log("EVT", cy);
+            // console.log("EVT", cy);
             // 각 노드 클릭시 데이터 출력
             cy.on("tap", "node", (evt) => {
               var node = evt.target;
@@ -336,7 +339,7 @@ const MindMap = (props) => {
               console.log("TARGET TYPE", typeof node[0]);
             });
           }}
-          abc={console.log("myCyRef", myCyRef)}
+          // abc={console.log("myCyRef", myCyRef)}
         />
       </MindMapCSS>
     </>
