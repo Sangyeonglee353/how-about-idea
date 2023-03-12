@@ -51,7 +51,7 @@ const FeedDetail = (props) => {
 
   return (
     <Modal onClick={props.onHideFeedDetail}>
-      <ContentBlock height={window.innerHeight}>
+      <ContentBlock height={modalHeight}>
         <h3>{userName}</h3>
         {/* <Link to="/mind">
           <img src={tempImg} alt="tempImg" />

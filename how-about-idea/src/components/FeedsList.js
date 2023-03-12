@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FeedItem from "./FeedItem";
 import styled from "styled-components";
 
@@ -46,7 +46,9 @@ const FeedsList = (props) => {
             imgSource={feed.imgSource}
             trizType={feed.trizType}
             sentence={feed.sentence}
-            onClick={props.onClick}
+            onShowFeedDetail={props.onShowFeedDetail}
+            onSetFeedData={props.onSetFeedData}
+            feedData={feed}
           />
         ))}
     </FeedsListCSS>
