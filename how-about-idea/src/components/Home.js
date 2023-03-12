@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const Home = () => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
-  const [feedIndex, setFeedIndex] = useState(0); // FeedDetail에 표시될 데이터 선택용
+  const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 선택용
 
   const DUMMY_FEED = [
     {
@@ -26,24 +26,24 @@ const Home = () => {
     },
     {
       id: "feed3",
-      name: "이상영",
+      name: "홍기범",
       imgSource: "../images/feed_2.png",
-      trizType: "추출하기",
-      sentence: "새들을 쫓아내는 주파수",
+      trizType: "분할하기",
+      sentence: "확장 가능한 모니터",
     },
     {
       id: "feed4",
-      name: "이상영",
+      name: "오준혁",
       imgSource: "../images/feed_2.png",
       trizType: "추출하기",
-      sentence: "새들을 쫓아내는 주파수",
+      sentence: "온도를 표시해주는 텀블러",
     },
     {
       id: "feed5",
-      name: "이상영",
+      name: "장영실",
       imgSource: "../images/feed_2.png",
       trizType: "추출하기",
-      sentence: "새들을 쫓아내는 주파수",
+      sentence: "무게 조절이 가능한 지게차",
     },
   ];
 
@@ -59,11 +59,16 @@ const Home = () => {
     <div>
       {feedDetailShow && (
         <FeedDetail
-          feedData={DUMMY_FEED[0]}
+          // feedData={DUMMY_FEED[0]}
+          feedData={feedData}
           onHideFeedDetail={hideFeedDetailHandler}
         />
       )}
-      <Feeds items={DUMMY_FEED} onShowFeedDetail={showFeedDetailHandler} />
+      <Feeds
+        items={DUMMY_FEED}
+        onShowFeedDetail={showFeedDetailHandler}
+        onSetFeedData={setFeedData}
+      />
       <HomeFooter />
     </div>
   );

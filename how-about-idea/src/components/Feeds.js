@@ -5,9 +5,11 @@ const Feeds = (props) => {
   // 필터
 
   return (
-    <div>
-      <FeedsList items={props.items} onClick={props.onShowFeedDetail} />
-    </div>
+    <FeedsList
+      items={props.items}
+      onShowFeedDetail={props.onShowFeedDetail}
+      onSetFeedData={props.onSetFeedData}
+    />
   );
 };
 

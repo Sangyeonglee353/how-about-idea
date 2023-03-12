@@ -3,7 +3,7 @@ import tempImage from "../images/feed_1.png";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 
-const FeedItemElement = styled.li`
+const FeedItemCSS = styled.li`
   width: 100%;
   padding: 10px 0px;
   margin-bottom: 5px;
@@ -11,11 +11,6 @@ const FeedItemElement = styled.li`
   border: 2px solid var(--color-main-skyblue);
   border-radius: 10px;
   cursor: pointer;
-
-  &:last-child {
-    /* border-bottom: 10px solid var(--color-main-skyblue); */
-    /* padding-bottom: 100px; */
-  }
 
   h3 {
     font-family: inherit;
@@ -43,9 +38,6 @@ const FeedItemElement = styled.li`
       font-family: inherit;
       font-size: 15px;
       margin-left: 45px;
-      .bold {
-        font-weight: bold;
-      }
     }
   }
 
@@ -54,20 +46,25 @@ const FeedItemElement = styled.li`
   }
 `;
 const FeedItem = (props) => {
-  const [width, setWidth] = useState("90%");
-  const [height, setHeight] = useState("200px");
+  const [mindWidth, setMindWidth] = useState("90%");
+  const [mindHeight, setMindHeight] = useState("200px");
 
   const source = props.imgSource;
+
+  const showAndSetFeed = () => {
+    props.onSetFeedData(props.feedData);
+    props.onShowFeedDetail();
+  };
   return (
-    <FeedItemElement onClick={props.onClick}>
+    <FeedItemCSS onClick={showAndSetFeed}>
       <h3>{props.name}</h3>
       {/* <img src={source} alt={props.id} /> */}
       {/* <img src={require(source).default} alt={props.id} />*/}
       {/* <img src={tempImage} alt={props.id} /> */}
       <div className="mindmap">
         <Mind
-          width={width}
-          height={height}
+          width={mindWidth}
+          height={mindHeight}
           onUserZoom={false}
           onRefreshBtn={false}
           onUnSelect={true}
@@ -76,13 +73,13 @@ const FeedItem = (props) => {
       </div>
       <div className="summary">
         <p>
-          <span className="bold">트리즈 기법:</span> {props.trizType}
+          <b>트리즈 기법:</b> {props.trizType}
         </p>
         <p>
-          <span className="bold">트리즈 문장:</span> {props.sentence}
+          <b>트리즈 문장:</b> {props.sentence}
         </p>
       </div>
-    </FeedItemElement>
+    </FeedItemCSS>
   );
 };
 
