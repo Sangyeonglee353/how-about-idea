@@ -1,7 +1,90 @@
 import React from "react";
+import * as ReactDOMServer from 'react-dom/server';
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+
+// .node {
+//   display: flex;
+//   margin: 1% 1.5%;
+//   padding: 1vh 1vw;
+//   width: auto;
+//   align-items: center;
+//   justify-content: center;
+//   background: #ffffff;
+//   border: 2px solid skyblue;
+//   border-radius: 12px;
+//   font-size: 16px;
+// }
+const NodeCss = styled.div`
+  width:30%;
+  overflow:hidden;
+  border: 2px solid skyblue;
+  border-radius: 12px;
+  margin:5% 1.5%;
+  .wrap{
+    width:200%;
+    display: flex;
+    transform:translate(0%);
+    transition:0.5s;
+    .container1,.container2{
+      display: flex;
+      width:50%;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .container1{
+
+      text-align:center;
+
+    }
+
+    .add,.cancle{
+      width:50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .add{
+      padding:7% 1%;
+      color:#ffffff;
+      background:skyblue;
+    }
+
+    .cancle{
+      color:red;
+      padding:5% 1%;
+
+    }
+
+  }
+
+
+
+
+`
+
+function Node(props){
+
+  const menu = useRef()
+  return(
+
+    <NodeCss >
+      <div className="wrap" ref={menu}>
+        <div className="container1"onClick={()=>{menu.current.style.transform="translate(-50%)"}}>
+          {props.word}
+        </div>
+        <div className="container2">
+          <p className="cancle" onClick={()=>{menu.current.style.transform="translate(0%)"}}>취소</p>
+          <p className="add">선택</p>
+        </div>
+      </div>
+    </NodeCss>
+  )
+}
+
 
 const Cvs = styled.canvas`
   margin: 0;
@@ -71,6 +154,7 @@ const Appcss = styled.div`
             border: 2px solid skyblue;
             border-radius: 12px;
             font-size: 16px;
+            transition:0.5s;
           }
         }
       }
@@ -80,7 +164,11 @@ const Appcss = styled.div`
         margin: 0;
         width: 50%;
         height: ${(props) => props.vh * 100 - 400}px;
+        .selected{
+          width:80%;
+          margin-left:10%;
 
+        }
         .word_input {
           width: 80%;
           margin-left: 10%;
@@ -97,26 +185,26 @@ const Appcss = styled.div`
     }
   }
 `;
+
 function Wordselect() {
   const cvs = useRef("");
   const w = useRef("");
-  let list = [
-    "개",
-    "고양이",
-    "말",
-    "소",
-    "염소",
-    "돼지",
-    "닭",
-    "토끼",
-    "원숭이",
-    "판다",
-  ];
+  let json_data = {
 
-  let select = [];
+    root: "개",
+    개:["리트리버","푸들", "시츄", "말티즈", "웰시코기", "고양이"],
+    고양이:["브리티시 숏헤어", "러시안 블루", "페르시안"],
+    리트리버:["갈색", "대형견", "사냥"]
+
+  }
+  let list = [...json_data[json_data.root]];
+
+  let select = [json_data.root];
+
   const [size, setSize] = useState(
     window.innerHeight < 600 ? window.screen.availHeight : window.innerHeight
   );
+
   const [selected, setselect] = useState([]);
   const menu = useRef();
   class word {
@@ -236,11 +324,12 @@ function Wordselect() {
           if (click_word !== undefined) {
             list.splice(idx, 1);
             select.push(click_word);
-            let element = document.createElement("p");
-            element.className = "node";
-            let element_text = document.createTextNode(click_word);
-            element.appendChild(element_text);
-            w.current.appendChild(element);
+
+            if(json_data[click_word]!==undefined)
+              list=[...list,...json_data[click_word]]   
+            
+            let new_node = ReactDOMServer.renderToStaticMarkup(<Node word={click_word}/>)
+            document.getElementsByClassName("word").item(0).innerHTML += new_node
           }
         }}
       ></Cvs>
@@ -249,6 +338,7 @@ function Wordselect() {
           <p
             className="title menu1"
             onClick={() => {
+              console.log( ReactDOMServer.renderToStaticMarkup(<Node word={"click_word"}/>))
               menu.current.style.transform = "translate(0%)";
             }}
           >
@@ -265,9 +355,14 @@ function Wordselect() {
         </div>
         <div className="words" ref={menu}>
           <div className="selected">
-            <div className="word" ref={w}></div>
+            <div className="word" ref={w}>
+                <Node key={1} word={json_data["root"]}/>
+            </div>
           </div>
           <div className="tools">
+            <p className="selected">
+
+            </p>
             <div className="time"></div>
             <input className="word_input" type={"text"} />
           </div>
