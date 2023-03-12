@@ -8,13 +8,14 @@ import React from "react";
 const MainContents = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
-  height: 100%;
+  /* height: calc(100vh - 115px - 80px); */
+  /* height: 100%; */
+  margin-top: 42px;
 
   .intro {
     margin-left: 24px;
 
     p.top {
-      margin-top: 42px;
       color: var(--color-main-blue);
       font-weight: bold;
       font-size: 15px;

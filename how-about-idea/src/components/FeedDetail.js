@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import tempImg from "../images/feed_1.png";
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Mind from "./MindMap/Mind";
 
 const ContentBlock = styled.div`
-  margin: 30px;
+  margin: ${(props) => (props.height < 700 ? "10" : "30")}px;
 
   label {
     display: block;
@@ -24,37 +24,51 @@ const ContentBlock = styled.div`
   li {
     padding-top: 10px;
     border-bottom: 1px solid #000;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   }
 `;
 const FeedDetail = (props) => {
-  const [width, setWidth] = useState("100%");
-  const [height, setHeight] = useState("300px");
+  const [mindWidth, setMindWidth] = useState("100%");
+  const [mindHeight, setMindHeight] = useState(
+    window.innerHeight < 800 ? "150px" : "300px"
+  );
+  const [modalHeight, setModalHeight] = useState(window.innerHeight);
 
   const userName = props.feedData.name;
   const imgSource = props.feedData.imgSource;
   const trizType = props.feedData.trizType;
   const sentence = props.feedData.sentence;
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setMindHeight(window.innerHeight < 800 ? "150px" : "300px");
+      setModalHeight(window.innerHeight);
+    });
+  }, []);
+
   return (
     <Modal onClick={props.onHideFeedDetail}>
-      <ContentBlock>
-        <label>마인드맵</label>
+      <ContentBlock height={window.innerHeight}>
+        <h3>{userName}</h3>
         {/* <Link to="/mind">
           <img src={tempImg} alt="tempImg" />
         </Link> */}
         <Mind
-          width={width}
-          height={height}
+          width={mindWidth}
+          height={mindHeight}
           onUserZoom={true}
           onRefreshBtn={true}
           onUnSelect={true}
           onUnNodeMove={true}
         />
         <p>
-          입력 문장: 선풍기 <br />
+          <b>입력 문장:</b> 선풍기 <br />
           <br />
-          트리즈 기법: {trizType} <br />
-          트리즈 문장: {sentence}
+          <b>트리즈 기법:</b> {trizType} <br />
+          <b>트리즈 문장:</b> {sentence}
         </p>
         <br />
         <p>

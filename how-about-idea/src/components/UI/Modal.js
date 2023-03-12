@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import React from 'react'
+import React from "react";
 const BackdropBlock = styled.div`
   position: fixed;
   top: 0;
@@ -14,7 +14,7 @@ const BackdropBlock = styled.div`
 
 const ModalOverlayBlock = styled.div`
   position: fixed;
-  top: 20vh;
+  top: 15vh;
   left: 5%;
   width: 90%;
   background-color: white;
@@ -31,6 +31,11 @@ const ModalOverlayBlock = styled.div`
     }
   }
 
+  @media screen and (max-width: 500px) {
+    & {
+      top: 5vh;
+    }
+  }
   @keyframes slide-down {
     from {
       opacity: 0;
