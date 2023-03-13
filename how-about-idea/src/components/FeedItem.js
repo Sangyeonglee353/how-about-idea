@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import tempImage from "../images/feed_1.png";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 
@@ -58,9 +57,6 @@ const FeedItem = (props) => {
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
       <h3>{props.name}</h3>
-      {/* <img src={source} alt={props.id} /> */}
-      {/* <img src={require(source).default} alt={props.id} />*/}
-      {/* <img src={tempImage} alt={props.id} /> */}
       <div className="mindmap">
         <Mind
           width={mindWidth}

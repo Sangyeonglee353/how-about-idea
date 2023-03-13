@@ -20,6 +20,7 @@ import {
   faRightFromBracket,
   faArrowRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
+import NodeSelect from "./components/NodeSelect";
 
 library.add(faHouse, faUser, faPlay, faRightFromBracket, faArrowRotateRight);
 
@@ -57,6 +58,7 @@ function App() {
           <Route path="/play" element={<Play />} />
           <Route path="/mind" element={<Mind />} />
           <Route path="/wordslect" element={<WordSelect />} />
+          <Route path="/nodeselect" element={<NodeSelect />} />
         </Routes>
       </AppCSS>
     </BrowserRouter>
