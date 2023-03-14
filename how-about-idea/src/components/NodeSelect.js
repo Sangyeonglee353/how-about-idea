@@ -5,8 +5,11 @@ import HomeFooter from "./HomeFooter";
 
 const NodeSelectCSS = styled.div`
   margin-top: 100px;
+  /* height: calc(100vh - 115px - 80px); */
 
   .btn {
+    height: 223px;
+
     button {
       display: block;
       width: 290px;
@@ -39,6 +42,7 @@ const NodeSelect = () => {
         onRefreshBtn={true}
         onUnSelect={false}
         onUnNodeMove={true}
+        onSetSelectedNode={setSelectedNode}
       />
       <div className="btn">
         <button className="notiBtn">2개의 단어를 선택해 주세요</button>
