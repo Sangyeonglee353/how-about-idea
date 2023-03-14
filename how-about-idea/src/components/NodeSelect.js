@@ -31,7 +31,6 @@ const NodeSelectCSS = styled.div`
 const NodeSelect = () => {
   const [mindWidth, setMindWidth] = useState("100%");
   const [mindHeight, setMindHeight] = useState("500px");
-  const [selectedNode, setSelectedNode] = useState([]);
 
   return (
     <NodeSelectCSS>
@@ -42,7 +41,6 @@ const NodeSelect = () => {
         onRefreshBtn={true}
         onUnSelect={false}
         onUnNodeMove={true}
-        onSetSelectedNode={setSelectedNode}
       />
       <div className="btn">
         <button className="notiBtn">2개의 단어를 선택해 주세요</button>

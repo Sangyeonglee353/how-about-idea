@@ -335,7 +335,7 @@ const MindMap = (props) => {
             myCyRef = cy;
             // console.log("EVT", cy);
             // 각 노드 클릭시 데이터 출력
-            cy.on("tap", "node", (evt) => {
+            cy.one("tap", "node", (evt) => {
               var node = evt.target;
               // console.log("EVT", evt);
               console.log("TARGET", node.data());
