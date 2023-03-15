@@ -63,26 +63,27 @@ const RegisterForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPW, setEnteredPW] = useState("");
   const [enteredPW2, setEnteredPW2] = useState("");
-  const [validID, setValidID] = useState(true);
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+  const [validID, setValidID] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(false);
+  const [firstClick, setFirstClick] = useState(false);
 
-  const idChangeHandler = (event) => {
-    setEnteredID(event.target.value);
-  };
+  // const idChangeHandler = (event) => {
+  //   setEnteredID(event.target.value);
+  // };
 
-  const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-  };
+  // const emailChangeHandler = (event) => {
+  //   setEnteredEmail(event.target.value);
+  // };
 
-  const pwChangeHandler = (event) => {
-    setEnteredPW(event.target.value);
-  };
+  // const pwChangeHandler = (event) => {
+  //   setEnteredPW(event.target.value);
+  // };
 
-  const pw2ChangeHandler = (event) => {
-    setEnteredPW2(event.target.value);
-  };
+  // const pw2ChangeHandler = (event) => {
+  //   setEnteredPW2(event.target.value);
+  // };
 
   // 1. 아이디 검사
   // 1.1 아이디 유효성 검사
@@ -114,7 +115,8 @@ const RegisterForm = () => {
   // 3.2 비밀번호 일치 검사
   const isValidConfirmPassword = (e) => {
     let confirmedPassword = e.target.value;
-    // console.log(confirmedPassword);
+    console.log("PW1: ", enteredPW);
+    console.log("PW2: ", confirmedPassword);
     if (enteredPW !== confirmedPassword) {
       setValidConfirmPassword(false);
     } else {
@@ -138,6 +140,8 @@ const RegisterForm = () => {
     setEnteredEmail("");
     setEnteredPW("");
     setEnteredPW2("");
+
+    // onkeydown, tap으로 변경
   };
 
   return (
@@ -147,6 +151,7 @@ const RegisterForm = () => {
       validEmail={validEmail}
       validPassword={validPassword}
       validConfirmPassword={validConfirmPassword}
+      firstClick={firstClick}
     >
       <div className="titles">
         <label htmlFor="userid">회원가입</label>
@@ -155,17 +160,21 @@ const RegisterForm = () => {
         <div className="input">
           <input
             type="text"
-            value={enteredID}
-            onChange={idChangeHandler}
+            onChange={(e) => {
+              enteredID(e.target.value);
+            }}
+            onFocus={() => {
+              setFirstClick(true);
+            }}
             id="userid"
             placeholder="아이디"
             onBlur={isValidID}
             required
-            autoFocus
+            // autoFocus
           />
         </div>
 
-        {!validID && (
+        {!validID && firstClick && (
           <p className="caution">
             2-10자의 영문과 숫자와 일부 특수문자(._-)만 사용하세요.
           </p>
@@ -174,42 +183,57 @@ const RegisterForm = () => {
         <div className="input">
           <input
             type="email"
-            value={enteredEmail}
-            onChange={emailChangeHandler}
+            onChange={(e) => {
+              enteredEmail(e.target.value);
+            }}
+            onFocus={() => {
+              setFirstClick(true);
+            }}
             placeholder="이메일 주소"
             onBlur={isValidEmail}
             required
           />
         </div>
 
-        {!validEmail && <p className="caution">이메일 형식을 확인해주세요.</p>}
+        {!validEmail && firstClick && (
+          <p className="caution">이메일 형식을 확인해주세요.</p>
+        )}
 
         <div className="input">
           <input
             type="password"
-            value={enteredPW}
-            onChange={pwChangeHandler}
+            onChange={(e) => {
+              setEnteredPW(e.target.value);
+              console.log("PW1: ", enteredPW);
+            }}
+            onFocus={() => {
+              setFirstClick(true);
+            }}
             placeholder="비밀번호"
             onBlur={isValidPassword}
             required
           />
         </div>
 
-        {!validPassword && (
+        {!validPassword && firstClick && (
           <p className="caution">최소 8자, 대소문자, 특수문자를 사용하세요.</p>
         )}
         <div className="input">
           <input
             type="password"
-            value={enteredPW2}
-            onChange={pw2ChangeHandler}
+            onChange={(e) => {
+              setEnteredPW2(e.target.value);
+            }}
+            onFocus={() => {
+              setFirstClick(true);
+            }}
             placeholder="비밀번호 재확인"
             onBlur={isValidConfirmPassword}
             required
           />
         </div>
       </div>
-      {!validConfirmPassword && (
+      {!validConfirmPassword && firstClick && (
         <p className="caution">입력한 비밀번호를 확인해주세요.</p>
       )}
       <div className="actions">

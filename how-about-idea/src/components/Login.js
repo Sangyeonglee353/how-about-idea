@@ -25,7 +25,7 @@ const LoginBlock = styled.div`
     display: block;
     margin: 0 auto;
   }
-  @media screen and (max-width: 430px) {
+  @media (max-width: 430px) {
     width: calc(100vw - 40px);
     height: 100vh;
     /* margin: 2vh auto 0 auto; */
