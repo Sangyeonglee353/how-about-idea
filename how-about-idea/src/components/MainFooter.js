@@ -5,7 +5,7 @@ import React from "react";
 const Footer = styled.div`
   /* width: 100%; */
   width: 428px;
-  height: 80px;
+  height: 80px; 
   border-top: 2px solid var(--color-main-skyblue);
   position: fixed;
   bottom: 0;

@@ -2,6 +2,8 @@ import React from "react";
 import * as ReactDOMServer from 'react-dom/server';
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 // .node {
@@ -16,6 +18,7 @@ import axios from "axios";
 //   border-radius: 12px;
 //   font-size: 16px;
 // }
+
 const NodeCss = styled.div`
   width:30%;
   overflow:hidden;
@@ -77,8 +80,20 @@ function Node(props){
           {props.word}
         </div>
         <div className="container2">
-          <p className="cancle" onClick={()=>{menu.current.style.transform="translate(0%)"}}>취소</p>
-          <p className="add">선택</p>
+        
+          <p className="cancle" 
+          onClick={()=>{
+            menu.current.style.transform="translate(0%)"
+            props.tool.current.innertext="단어를 선택해 주세요"
+          }}>취소</p>
+
+          <p className="add" 
+          onClick={()=>{
+            props.tool.current.innerText=props.word
+            menu.current.style.transform="translate(0%)"
+            props.menu.current.style.transform="translate(-50%)"
+          }}>선택</p>
+        
         </div>
       </div>
     </NodeCss>
@@ -163,20 +178,48 @@ const Appcss = styled.div`
         padding: 2% 4%;
         margin: 0;
         width: 50%;
-        height: ${(props) => props.vh * 100 - 400}px;
+        height: ${(props) => props.vh * 100 - 300}px;
         .selected{
           width:80%;
-          margin-left:10%;
-
+          height:15vh;
+          background: rgba(0,0,0,0.1);
+          margin:3vh auto;
+          border-radius: 12px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          color:#000000;
         }
+        .input{
+          display:flex;
+          
+        }
+
         .word_input {
-          width: 80%;
-          margin-left: 10%;
+          width: 70%;
+          margin-left: 7%;
           border: 0;
           border: 2px solid skyblue;
           border-radius: 12px;
           padding: 1vh 2%;
         }
+        .icon{
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          margin-left:3%;
+          width:12%;
+          height:auto;
+          background:skyblue;
+          border-radius:12px;
+        }
+
+        .send{
+          font-size:18px;
+          color:#ffffff;
+        }
+
 
         .word_input:focus {
           outline: none;
@@ -207,6 +250,7 @@ function Wordselect() {
 
   const [selected, setselect] = useState([]);
   const menu = useRef();
+  const tool = useRef();
   class word {
     constructor() {
       this.ctx = document.getElementsByTagName("canvas").item(0);
@@ -328,17 +372,16 @@ function Wordselect() {
             if(json_data[click_word]!==undefined)
               list=[...list,...json_data[click_word]]   
             
-            let new_node = ReactDOMServer.renderToStaticMarkup(<Node word={click_word}/>)
+            let new_node = ReactDOMServer.renderToStaticMarkup(<Node word={click_word}  tool={tool} key={w.current.childElementCount}  menu={menu}/>)
             document.getElementsByClassName("word").item(0).innerHTML += new_node
           }
         }}
       ></Cvs>
       <div className="screen">
         <div className="menu">
-          <p
+          <p 
             className="title menu1"
             onClick={() => {
-              console.log( ReactDOMServer.renderToStaticMarkup(<Node word={"click_word"}/>))
               menu.current.style.transform = "translate(0%)";
             }}
           >
@@ -356,15 +399,20 @@ function Wordselect() {
         <div className="words" ref={menu}>
           <div className="selected">
             <div className="word" ref={w}>
-                <Node key={1} word={json_data["root"]}/>
+                <Node key={0} word={json_data["root"]} tool={tool} menu={menu}/>
             </div>
           </div>
           <div className="tools">
-            <p className="selected">
+            <p className="selected" ref={tool}>
 
             </p>
             <div className="time"></div>
-            <input className="word_input" type={"text"} />
+            <div className="input">
+              <input className="word_input" type={"text"} placeholder={"하위 단어 추가"} />
+              <div className="icon">
+                <FontAwesomeIcon  className="send" icon={faPaperPlane} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

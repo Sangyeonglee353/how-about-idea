@@ -35,7 +35,7 @@ const AppCSS = styled.div`
     width: 235px;
     height: 85px;
   }
-  @media screen and (max-width: 500px) {
+  @media (max-width: 500px) {
     width: 100vw;
     height: 100vh;
   }
