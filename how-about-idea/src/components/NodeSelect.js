@@ -16,13 +16,14 @@ const NodeSelectCSS = styled.div`
       height: 58px;
       margin: 10px auto;
       background-color: transparent;
-      border: 5px solid var(--color-main-skyblue);
+      border: 5px solid var(--color-main-blue);
       border-radius: 20px;
       font-family: "Noto Sans KR", sans-serif;
       font-size: 15px;
     }
     .resetBtn:hover {
-      background-color: var(--color-main-skyblue);
+      background-color: var(--color-main-blue);
+      color: white;
     }
   }
 `;

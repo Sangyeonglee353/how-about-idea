@@ -10,6 +10,10 @@ import Play from "./components/Play";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
 import WordSelect from "./components/WordSelect";
+import NodeSelect from "./components/NodeSelect";
+import TrizSelect from "./components/TrizSelect";
+import PatentAnalysis from "./components/PatentAnalysis";
+import PatentResult from "./components/PatentResult";
 
 /* icon */
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -20,8 +24,6 @@ import {
   faRightFromBracket,
   faArrowRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
-import NodeSelect from "./components/NodeSelect";
-import TrizSelect from "./components/TrizSelect";
 
 library.add(faHouse, faUser, faPlay, faRightFromBracket, faArrowRotateRight);
 
@@ -61,6 +63,8 @@ function App() {
           <Route path="/wordslect" element={<WordSelect />} />
           <Route path="/nodeselect" element={<NodeSelect />} />
           <Route path="/trizselect" element={<TrizSelect />} />
+          <Route path="/patentanalysis" element={<PatentAnalysis />} />
+          <Route path="/patentresult" element={<PatentResult />} />
         </Routes>
       </AppCSS>
     </BrowserRouter>

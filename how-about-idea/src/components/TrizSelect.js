@@ -6,8 +6,8 @@ const TrizSelectCSS = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
 
-  h3 {
-    color: var(--color-main-skyblue);
+  p {
+    color: var(--color-main-blue);
     font-size: 30px;
   }
   ul {
@@ -18,16 +18,15 @@ const TrizSelectCSS = styled.div`
     width: 330px;
     height: 49px;
     background-color: transparent;
-    border: 5px solid var(--color-main-skyblue);
+    border: 5px solid var(--color-main-blue);
     margin: 20px auto 0 auto;
-    color: var(--color-main-skyblue);
+    color: var(--color-main-blue);
     font-size: 25px;
-    font-weight: bold;
     cursor: pointer;
     &:hover {
       color: white;
       background-color: var(--color-main-blue);
-      border: 5px solid var(--color-main-blue);
+      font-weight: bold;
     }
   }
   li:nth-child(1) > button {
@@ -35,19 +34,21 @@ const TrizSelectCSS = styled.div`
   }
   .wordList {
     margin-top: 40px;
-    color: var(--color-main-skyblue);
+    color: var(--color-main-blue);
     label {
       font-size: 30px;
       margin-right: 18px;
+      vertical-align: middle;
     }
     .word {
       display: inline-block;
       width: 227px;
       height: 50px;
-      border: 5px solid var(--color-main-skyblue);
+      border: 5px solid var(--color-main-blue);
       border-radius: 20px;
       vertical-align: middle;
       padding: 10px;
+      margin-top: 10px;
     }
   }
 `;
@@ -56,7 +57,7 @@ const TrizSelect = () => {
   return (
     <>
       <TrizSelectCSS>
-        <h3>Triz 기법</h3>
+        <p>Triz 기법</p>
         <ul>
           <li>
             <button>추출하기</button>
