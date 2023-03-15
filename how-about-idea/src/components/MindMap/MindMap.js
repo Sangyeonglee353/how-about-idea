@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import fcose from "cytoscape-fcose"; // 확장 레이아웃
 import cytoscape from "cytoscape";
@@ -292,6 +292,9 @@ const MindMap = (props) => {
     refreshGraph();
   });
 
+  /* Select Node */
+  const [selectedNode, setSelectedNode] = useState([{}]);
+
   return (
     <>
       {/* <div
@@ -332,11 +335,16 @@ const MindMap = (props) => {
             myCyRef = cy;
             // console.log("EVT", cy);
             // 각 노드 클릭시 데이터 출력
-            cy.on("tap", "node", (evt) => {
+            cy.one("tap", "node", (evt) => {
               var node = evt.target;
-              console.log("EVT", evt);
+              // console.log("EVT", evt);
               console.log("TARGET", node.data());
-              console.log("TARGET TYPE", typeof node[0]);
+              // setSelectedNode((selectedNode) => {
+              //   return [...selectedNode, node.data()];
+              // });
+              setSelectedNode(node.data());
+              console.log("selectedNode -> ", selectedNode);
+              // console.log("TARGET TYkPE", typeof node[0]);
             });
           }}
           // abc={console.log("myCyRef", myCyRef)}
