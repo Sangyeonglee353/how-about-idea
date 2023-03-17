@@ -68,7 +68,12 @@ const RegisterForm = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [validConfirmPassword, setValidConfirmPassword] = useState(false);
   const [firstClick, setFirstClick] = useState(false);
-
+  const [onTap, setOnTap] = useState({
+    idTap: false,
+    emailTap: false,
+    pwTap: false,
+    pw2Tap: false,
+  });
   // const idChangeHandler = (event) => {
   //   setEnteredID(event.target.value);
   // };
@@ -85,6 +90,40 @@ const RegisterForm = () => {
   //   setEnteredPW2(event.target.value);
   // };
 
+  // keydown 'tap'
+  // 아이디어 정리
+  // 1. 처음에는 false
+  // 2. 해당 input에서 tap을 누를 경우 발생
+  document.addEventListener(
+    "keydown",
+    (e) => {
+      const keyCode = e.keyCode;
+      // console.log("pushed key" + e.key);
+
+      let ele = document.activeElement.getAttribute("id");
+      // console.log(ele);
+      if (keyCode === 9) {
+        if (ele === "userid") {
+          setOnTap((prevOnTap) => {
+            return { ...prevOnTap, idTap: true };
+          });
+        } else if (ele === "email") {
+          setOnTap((prevOnTap) => {
+            return { ...prevOnTap, emailTap: true };
+          });
+        } else if (ele === "password") {
+          setOnTap((prevOnTap) => {
+            return { ...prevOnTap, pwTap: true };
+          });
+        } else if (ele === "password2") {
+          setOnTap((prevOnTap) => {
+            return { ...prevOnTap, pw2Tap: true };
+          });
+        }
+      }
+    },
+    false
+  );
   // 1. 아이디 검사
   // 1.1 아이디 유효성 검사
   // 아이디 조건: 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능
@@ -115,8 +154,8 @@ const RegisterForm = () => {
   // 3.2 비밀번호 일치 검사
   const isValidConfirmPassword = (e) => {
     let confirmedPassword = e.target.value;
-    console.log("PW1: ", enteredPW);
-    console.log("PW2: ", confirmedPassword);
+    // console.log("PW1: ", enteredPW);
+    // console.log("PW2: ", confirmedPassword);
     if (enteredPW !== confirmedPassword) {
       setValidConfirmPassword(false);
     } else {
@@ -174,7 +213,7 @@ const RegisterForm = () => {
           />
         </div>
 
-        {!validID && firstClick && (
+        {!validID && firstClick && onTap.idTap && (
           <p className="caution">
             2-10자의 영문과 숫자와 일부 특수문자(._-)만 사용하세요.
           </p>
@@ -189,13 +228,14 @@ const RegisterForm = () => {
             onFocus={() => {
               setFirstClick(true);
             }}
+            id="email"
             placeholder="이메일 주소"
             onBlur={isValidEmail}
             required
           />
         </div>
 
-        {!validEmail && firstClick && (
+        {!validEmail && firstClick && onTap.emailTap && (
           <p className="caution">이메일 형식을 확인해주세요.</p>
         )}
 
@@ -209,13 +249,14 @@ const RegisterForm = () => {
             onFocus={() => {
               setFirstClick(true);
             }}
+            id="password"
             placeholder="비밀번호"
             onBlur={isValidPassword}
             required
           />
         </div>
 
-        {!validPassword && firstClick && (
+        {!validPassword && firstClick && onTap.pwTap && (
           <p className="caution">최소 8자, 대소문자, 특수문자를 사용하세요.</p>
         )}
         <div className="input">
@@ -227,13 +268,14 @@ const RegisterForm = () => {
             onFocus={() => {
               setFirstClick(true);
             }}
+            id="password2"
             placeholder="비밀번호 재확인"
             onBlur={isValidConfirmPassword}
             required
           />
         </div>
       </div>
-      {!validConfirmPassword && firstClick && (
+      {!validConfirmPassword && firstClick && onTap.pw2Tap && (
         <p className="caution">입력한 비밀번호를 확인해주세요.</p>
       )}
       <div className="actions">
