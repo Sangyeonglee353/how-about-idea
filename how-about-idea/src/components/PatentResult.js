@@ -27,26 +27,39 @@ const PatentResultCSS = styled.div`
     font-size: 20px;
     color: var(--color-main-blue);
     margin: 15px auto 0 auto;
+    @media (max-width: 400px) {
+      width: 90%;
+    }
   }
-  table {
+  table.idea-table {
     border: 5px solid var(--color-main-blue);
     border-collapse: collapse;
     width: 327px;
     height: 207px;
     margin: 15px auto 0 auto;
     color: var(--color-main-blue);
+    @media (max-width: 400px) {
+      width: 80%;
+    }
+    tr,
+    td,
+    th {
+      border: 5px solid var(--color-main-blue);
+      border-collapse: collapse;
+    }
+    th {
+      background-color: var(--color-main-blue);
+      color: white;
+      border-left: 5xp solid white;
+    }
   }
-  tr,
-  td,
-  th {
-    border: 5px solid var(--color-main-blue);
-    border-collapse: collapse;
-  }
-  .menuBox {
+
+  table.menuBox {
     margin-top: 70px;
-  }
-  .home {
-    margin-right: 70px;
+    text-align: center;
+    img {
+      vertical-align: middle;
+    }
   }
 `;
 
@@ -56,7 +69,7 @@ const PatentResult = () => {
       <PatentResultCSS>
         <p>특허청 분석 결과</p>
         <div className="gsentence">날개 머시기 머시기 장치</div>
-        <table>
+        <table className="idea-table">
           <tr>
             <th>비슷한 아이디어</th>
             <th>유사도</th>
@@ -78,10 +91,24 @@ const PatentResult = () => {
             <td>14.8%</td>
           </tr>
         </table>
-        <div className="menuBox">
-          <img src={homeImg} className="home" alt="home" />
-          <img src={refreshImg} className="refresh" alt="refresh" />
-        </div>
+        <table className="menuBox">
+          <tr>
+            <td>
+              <img src={homeImg} className="home" alt="home" />
+            </td>
+            <td>
+              <img src={refreshImg} className="refresh" alt="refresh" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>메인으로</label>
+            </td>
+            <td>
+              <label>다시 생성하기</label>
+            </td>
+          </tr>
+        </table>
         <p className="notice">회원은 자동으로 결과가 저장됩니다.</p>
       </PatentResultCSS>
       <HomeFooter />
