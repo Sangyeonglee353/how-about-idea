@@ -9,8 +9,8 @@ const FeedItemCSS = styled.li`
   /* border-top: 10px solid var(--color-main-skyblue); */
   border: 2px solid var(--color-main-skyblue);
   border-radius: 10px;
+  /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
-
   h3 {
     font-family: inherit;
     font-size: 10px;
