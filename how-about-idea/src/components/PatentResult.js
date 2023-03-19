@@ -2,6 +2,7 @@ import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
 import homeImg from "../images/home.png";
 import refreshImg from "../images/refresh.png";
+import { Link } from "react-router-dom";
 
 const PatentResultCSS = styled.div`
   text-align: center;
@@ -55,10 +56,14 @@ const PatentResultCSS = styled.div`
   }
 
   table.menuBox {
-    margin-top: 70px;
+    margin: 70px auto 0 auto;
     text-align: center;
+    color: var(--color-main-blue);
     img {
       vertical-align: middle;
+    }
+    td {
+      width: 150px;
     }
   }
 `;
@@ -94,10 +99,14 @@ const PatentResult = () => {
         <table className="menuBox">
           <tr>
             <td>
-              <img src={homeImg} className="home" alt="home" />
+              <Link to={"/home"}>
+                <img src={homeImg} className="home" alt="home" />
+              </Link>
             </td>
             <td>
-              <img src={refreshImg} className="refresh" alt="refresh" />
+              <Link to={"/nodeselect"}>
+                <img src={refreshImg} className="refresh" alt="refresh" />
+              </Link>
             </td>
           </tr>
           <tr>
