@@ -11,6 +11,11 @@ const LoginBlock = styled.div`
   width: 388px;
   height: 350px;
 
+  @media (max-width: 430px) {
+    width: calc(100vw - 40px);
+    height: 100vh;
+    /* margin: 2vh auto 0 auto; */
+  }
   & p {
     margin-top: 40px;
     text-align: center;
@@ -24,11 +29,6 @@ const LoginBlock = styled.div`
   & img {
     display: block;
     margin: 0 auto;
-  }
-  @media screen and (max-width: 430px) {
-    width: calc(100vw - 40px);
-    height: 100vh;
-    /* margin: 2vh auto 0 auto; */
   }
 `;
 
