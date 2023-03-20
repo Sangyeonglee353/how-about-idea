@@ -1,105 +1,9 @@
 import React from "react";
-import * as ReactDOMServer from 'react-dom/server';
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
-// .node {
-//   display: flex;
-//   margin: 1% 1.5%;
-//   padding: 1vh 1vw;
-//   width: auto;
-//   align-items: center;
-//   justify-content: center;
-//   background: #ffffff;
-//   border: 2px solid skyblue;
-//   border-radius: 12px;
-//   font-size: 16px;
-// }
-
-const NodeCss = styled.div`
-  width:30%;
-  overflow:hidden;
-  border: 2px solid skyblue;
-  border-radius: 12px;
-  margin:5% 1.5%;
-  .wrap{
-    width:200%;
-    display: flex;
-    transform:translate(0%);
-    transition:0.5s;
-    .container1,.container2{
-      display: flex;
-      width:50%;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .container1{
-
-      text-align:center;
-
-    }
-
-    .add,.cancle{
-      width:50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .add{
-      padding:7% 1%;
-      color:#ffffff;
-      background:skyblue;
-    }
-
-    .cancle{
-      color:red;
-      padding:5% 1%;
-
-    }
-
-  }
-
-
-
-
-`
-
-function Node(props){
-
-  const menu = useRef()
-  return(
-
-    <NodeCss >
-      <div className="wrap" ref={menu}>
-        <div className="container1"onClick={()=>{menu.current.style.transform="translate(-50%)"}}>
-          {props.word}
-        </div>
-        <div className="container2">
-        
-          <p className="cancle" 
-          onClick={()=>{
-            menu.current.style.transform="translate(0%)"
-            props.tool.current.innertext="단어를 선택해 주세요"
-          }}>취소</p>
-
-          <p className="add" 
-          onClick={()=>{
-            props.tool.current.innerText=props.word
-            menu.current.style.transform="translate(0%)"
-            props.menu.current.style.transform="translate(-50%)"
-          }}>선택</p>
-        
-        </div>
-      </div>
-    </NodeCss>
-  )
-}
-
 
 const Cvs = styled.canvas`
   margin: 0;
@@ -111,14 +15,16 @@ const Cvs = styled.canvas`
 `;
 const Appcss = styled.div`
   width: 100%;
-  overflow: hidden;
+  overflow-y:scroll;
+  overflow-x:hidden;
   background: #f5f7fa;
   height: 100vh;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; 
   .screen {
     width: 90%;
-    height: ${(props) => props.vh * 100 - 400}px;
+    height: ${(props) => props.vh * 100 - 300}px;
     border-radius: 12px 12px 0 0;
-    overflow: hidden;
     background: #ffffff;
     margin: 0 5%;
     border-radius: 12px;
@@ -159,17 +65,51 @@ const Appcss = styled.div`
           justify-content: left;
 
           .node {
-            display: flex;
-            margin: 1% 1.5%;
-            padding: 1vh 1vw;
-            width: auto;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
+            width:30%;
+            overflow:hidden;
             border: 2px solid skyblue;
             border-radius: 12px;
-            font-size: 16px;
-            transition:0.5s;
+            margin:5% 1.5%;
+             
+            .nodewrap{
+              width:200%;
+              display: flex;
+              transform:translate(0%);
+              transition:0.5s;
+
+              .container1,.container2{
+                display: flex;
+                width:50%;
+                align-items: center;
+                justify-content: center;
+              }
+              
+              .container1{
+          
+                text-align:center;
+          
+              }
+          
+              .add,.cancle{
+                width:50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              
+              .add{
+                padding:7% 1%;
+                color:#ffffff;
+                background:skyblue;
+              }
+          
+              .cancle{
+                color:red;
+                padding:5% 1%;
+          
+              }
+          
+            }          
           }
         }
       }
@@ -192,6 +132,7 @@ const Appcss = styled.div`
           color:#000000;
         }
         .input{
+
           display:flex;
           
         }
@@ -222,8 +163,55 @@ const Appcss = styled.div`
 
 
         .word_input:focus {
+
           outline: none;
+        
         }
+
+        .time{
+          
+          width:100%;
+          margin-top:5vh;
+          display:flex;
+          align-items:center;
+          .increase,.decrease{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:15%;
+            height:5vh;
+            font-size:36px;
+            border-radius:12px;
+            margin: 0 8%;
+            color:#ffffff;
+            background:rgba(0,0,0,0.2)
+          }
+
+          .left{
+           display:inline-block;
+           padding: 40px 40px;
+           border-radius:100%;
+           border: 2px solid skyblue;
+           margin: 0 auto;
+
+          }
+
+        }
+
+        .finish{
+
+          width:90%;
+          margin-left:5%;
+          margin-top:3vh;
+          padding: 0.5vh 2vw;
+          text-align:center;
+          border:2px solid red;
+          border-radius:8px;
+          color: #000000aa;
+        }
+
+
+
       }
     }
   }
@@ -232,6 +220,11 @@ const Appcss = styled.div`
 function Wordselect() {
   const cvs = useRef("");
   const w = useRef("");
+  const  left = useRef();
+  const menu = useRef();
+  const tool = useRef();
+  
+  let time_left=100;
   let json_data = {
 
     root: "개",
@@ -248,9 +241,6 @@ function Wordselect() {
     window.innerHeight < 600 ? window.screen.availHeight : window.innerHeight
   );
 
-  const [selected, setselect] = useState([]);
-  const menu = useRef();
-  const tool = useRef();
   class word {
     constructor() {
       this.ctx = document.getElementsByTagName("canvas").item(0);
@@ -372,12 +362,37 @@ function Wordselect() {
             if(json_data[click_word]!==undefined)
               list=[...list,...json_data[click_word]]   
             
-            let new_node = ReactDOMServer.renderToStaticMarkup(<Node word={click_word}  tool={tool} key={w.current.childElementCount}  menu={menu}/>)
-            document.getElementsByClassName("word").item(0).innerHTML += new_node
+            let num = w.current.childNodes.length
+            document.getElementsByClassName("word").item(0).innerHTML +=
+            `<div class="node">
+            <div class="nodewrap">
+              <div class="container1" onClick='document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(-50%)"'>
+                ${click_word}
+              </div>
+              <div class="container2">
+              
+                <p class="cancle" 
+                onClick='
+                  document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(0%)";
+                  document.getElementById("tool").innertext="단어를 선택해 주세요"'
+                >취소</p>
+
+                <p class="add" 
+                onClick='
+
+                  document.getElementById("tool").innerText="${click_word}";
+                  document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(0%)";
+                  document.getElementsByClassName("words").item(0).style.transform="translate(-50%)"
+                '>선택</p>
+              
+              </div>
+            </div>
+          </div>` 
           }
         }}
       ></Cvs>
       <div className="screen">
+
         <div className="menu">
           <p 
             className="title menu1"
@@ -391,28 +406,80 @@ function Wordselect() {
             className="title menu2"
             onClick={() => {
               menu.current.style.transform = "translate(-50%)";
-            }}
-          >
+            }}>
             tools
           </p>
         </div>
+
         <div className="words" ref={menu}>
+          
           <div className="selected">
             <div className="word" ref={w}>
-                <Node key={0} word={json_data["root"]} tool={tool} menu={menu}/>
+              <div className="node">
+                <div className="nodewrap">
+                  <div className="container1" onClick={()=>{
+                    document.getElementsByClassName("nodewrap").item(0).style.transform="translate(-50%)"}}>
+                    {json_data["root"]}
+                  </div>
+                  <div className="container2">
+                  
+                    <p className="cancle" 
+                    onClick={()=>{
+                      document.getElementsByClassName("nodewrap").item(0).style.transform="translate(0%)"
+                      tool.current.innertext="단어를 선택해 주세요"
+                    }}>취소</p>
+
+                    <p className="add" 
+                    onClick={()=>{
+                      tool.current.innerText=json_data["root"]
+                      document.getElementsByClassName("nodewrap").item(0).style.transform="translate(0%)"
+                      menu.current.style.transform="translate(-50%)"
+                    }}>선택</p>
+                  
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="tools">
-            <p className="selected" ref={tool}>
 
+          <div className="tools">
+            
+            <p className="selected" ref={tool} id="tool">
+              단어를 선택해 주세요
             </p>
-            <div className="time"></div>
+
             <div className="input">
+              
               <input className="word_input" type={"text"} placeholder={"하위 단어 추가"} />
+              
               <div className="icon">
                 <FontAwesomeIcon  className="send" icon={faPaperPlane} />
               </div>
+            
             </div>
+
+            <div className="time">
+              <p  className="decrease" onClick={()=>{
+                time_left-=10;
+                left.current.innerText=time_left
+              }}>-</p>
+
+              <p className="left" ref={left}>{time_left}</p>
+              <p className="increase" onClick={()=>{
+
+                time_left+=10;
+                left.current.innerText=time_left
+
+              }}>+</p>
+            
+            </div>
+            
+            <p className="finish">
+
+              저장 및 종료
+
+            </p>
+          
           </div>
         </div>
       </div>

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+=======
+import React,{ useState } from "react";
+>>>>>>> 365794651e83de93a328dca2cd1dda4faa65b72b
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import HomeFooter from "./HomeFooter";
