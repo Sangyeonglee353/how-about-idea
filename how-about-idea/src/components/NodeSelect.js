@@ -1,38 +1,30 @@
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-=======
-import React,{ useState } from "react";
->>>>>>> 365794651e83de93a328dca2cd1dda4faa65b72b
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import HomeFooter from "./HomeFooter";
 
 const NodeSelectCSS = styled.div`
-  margin-top: 100px;
+  margin-top: 10px;
+  font-family: "Noto Sans KR", sans-serif;
   /* height: calc(100vh - 115px - 80px); */
   @media (max-width: 400px) {
     margin-top: 0px;
   }
+  // 첫번째 디자인
   .btn {
     height: 223px;
-
     button {
       display: block;
       width: 290px;
       height: 58px;
       margin: 10px auto;
+      background-color: transparent;
       border: 5px solid var(--color-main-blue);
       border-radius: 20px;
-      font-family: "Noto Sans KR", sans-serif;
       font-size: 15px;
     }
     .notiBtn {
-      /* background-color: ${(props) =>
-        !props.completeSelected ? "transparent" : "var(--color-main-blue)"};
-      color: ${(props) => (!props.completeSelected ? "black" : "white")};
-      font-weight: ${(props) =>
-        !props.completeSelected ? "normal" : "bold"}; */
       &.active {
         background-color: var(--color-main-blue);
         color: white;
@@ -46,9 +38,66 @@ const NodeSelectCSS = styled.div`
       color: white;
     }
   }
+  // 두번째 디자인
+  .notify {
+    margin-top: 30px;
+    & p {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+  .wordList {
+    margin-top: 20px;
+    .word {
+      width: 290px;
+      height: 58px;
+      margin: 10px auto;
+      border: 5px solid var(--color-main-blue);
+      border-radius: 20px;
+      & p {
+        text-align: center;
+        font-size: 20px;
+        line-height: 50px;
+      }
+    }
+  }
+  .btnList {
+    width: 290px;
+    margin: 0 auto;
+    button {
+      display: inline-block;
+      width: 135px;
+      height: 58px;
+      background-color: transparent;
+      border: 5px solid var(--color-main-blue);
+      border-radius: 20px;
+      text-align: center;
+      font-size: 20px;
+      &:first-child {
+        &:hover {
+          background-color: var(--color-main-blue);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+      &:last-child {
+        background-color: var(--color-sub-grey);
+        border-color: var(--color-sub-grey);
+        margin-left: 20px;
+        &.activeBtn {
+          background-color: var(--color-main-blue);
+          border-color: var(--color-main-blue);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 `;
 
-// 준비중
 const NodeSelect = () => {
   const [mindWidth, setMindWidth] = useState("100%");
   const [mindHeight, setMindHeight] = useState("500px");
@@ -84,7 +133,7 @@ const NodeSelect = () => {
         onUnNodeMove={true}
         onSelectNodeHandler={onSelectNodeHandler}
       />
-      <div className="btn">
+      {/* <div className="btn">
         {!completeSelected ? (
           <button className="notiBtn">2개의 단어를 선택해 주세요 </button>
         ) : (
@@ -96,6 +145,31 @@ const NodeSelect = () => {
         <button className="resetBtn" onClick={resetSelectedNode}>
           다시 선택
         </button>
+      </div> */}
+      <div className="notify">
+        <p>단어 2개를 선택 해주세요</p>
+      </div>
+      <div className="wordList">
+        <div className="word" id="firstWord">
+          <p>선택 단어 1</p>
+        </div>
+        <div className="word" id="secondWord">
+          <p>선택 단어 2</p>
+        </div>
+      </div>
+      <div className="btnList">
+        <button id="resetWord" onClick={resetSelectedNode}>
+          초기화
+        </button>
+        {!completeSelected ? (
+          <button id="nextPage">다음</button>
+        ) : (
+          <Link to={"/trizselect"}>
+            <button className="activeBtn" id="nextPage">
+              다음
+            </button>
+          </Link>
+        )}
       </div>
       <HomeFooter />
     </NodeSelectCSS>
