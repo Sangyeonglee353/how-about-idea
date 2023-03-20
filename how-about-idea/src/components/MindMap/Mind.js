@@ -81,6 +81,7 @@ const Mind = (props) => {
         onRefreshBtn={props.onRefreshBtn} // 새로고침 버튼 활성화 여부
         onUnSelect={props.onUnSelect} // 노드 선택 가능 여부
         onUnNodeMove={props.onUnNodeMove} // 노트 이동 가능 여부
+        onSelectNodeHandler={props.onSelectNodeHandler}
       />
       {/* <DummyMindMap graphData={dummyData} setGraphData={setDummyData} /> */}
     </MindCss>

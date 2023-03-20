@@ -4,7 +4,7 @@ import student_logo from "../images/student.png";
 import ceo_logo from "../images/ceo.png";
 import planner_logo from "../images/planner.png";
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 const MainContents = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
@@ -47,6 +47,11 @@ const MainContents = styled.div`
       margin-top: 110px;
       color: var(--color-main-jinblue);
     }
+    @media screen and (max-width: 500px) {
+      .title {
+        margin-top: 20px;
+      }
+    }
     ul {
       width: 100%;
       height: 110px;
@@ -66,11 +71,6 @@ const MainContents = styled.div`
       margin-top: 3px;
       font-size: 8px;
       text-align: center;
-    }
-    @media screen and (max-width: 500px) {
-      .title {
-        margin-top: 20px;
-      }
     }
   }
   .move {

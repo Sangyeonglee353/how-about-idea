@@ -292,9 +292,6 @@ const MindMap = (props) => {
     refreshGraph();
   });
 
-  /* Select Node */
-  const [selectedNode, setSelectedNode] = useState([{}]);
-
   return (
     <>
       {/* <div
@@ -338,12 +335,8 @@ const MindMap = (props) => {
             cy.one("tap", "node", (evt) => {
               var node = evt.target;
               // console.log("EVT", evt);
-              console.log("TARGET", node.data());
-              // setSelectedNode((selectedNode) => {
-              //   return [...selectedNode, node.data()];
-              // });
-              setSelectedNode(node.data());
-              console.log("selectedNode -> ", selectedNode);
+              // console.log("TARGET", node.data());
+              props.onSelectNodeHandler(node.data());
               // console.log("TARGET TYkPE", typeof node[0]);
             });
           }}

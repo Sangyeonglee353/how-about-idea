@@ -34,6 +34,7 @@ const AppCSS = styled.div`
   margin: 0 auto;
   @media screen and (max-width: 400px) {
     width: 100vw;
+    height: 100vh;
   }
 
   .App-logo {
