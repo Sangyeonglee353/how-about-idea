@@ -1,3 +1,4 @@
+import React,{ useState } from "react";
 import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
 import paperImg from "../images/paper.png";

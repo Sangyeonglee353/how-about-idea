@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import HomeFooter from "./HomeFooter";

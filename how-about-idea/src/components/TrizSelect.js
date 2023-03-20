@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
+import React,{ useState } from "react";
 
 const TrizSelectCSS = styled.div`
   text-align: center;
