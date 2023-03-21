@@ -102,14 +102,22 @@ const NodeSelect = () => {
   const [mindWidth, setMindWidth] = useState("100%");
   const [mindHeight, setMindHeight] = useState("500px");
   const [completeSelected, setCompleteSelected] = useState(false);
+  const [resetActive, setResetActive] = useState(false);
 
   /* Select Node data manage */
   const [selectedNode, setSelectedNode] = useState([]);
 
   const onSelectNodeHandler = (selectData) => {
-    setSelectedNode((selectedNode) => {
-      return [...selectedNode, selectData];
-    });
+    if (resetActive) {
+      setResetActive(false);
+      setSelectedNode((selectedNode) => {
+        return [selectedNode[0]];
+      });
+    } else {
+      setSelectedNode((selectedNode) => {
+        return [...selectedNode, selectData];
+      });
+    }
 
     if (selectedNode.length === 1) {
       setCompleteSelected(true);
@@ -118,6 +126,7 @@ const NodeSelect = () => {
   const resetSelectedNode = () => {
     setSelectedNode([]);
     setCompleteSelected(false);
+    setResetActive(true);
   };
 
   return (
@@ -151,10 +160,12 @@ const NodeSelect = () => {
       </div>
       <div className="wordList">
         <div className="word" id="firstWord">
-          <p>선택 단어 1</p>
+          <p>
+            {selectedNode.length === 0 ? "선택 단어 1" : selectedNode[0].label}
+          </p>
         </div>
         <div className="word" id="secondWord">
-          <p>선택 단어 2</p>
+          <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
         </div>
       </div>
       <div className="btnList">
