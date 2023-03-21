@@ -10,7 +10,8 @@ const MainContents = styled.div`
   width: 100%;
   /* height: calc(100vh - 115px - 80px); */
   /* height: 100%; */
-  margin-top: 42px;
+  /* margin-top: 42px; */
+  margin-top: 150px;
 
   .intro {
     margin-left: 24px;
@@ -29,7 +30,7 @@ const MainContents = styled.div`
     .break_desktop {
       display: block;
     }
-    @media screen and (max-width: 500px) {
+    @media (max-width: 500px) {
       margin: 0;
       text-align: center;
 
@@ -74,19 +75,27 @@ const MainContents = styled.div`
     }
   }
   .move {
-    display: flex;
-    justify-content: center;
-    margin-top: 70px;
-    height: 193px;
+    /* display: flex;
+    justify-content: center; */
+    /* margin-top: 70px; */
+    /* height: 193px; */
 
+    width: 428px;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    @media (max-width: 500px) {
+      width: 100vw;
+    }
     button {
-      width: 130px;
-      height: 45px;
-      background-color: var(--color-main-skyblue);
-      border: 1px solid var(--color-main-skyblue);
-      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-main-blue);
+      border: 1px solid var(--color-main-blue);
       font-family: "Nanum Gothic", sans-serif;
       font-weight: bold;
+      font-size: 20px;
+      color: white;
       cursor: pointer;
     }
   }
@@ -146,7 +155,7 @@ const Main = () => {
         </div>
         {/* <MainContentBar /> */}
       </MainContents>
-      <MainFooter />
+      {/* <MainFooter /> */}
     </div>
   );
 };
