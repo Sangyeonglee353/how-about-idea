@@ -223,7 +223,7 @@ function Wordselect() {
   const  left = useRef();
   const menu = useRef();
   const tool = useRef();
-  
+  const add =  useRef();
   let time_left=100;
   let json_data = {
 
@@ -374,7 +374,7 @@ function Wordselect() {
                 <p class="cancle" 
                 onClick='
                   document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(0%)";
-                  document.getElementById("tool").innertext="단어를 선택해 주세요"'
+                  document.getElementById("tool").innerText="${"단어를 선택해주세요"}";
                 >취소</p>
 
                 <p class="add" 
@@ -450,10 +450,55 @@ function Wordselect() {
 
             <div className="input">
               
-              <input className="word_input" type={"text"} placeholder={"하위 단어 추가"} />
+              <input className="word_input" type={"text"} placeholder={"하위 단어 추가"} ref={add}/>
               
               <div className="icon">
-                <FontAwesomeIcon  className="send" icon={faPaperPlane} />
+                <FontAwesomeIcon  className="send" icon={faPaperPlane} onClick={()=>{
+
+                    if(add.current.value===''||add.current.value==='\n'){
+
+                      alert("단어를 입력해 주세요")
+                      add.current.value=''
+                      return
+
+                    }
+                      
+
+                    if(tool.current.innerText!=="단어를 선택해 주세요"){
+                      let num = w.current.childNodes.length
+                      document.getElementsByClassName("word").item(0).innerHTML +=
+                      `<div class="node">
+                      <div class="nodewrap">
+                        <div class="container1" onClick='document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(-50%)"'>
+                          ${add.current.value}
+                        </div>
+                        <div class="container2">
+                        
+                          <p class="cancle" 
+                          onClick='
+                            document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(0%)";
+                            document.getElementById("tool").innerText="${"단어를 선택해주세요"}";
+                            
+                            '
+                          >취소</p>
+
+                          <p class="add" 
+                          onClick='
+
+                            document.getElementById("tool").innerText="${add.current.value}";
+                            document.getElementsByClassName("nodewrap").item(${num}).style.transform="translate(0%)";
+                            document.getElementsByClassName("words").item(0).style.transform="translate(-50%)"
+                          '>선택</p>
+                        
+                        </div>
+                      </div>
+                    </div>` 
+                    add.current.value=''
+                  }
+
+                  else
+                    alert("단어를 선택해주세요")
+                }}/>
               </div>
             
             </div>
