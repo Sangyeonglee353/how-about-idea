@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
 import homeImg from "../images/home.png";
@@ -9,6 +9,7 @@ const PatentResultCSS = styled.div`
   text-align: center;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
+  height: 800px;
 
   p {
     color: var(--color-main-blue);

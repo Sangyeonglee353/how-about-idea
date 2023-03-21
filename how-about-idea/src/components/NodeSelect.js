@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
@@ -6,39 +6,12 @@ import HomeFooter from "./HomeFooter";
 
 const NodeSelectCSS = styled.div`
   margin-top: 10px;
+  height: 800px;
   font-family: "Noto Sans KR", sans-serif;
   /* height: calc(100vh - 115px - 80px); */
   @media (max-width: 400px) {
     margin-top: 0px;
   }
-  // 첫번째 디자인
-  .btn {
-    height: 223px;
-    button {
-      display: block;
-      width: 290px;
-      height: 58px;
-      margin: 10px auto;
-      background-color: transparent;
-      border: 5px solid var(--color-main-blue);
-      border-radius: 20px;
-      font-size: 15px;
-    }
-    .notiBtn {
-      &.active {
-        background-color: var(--color-main-blue);
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-      }
-    }
-    .resetBtn:hover {
-      background-color: var(--color-main-blue);
-      font-weight: bold;
-      color: white;
-    }
-  }
-  // 두번째 디자인
   .notify {
     margin-top: 30px;
     & p {
@@ -46,9 +19,12 @@ const NodeSelectCSS = styled.div`
       font-weight: bold;
       font-size: 20px;
     }
+    @media (max-width: 400px) {
+      margin-top: 0px;
+    }
   }
   .wordList {
-    margin-top: 20px;
+    margin-top: 30px;
     .word {
       width: 290px;
       height: 58px;
@@ -63,15 +39,20 @@ const NodeSelectCSS = styled.div`
     }
   }
   .btnList {
-    width: 290px;
+    position: fixed;
+    bottom: 0;
+    width: 428px;
+    height: 80px;
     margin: 0 auto;
+    @media (max-width: 500px) {
+      width: 100vw;
+    }
     button {
       display: inline-block;
-      width: 135px;
-      height: 58px;
-      background-color: transparent;
+      width: 50%;
+      height: 100%;
+      background-color: white;
       border: 5px solid var(--color-main-blue);
-      border-radius: 20px;
       text-align: center;
       font-size: 20px;
       &:first-child {
@@ -85,7 +66,6 @@ const NodeSelectCSS = styled.div`
       &:last-child {
         background-color: var(--color-sub-grey);
         border-color: var(--color-sub-grey);
-        margin-left: 20px;
         &.activeBtn {
           background-color: var(--color-main-blue);
           border-color: var(--color-main-blue);
@@ -130,7 +110,7 @@ const NodeSelect = () => {
   };
 
   return (
-    <NodeSelectCSS completeSelected={completeSelected}>
+    <NodeSelectCSS>
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
       {console.log("CompleteSelected: ", completeSelected)}
       <Mind
@@ -142,19 +122,6 @@ const NodeSelect = () => {
         onUnNodeMove={true}
         onSelectNodeHandler={onSelectNodeHandler}
       />
-      {/* <div className="btn">
-        {!completeSelected ? (
-          <button className="notiBtn">2개의 단어를 선택해 주세요 </button>
-        ) : (
-          <Link to={"/trizselect"}>
-            <button className="notiBtn active">선택완료</button>
-          </Link>
-        )}
-
-        <button className="resetBtn" onClick={resetSelectedNode}>
-          다시 선택
-        </button>
-      </div> */}
       <div className="notify">
         <p>단어 2개를 선택 해주세요</p>
       </div>
@@ -175,14 +142,20 @@ const NodeSelect = () => {
         {!completeSelected ? (
           <button id="nextPage">다음</button>
         ) : (
-          <Link to={"/trizselect"}>
+          <Link
+            to={"/trizselect"}
+            state={{
+              word1: selectedNode[0].label,
+              word2: selectedNode[1].label,
+            }}
+          >
             <button className="activeBtn" id="nextPage">
               다음
             </button>
           </Link>
         )}
       </div>
-      <HomeFooter />
+      {/* <HomeFooter /> */}
     </NodeSelectCSS>
   );
 };

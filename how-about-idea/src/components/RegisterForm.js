@@ -200,7 +200,7 @@ const RegisterForm = () => {
           <input
             type="text"
             onChange={(e) => {
-              enteredID(e.target.value);
+              setEnteredID(e.target.value);
             }}
             onFocus={() => {
               setFirstClick(true);
@@ -223,7 +223,7 @@ const RegisterForm = () => {
           <input
             type="email"
             onChange={(e) => {
-              enteredEmail(e.target.value);
+              setEnteredEmail(e.target.value);
             }}
             onFocus={() => {
               setFirstClick(true);
