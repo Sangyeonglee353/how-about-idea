@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import ButtonFooter from "./ButtonFooter";
 
 const Cvs = styled.canvas`
   margin: 0;
@@ -34,7 +34,6 @@ const Appcss = styled.div`
       display: flex;
 
       .title {
-        
         margin: 0;
         padding: 1vh 0;
         display: flex;
@@ -43,7 +42,6 @@ const Appcss = styled.div`
         justify-content: center;
         font-size: 18px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
       }
       .menu1 {
         border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -183,12 +181,12 @@ const Appcss = styled.div`
             background: rgba(0, 0, 0, 0.2);
           }
 
-          .left{
-           display:inline-block;
-           padding: 30px 30px;
-           border-radius:100%;
-           border: 2px solid skyblue;
-           margin: 0 auto;
+          .left {
+            display: inline-block;
+            padding: 30px 30px;
+            border-radius: 100%;
+            border: 2px solid skyblue;
+            margin: 0 auto;
           }
         }
 
@@ -205,50 +203,9 @@ const Appcss = styled.div`
       }
     }
   }
-
-  /* Footer */
-  .btnList {
-    position: fixed;
-    bottom: 0;
-    width: 428px;
-    height: 80px;
-    margin: 0 auto;
-    @media (max-width: 500px) {
-      width: 100vw;
-    }
-    button {
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      background-color: white;
-      border: 5px solid var(--color-main-blue);
-      text-align: center;
-      font-size: 20px;
-      &:first-child {
-        &:hover {
-          background-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-      &:last-child {
-        background-color: var(--color-sub-grey);
-        border-color: var(--color-sub-grey);
-        &.activeBtn {
-          background-color: var(--color-main-blue);
-          border-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-    }
-  }
 `;
 
 function Wordselect() {
-  const navigate = useNavigate();
   const cvs = useRef("");
   const w = useRef("");
   const left = useRef();
@@ -256,8 +213,7 @@ function Wordselect() {
   const tool = useRef();
   const add = useRef();
 
-  
-  let time_left=10;
+  let time_left = 10;
   let json_data = {
     root: "개",
     개: ["리트리버", "푸들", "시츄", "말티즈", "웰시코기", "고양이"],
@@ -318,11 +274,11 @@ function Wordselect() {
   let animation;
 
   function frameAnimation() {
-    if(time_left<=0){
-      time_left=0
-      left.current.innerText=time_left
-      alert("종료")
-      return
+    if (time_left <= 0) {
+      time_left = 0;
+      left.current.innerText = time_left;
+      alert("종료");
+      return;
     }
     let ctx = document.getElementsByTagName("canvas").item(0).getContext("2d");
     animation = requestAnimationFrame(frameAnimation);
@@ -334,11 +290,9 @@ function Wordselect() {
       words.push(w);
     }
 
-    if(timer % 100===0){
-
-      time_left-=1
-      left.current.innerText=time_left
-
+    if (timer % 100 === 0) {
+      time_left -= 1;
+      left.current.innerText = time_left;
     }
 
     words.forEach((e, idx, arr) => {
@@ -598,21 +552,7 @@ function Wordselect() {
         </div>
       </div>
 
-      <div className="btnList">
-        <button
-          id="prevPage"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          이전
-        </button>
-        <Link to={"/nodeselect"}>
-          <button className="activeBtn" id="nextPage">
-            다음
-          </button>
-        </Link>
-      </div>
+      <ButtonFooter nextPage="/nodeselect" />
     </Appcss>
   );
 }

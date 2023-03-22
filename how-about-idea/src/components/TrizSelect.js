@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import ButtonFooter from "./ButtonFooter";
 
 const TrizSelectCSS = styled.div`
   text-align: center;
@@ -54,54 +55,12 @@ const TrizSelectCSS = styled.div`
       margin-top: 10px;
     }
   }
-
-  /* Footer */
-  .btnList {
-    position: fixed;
-    bottom: 0;
-    width: 428px;
-    height: 80px;
-    margin: 0 auto;
-    @media (max-width: 500px) {
-      width: 100vw;
-    }
-    button {
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      background-color: white;
-      border: 5px solid var(--color-main-blue);
-      text-align: center;
-      font-size: 20px;
-      &:first-child {
-        &:hover {
-          background-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-      &:last-child {
-        background-color: var(--color-sub-grey);
-        border-color: var(--color-sub-grey);
-        &.activeBtn {
-          background-color: var(--color-main-blue);
-          border-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-    }
-  }
 `;
 
 const TrizSelect = () => {
   const location = useLocation();
   const firstWord = location.state.word1;
   const secondWord = location.state.word2;
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -154,22 +113,7 @@ const TrizSelect = () => {
             <div className="word">{secondWord}</div>
           </div>
         </div>
-
-        <div className="btnList">
-          <button
-            id="prevPage"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            이전
-          </button>
-          <Link to={"/patentanalysis"}>
-            <button className="activeBtn" id="nextPage">
-              다음
-            </button>
-          </Link>
-        </div>
+        <ButtonFooter nextPage="/patentanalysis" />
       </TrizSelectCSS>
       {/* <HomeFooter /> */}
     </>
