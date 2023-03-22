@@ -34,6 +34,7 @@ const Appcss = styled.div`
       display: flex;
 
       .title {
+        
         margin: 0;
         padding: 1vh 0;
         display: flex;
@@ -42,6 +43,7 @@ const Appcss = styled.div`
         justify-content: center;
         font-size: 18px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
       }
       .menu1 {
         border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -181,12 +183,12 @@ const Appcss = styled.div`
             background: rgba(0, 0, 0, 0.2);
           }
 
-          .left {
-            display: inline-block;
-            padding: 40px 40px;
-            border-radius: 100%;
-            border: 2px solid skyblue;
-            margin: 0 auto;
+          .left{
+           display:inline-block;
+           padding: 30px 30px;
+           border-radius:100%;
+           border: 2px solid skyblue;
+           margin: 0 auto;
           }
         }
 
@@ -253,7 +255,9 @@ function Wordselect() {
   const menu = useRef();
   const tool = useRef();
   const add = useRef();
-  let time_left = 100;
+
+  
+  let time_left=10;
   let json_data = {
     root: "개",
     개: ["리트리버", "푸들", "시츄", "말티즈", "웰시코기", "고양이"],
@@ -314,6 +318,12 @@ function Wordselect() {
   let animation;
 
   function frameAnimation() {
+    if(time_left<=0){
+      time_left=0
+      left.current.innerText=time_left
+      alert("종료")
+      return
+    }
     let ctx = document.getElementsByTagName("canvas").item(0).getContext("2d");
     animation = requestAnimationFrame(frameAnimation);
     timer++;
@@ -322,6 +332,13 @@ function Wordselect() {
     if (timer % 100 === 0) {
       let w = new word();
       words.push(w);
+    }
+
+    if(timer % 100===0){
+
+      time_left-=1
+      left.current.innerText=time_left
+
     }
 
     words.forEach((e, idx, arr) => {
