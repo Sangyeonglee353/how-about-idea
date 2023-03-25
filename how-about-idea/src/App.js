@@ -23,9 +23,17 @@ import {
   faPlay,
   faRightFromBracket,
   faArrowRotateRight,
+  faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHouse, faUser, faPlay, faRightFromBracket, faArrowRotateRight);
+library.add(
+  faHouse,
+  faUser,
+  faPlay,
+  faRightFromBracket,
+  faArrowRotateRight,
+  faAngleLeft
+);
 
 /* App CSS */
 const AppCSS = styled.div`

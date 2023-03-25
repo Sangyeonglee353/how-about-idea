@@ -1,6 +1,9 @@
+import React from "react";
 import RegisterForm from "./RegisterForm.js";
 import styled from "styled-components";
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const RegisterBlock = styled.div`
   display: block;
   /* margin: 215px auto 0 auto; */
@@ -25,9 +28,20 @@ const RegisterBlock = styled.div`
     height: 100vh;
   }
 `;
+
+const PrevBtn = styled(FontAwesomeIcon)`
+  /* width: 32px; */
+  height: 27px;
+  color: var(--color-main-grey);
+  cursor: pointer;
+`;
+
 function Register() {
+  const navigate = useNavigate();
+
   return (
     <RegisterBlock>
+      <PrevBtn icon="fa-angle-left" onClick={() => navigate(-1)} />
       <RegisterForm />
       <p>
         가입하기를 누르면 <span className="strong-blue">이용약관</span>과{" "}
