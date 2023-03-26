@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FeedItem from "./FeedItem";
 import styled from "styled-components";
 
@@ -6,17 +6,12 @@ const FeedsListCSS = styled.ul`
   list-style-type: none;
   /* margin-top: 150px; */
 
-  /* 변경 속성_230326 */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 90%;
   margin: 30px auto 0 auto;
-  /* 원래 속성_230326 */
-  /* display: block;
-  height: calc(100vh - 195px);
-  overflow-y: scroll; */
 
   @media screen and (max-width: 500px) {
     width: 100%;

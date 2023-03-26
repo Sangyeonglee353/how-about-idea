@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Feeds from "./Feeds.js";
 import HomeFooter from "./HomeFooter.js";
 import { useState } from "react";
@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomeCSS = styled.div`
-  /* display: flex;
-  flex-direction: column; */
   .startBtn {
     position: absolute;
     top: 25px;
@@ -36,7 +34,7 @@ const HomeCSS = styled.div`
     position: absolute;
     top: 35px;
     right: 7%;
-    height: 30px; // 25px + 50px
+    height: 30px;
     color: var(--color-main-grey);
     cursor: pointer;
     @media (max-width: 600px) {
@@ -116,22 +114,8 @@ const Home = () => {
     setFeedDetailShow(false);
   };
 
-  const [size, setSize] = useState(
-    window.innerHeight < 600 ? window.screen.availHeight : window.innerHeight
-  );
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setSize(
-        window.innerHeight < 600
-          ? window.screen.availHeight
-          : window.innerHeight
-      );
-    });
-  }, []);
-
   return (
-    <HomeCSS vh={size / 100}>
+    <HomeCSS>
       <Link to={"/play"}>
         <button className="startBtn">시작하기</button>
       </Link>
