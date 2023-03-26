@@ -7,12 +7,14 @@ import styled from "styled-components";
 import React, { useState } from "react";
 const MainContents = styled.div`
   font-family: "Noto Sans KR", sans-serif;
-  width: 100%;
+  /* width: 100%; */
+  width: 426px;
+
   /* height: calc(100vh - 115px - 80px); */
   /* height: 100%; */
   /* margin-top: 42px; */
-  margin-top: 150px;
-
+  /* margin-top: 150px; */
+  margin: 150px auto 0 auto;
   .intro {
     margin-left: 24px;
 

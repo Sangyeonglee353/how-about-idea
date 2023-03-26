@@ -37,8 +37,10 @@ library.add(
 
 /* App CSS */
 const AppCSS = styled.div`
-  width: 428px;
-  height: 926px;
+  /* width: 428px;
+  height: 926px; */
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
   @media screen and (max-width: 400px) {
     width: 100vw;

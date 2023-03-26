@@ -5,6 +5,10 @@ import { useState } from "react";
 import FeedDetail from "./FeedDetail";
 import styled from "styled-components";
 
+const HomeCSS = styled.div`
+  /* display: flex;
+  flex-direction: column; */
+`;
 const Home = () => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
   const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 선택용
@@ -56,7 +60,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <HomeCSS>
       {feedDetailShow && (
         <FeedDetail
           // feedData={DUMMY_FEED[0]}
@@ -70,7 +74,7 @@ const Home = () => {
         onSetFeedData={setFeedData}
       />
       <HomeFooter />
-    </div>
+    </HomeCSS>
   );
 };
 

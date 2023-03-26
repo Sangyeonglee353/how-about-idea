@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 
 const FeedItemCSS = styled.li`
-  width: 100%;
+  /* width: 100%; */
+  flex: auto;
+  width: 33%;
   padding: 10px 0px;
   margin-bottom: 5px;
   /* border-top: 10px solid var(--color-main-skyblue); */
@@ -11,6 +13,9 @@ const FeedItemCSS = styled.li`
   border-radius: 10px;
   /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
   h3 {
     font-family: inherit;
     font-size: 10px;

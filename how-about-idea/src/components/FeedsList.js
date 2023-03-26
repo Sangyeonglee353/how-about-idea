@@ -5,12 +5,24 @@ import styled from "styled-components";
 const FeedsListCSS = styled.ul`
   list-style-type: none;
   /* margin-top: 150px; */
-  display: block;
+
+  /* 변경 속성_230326 */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  /* 원래 속성_230326 */
+  /* display: block;
   height: calc(100vh - 195px);
-  overflow-y: scroll;
+  overflow-y: scroll; */
 
   @media screen and (max-width: 500px) {
+    width: 100%;
+    display: block;
     height: calc(100vh - 180px);
+    overflow-y: scroll;
   }
   /* scrollbar css */
   &::-webkit-scrollbar {
