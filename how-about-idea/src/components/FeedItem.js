@@ -5,16 +5,24 @@ import Mind from "./MindMap/Mind";
 const FeedItemCSS = styled.li`
   /* width: 100%; */
   flex: auto;
-  width: 33%;
+  width: 23%;
   padding: 10px 0px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  margin: 0 1.5% 3% 1.5%;
   /* border-top: 10px solid var(--color-main-skyblue); */
   border: 2px solid var(--color-main-skyblue);
   border-radius: 10px;
   /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
+  @media (max-width: 1200px) {
+    width: 35%;
+  }
+  @media (max-width: 760px) {
+    width: 55%;
+  }
   @media (max-width: 500px) {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto 5px auto;
   }
   h3 {
     font-family: inherit;
@@ -41,6 +49,9 @@ const FeedItemCSS = styled.li`
     p {
       font-family: inherit;
       font-size: 15px;
+      margin-left: 10%;
+    }
+    @media (max-width: 500px) {
       margin-left: 45px;
     }
   }

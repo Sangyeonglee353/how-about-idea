@@ -42,15 +42,15 @@ const AppCSS = styled.div`
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
-  @media screen and (max-width: 400px) {
-    width: 100vw;
-    height: 100vh;
-  }
 
+  .App-header {
+    width: 235px;
+    margin: 0 auto;
+  }
   .App-logo {
     display: block;
     margin: 15px auto 15px auto;
-    width: 235px;
+    /* width: 235px; */
     height: ${(props) => props.vh - 85}px;
   }
 `;

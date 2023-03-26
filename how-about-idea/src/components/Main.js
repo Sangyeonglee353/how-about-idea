@@ -15,6 +15,9 @@ const MainContents = styled.div`
   /* margin-top: 42px; */
   /* margin-top: 150px; */
   margin: 150px auto 0 auto;
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
   .intro {
     margin-left: 24px;
 

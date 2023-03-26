@@ -31,7 +31,9 @@ const RegisterBlock = styled.div`
 
 const PrevBtn = styled(FontAwesomeIcon)`
   /* width: 32px; */
-  height: 27px;
+  position: absolute;
+  top: 35px;
+  height: 30px;
   color: var(--color-main-grey);
   cursor: pointer;
 `;

@@ -12,7 +12,7 @@ const FeedsListCSS = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   /* 원래 속성_230326 */
   /* display: block;
   height: calc(100vh - 195px);
@@ -23,6 +23,7 @@ const FeedsListCSS = styled.ul`
     display: block;
     height: calc(100vh - 180px);
     overflow-y: scroll;
+    margin: 0 auto;
   }
   /* scrollbar css */
   &::-webkit-scrollbar {

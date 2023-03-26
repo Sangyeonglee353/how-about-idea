@@ -5,13 +5,12 @@ import styled from "styled-components";
 
 const Footer = styled.div`
   /* width: 100%; */
+  display: none;
   width: 428px;
   height: 80px;
   border-top: 2px solid var(--color-main-skyblue);
   position: fixed;
   bottom: 0;
-  /* position: relative;
-    transform: translateY(-100%); */
   background-color: white;
   ul {
     display: flex;
@@ -22,7 +21,8 @@ const Footer = styled.div`
   li {
     padding: 10px 0px;
   }
-  @media screen and (max-width: 500px) {
+  @media (max-width: 600px) {
+    display: block;
     width: 100vw;
   }
 `;
