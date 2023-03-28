@@ -25,7 +25,7 @@ const Mind = (props) => {
     { data: { id: "10", label: "기압", type: "level3" } },
     { data: { id: "11", label: "전기", type: "level3" } },
     { data: { id: "12", label: "회전", type: "level3" } },
-    // ],
+    // ], // source: 목적지, target: 출발지
     // edges: [
     { data: { id: "1->2", source: "2", target: "1" } },
     { data: { id: "1->3", source: "3", target: "1" } },

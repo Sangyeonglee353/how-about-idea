@@ -12,6 +12,8 @@ const FeedItemCSS = styled.li`
   /* border-top: 10px solid var(--color-main-skyblue); */
   border: 2px solid var(--color-main-skyblue);
   border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
   @media (max-width: 1200px) {
