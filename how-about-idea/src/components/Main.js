@@ -5,120 +5,121 @@ import ceo_logo from "../images/ceo.png";
 import planner_logo from "../images/planner.png";
 import styled from "styled-components";
 import React, { useState } from "react";
+import mainBackground from "../images/main_background.jpg"
+import Header from "./Header.js";
+
 const MainContents = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
-  /* width: 100%; */
-  width: 426px;
+  width: 100vw;
 
-  /* height: calc(100vh - 115px - 80px); */
-  /* height: 100%; */
-  /* margin-top: 42px; */
-  /* margin-top: 150px; */
-  margin: 150px auto 0 auto;
-  @media (max-width: 500px) {
-    width: 100vw;
-  }
-  .intro {
-    margin-left: 24px;
+  .wrap{
 
-    p.top {
-      color: var(--color-main-blue);
-      font-weight: bold;
-      font-size: 15px;
-      line-height: 32px;
-    }
-    p.bottom {
-      margin-top: 30px;
-      font-size: 15px;
-      line-height: 32px;
-    }
-    .break_desktop {
-      display: block;
-    }
-    @media (max-width: 500px) {
-      margin: 0;
-      text-align: center;
+    width:100vw;
+    height: 92vh;
+    background: url(${mainBackground});
+    background-repeat:no-repeat;
+    background-size:cover;
 
-      .break_mobile {
-        display: block;
+    .content{
+
+      width:100vw;
+      height: 92vh;
+      background: #00000099;
+      display:flex;
+
+      .container1{
+
+        width:45vw;
+        height:92vh;
+        margin-left:5vw;
+
+        .margin{
+          width:50vw;
+          height:24vh;
+        }
+
+        .text0{
+        width:45vw;
+        font-size:8vw;
+        font-weight:700;
+        background: linear-gradient(120deg, #89f7fe 25%, #66a6ff 30%);
+        color: transparent;
+        -webkit-background-clip: text;
+
+        }
+
+        .text1,.text2{
+          margin-top:5vh;
+          color:#ffffff;
+          width:45vw;
+          font-size:3vw;
+          font-weight:700;
+        }
+
       }
-      .break_desktop {
-        display: inline;
-      }
-    }
-  }
-  .recommend {
-    .title {
-      text-align: center;
-      margin-top: 110px;
-      color: var(--color-main-jinblue);
-    }
-    @media screen and (max-width: 500px) {
-      .title {
-        margin-top: 20px;
-      }
-    }
-    ul {
-      width: 100%;
-      height: 110px;
-      background-color: var(--color-main-skyblue);
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      list-style-type: none;
-    }
-    img {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto;
-    }
-    .img-title {
-      margin-top: 3px;
-      font-size: 8px;
-      text-align: center;
-    }
-  }
-  .move {
-    /* display: flex;
-    justify-content: center; */
-    /* margin-top: 70px; */
-    /* height: 193px; */
 
-    width: 428px;
-    height: 80px;
-    position: fixed;
-    bottom: 0;
-    @media (max-width: 500px) {
-      width: 100vw;
-    }
-    button {
-      width: 100%;
-      height: 100%;
-      background-color: var(--color-main-blue);
-      border: 1px solid var(--color-main-blue);
-      font-family: "Nanum Gothic", sans-serif;
-      font-weight: bold;
-      font-size: 20px;
-      color: white;
-      cursor: pointer;
+
+      .container2{
+
+        width:36vw;
+        height:62vh;
+        margin-top: 15vh;
+        margin-left: 10vw;
+        border-radius:12px;
+        background:#ffffff;
+
+        .title{
+          
+          width:36vw;
+          text-align:center;
+          padding:3vh;
+          font-size:36px;
+
+        }
+
+        input{
+          margin-left:10vw;
+          width:16vw;
+          padding:1vh 2vw;
+          border:1px solid #00000055;
+          border-radius:12px;
+        }
+
+      }
+
     }
   }
 `;
 
-const MainContentBar = styled.div`
-  width: 100%;
-  height: 12px;
-  margin-top: 42px;
-  background-color: var(--color-main-skyblue);
-`;
 
 const Main = () => {
   return (
-    <div>
+
       <MainContents>
-        {/* <MainContentBar /> */}
-        <div className="intro">
+        <Header/>
+        <div className="wrap">
+          <div className="content">
+            <div className="container1">
+              <p className="margin"></p>
+              <p className="text0">HOWAI.</p>
+              <p className="text1">아이디어가 생각나지 않을 때</p>
+              <p className="text2">쉽고 빠른 AI 브레인 스토밍</p>
+            </div>  
+            <div className="container2">
+
+              <p className="title">로그인</p>
+
+              <div>  
+                <input type="text" className="id"/>
+              </div>  
+
+              <div>  
+                <input type="text" className="pw"/>
+              </div>  
+
+            </div>  
+          </div>
+        </div>
+        {/* <div className="intro">
           <p className="top">
             브레인스토밍 중인 여러분.
             <br />
@@ -157,11 +158,8 @@ const Main = () => {
           <Link to={"/login"}>
             <button type="button">로그인하러 가기</button>
           </Link>
-        </div>
-        {/* <MainContentBar /> */}
+        </div> */}
       </MainContents>
-      {/* <MainFooter /> */}
-    </div>
   );
 };
 

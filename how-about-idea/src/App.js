@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "./images/howai_logo.jpg";
 import styled from "styled-components";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link , useNavigate} from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -14,7 +14,6 @@ import NodeSelect from "./components/NodeSelect";
 import TrizSelect from "./components/TrizSelect";
 import PatentAnalysis from "./components/PatentAnalysis";
 import PatentResult from "./components/PatentResult";
-
 /* icon */
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -24,9 +23,12 @@ import {
   faRightFromBracket,
   faArrowRotateRight,
   faAngleLeft,
+  fas
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(
+  fas,
   faHouse,
   faUser,
   faPlay,
@@ -37,23 +39,16 @@ library.add(
 
 /* App CSS */
 const AppCSS = styled.div`
-  /* width: 428px;
-  height: 926px; */
   width: 100vw;
   height: 100vh;
-  margin: 0 auto;
+  overflow:hidden;
 
-  .App-header {
-    width: 235px;
-    margin: 0 auto;
+  *{
+    font-family: 'Quicksand', sans-serif;
   }
-  .App-logo {
-    display: block;
-    margin: 15px auto 15px auto;
-    /* width: 235px; */
-    height: ${(props) => props.vh - 85}px;
-  }
+  
 `;
+
 function App() {
   const [size, setSize] = useState(
     window.innerHeight < 600 ? window.screen.availHeight : window.innerHeight
@@ -70,28 +65,26 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <AppCSS vh={size / 100}>
-        <header className="App-header">
-          <Link to={"/"}>
-            <img src={logo} className="App-logo" alt="logo" />
-          </Link>
-        </header>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/play" element={<Play />} />
-          <Route path="/mind" element={<Mind />} />
-          <Route path="/wordslect" element={<WordSelect />} />
-          <Route path="/nodeselect" element={<NodeSelect />} />
-          <Route path="/trizselect" element={<TrizSelect />} />
-          <Route path="/patentanalysis" element={<PatentAnalysis />} />
-          <Route path="/patentresult" element={<PatentResult />} />
-        </Routes>
-      </AppCSS>
-    </BrowserRouter>
+    <AppCSS vh={size / 100}>
+      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" ></link>
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet"></link>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/play" element={<Play />} />
+            <Route path="/mind" element={<Mind />} />
+            <Route path="/wordslect" element={<WordSelect />} />
+            <Route path="/nodeselect" element={<NodeSelect />} />
+            <Route path="/trizselect" element={<TrizSelect />} />
+            <Route path="/patentanalysis" element={<PatentAnalysis />} />
+            <Route path="/patentresult" element={<PatentResult />} />
+          </Routes>
+      </BrowserRouter>
+    </AppCSS>
   );
 }
 
