@@ -14,3 +14,6 @@
 - annotationProcessor 'org.projectlombok:lombok'
 - testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+##버전 
+- JAVA 11
+- spring boot version : 2.7.9
