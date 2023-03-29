@@ -7,6 +7,226 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import mainBackground from "../images/main_background.jpg"
 import Header from "./Header.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+const Page1Css = styled.div`
+
+  width:100vw;
+  height:92vh;
+  display:flex;
+  .container1{
+
+    width:45vw;
+    height:92vh;
+    margin-left:5vw;
+
+    .margin{
+      width:50vw;
+      height:24vh;
+    }
+
+    .text0{
+      width:45vw;
+      font-size:8vw;
+      font-weight:700;
+      background: linear-gradient(120deg, #89f7fe 25%, #66a6ff 30%);
+      color: transparent;
+      -webkit-background-clip: text;
+
+    }
+
+    .text1,.text2{
+      margin-top:5vh;
+      color:#ffffff;
+      width:45vw;
+      font-size:3vw;
+      font-weight:700;
+    }
+
+  }
+  .container2{
+
+    width:50vw;
+    height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    .icon{
+      margin-left:15vw;
+      width:10vw;
+      height:10vw;
+      padding: 1vw 1vw;
+      color: #66a6ff;
+      border-radius:100%;
+      background: #ffffff; #66a6ff;
+      cursor:pointer;
+    }
+
+  }
+
+`
+function Page1(props){
+  
+  return(
+    <Page1Css>
+        <div className="container1">
+          <p className="margin"></p>
+          <p className="text0">HOWAI.</p>
+          <p className="text1">아이디어가 생각나지 않을 때</p>
+          <p className="text2">쉽고 빠른 AI 브레인 스토밍</p>
+        </div> 
+        <div className="container2"> 
+          <FontAwesomeIcon icon="fa-solid fa-angle-right" className="icon" onClick={()=>{props.setMode(1)}}/>
+        </div>
+    </Page1Css>
+  )
+
+}
+
+
+const Page2Css = styled.div`
+
+  width:100vw;
+  height:92vh;
+
+  
+  .logo{
+    font-size:8vw;
+    font-weight:700;
+    margin-top:15vh;
+    margin-bottom:10vh;
+    background: linear-gradient(120deg, #89f7fe 25%, #66a6ff 30%);
+    color: transparent;
+    -webkit-background-clip: text;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+  }
+
+  .logo_back{
+
+    background:#ffffffaa;
+    width:50vw;
+    margin:auto;
+  }
+
+  .container2{
+
+
+    box-shadow: 2px 2px 10px black;
+
+    width:90vw;
+    max-width:442px;
+    height:40vh;
+    margin: 0 auto;
+    border-radius:12px;
+    background:#ffffff;
+
+    .title{
+
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      font-weight:300;
+      
+
+    }
+
+    input{  
+      margin: 2vh 2vw;
+      width: 80%;
+      padding:1.5vh 2vw;
+      border:2px solid #00000055;
+      border-radius:12px;
+    }
+
+    input:focus{
+
+      border: 3px solid #3232FF;
+      outline:none;
+
+    }
+
+    .login{
+
+      display:flex;
+      align-items:center;
+
+      .login_btn{
+
+        width:35%;
+        height:16vh;
+        background:${props=>props.loginCss?"#3232FF":"rgba(0,0,0,0.1)"};
+        margin: 2vh 0;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        transition:0.3s;
+
+        .icon{
+          transition:0.3s;
+          height:16vh;
+          color:${props=>props.loginCss?"#ffffff":"gray"};
+        }
+        
+
+      }
+
+    }
+
+  }
+`
+function Page2(){
+  const [loginCss,setLoginCss] = useState(false)
+  return(
+    <Page2Css loginCss={loginCss}>
+
+      <div className="logo_back">
+        <p className="logo">
+          HOWAI
+        </p>
+      </div>
+
+      <div className="container2">
+
+        <p className="title">로그인</p>
+        <div className="login" >
+
+          <div className="input">
+              <div>  
+                <input type="text" className="id" placeholder="아이디"/>
+              </div>  
+
+              <div>  
+                <input type="text" className="pw" placeholder="비밀번호"/>
+              </div>  
+          </div>
+
+            <div className="login_btn" 
+              onMouseOver={()=>{setLoginCss(true)}}
+              onMouseLeave={()=>{setLoginCss(false)}}>
+
+
+              <FontAwesomeIcon icon="fa-solid fa-angle-right" className="icon"/>
+            
+            </div>
+            
+        </div>
+
+        <p className="signin">회원가입</p>
+        <p className="nonMember">비회원으로 시작</p>
+
+      </div>  
+    </Page2Css>
+  )
+
+}
 
 const MainContents = styled.div`
   width: 100vw;
@@ -18,147 +238,38 @@ const MainContents = styled.div`
     background: url(${mainBackground});
     background-repeat:no-repeat;
     background-size:cover;
+    overflow:hidden;
 
-    .content{
+    .page{
 
-      width:100vw;
+      width:200vw;
       height: 92vh;
       background: #00000099;
       display:flex;
-
-      .container1{
-
-        width:45vw;
-        height:92vh;
-        margin-left:5vw;
-
-        .margin{
-          width:50vw;
-          height:24vh;
-        }
-
-        .text0{
-        width:45vw;
-        font-size:8vw;
-        font-weight:700;
-        background: linear-gradient(120deg, #89f7fe 25%, #66a6ff 30%);
-        color: transparent;
-        -webkit-background-clip: text;
-
-        }
-
-        .text1,.text2{
-          margin-top:5vh;
-          color:#ffffff;
-          width:45vw;
-          font-size:3vw;
-          font-weight:700;
-        }
-
-      }
-
-
-      .container2{
-
-        width:36vw;
-        height:62vh;
-        margin-top: 15vh;
-        margin-left: 10vw;
-        border-radius:12px;
-        background:#ffffff;
-
-        .title{
-          
-          width:36vw;
-          text-align:center;
-          padding:3vh;
-          font-size:36px;
-
-        }
-
-        input{
-          margin-left:10vw;
-          width:16vw;
-          padding:1vh 2vw;
-          border:1px solid #00000055;
-          border-radius:12px;
-        }
-
-      }
-
+      transform:translate(${props=>props.mode*-100}vw);
+      transition:0.4s;
     }
+
+    
   }
+
 `;
 
 
 const Main = () => {
+
+  const [mode,setMode] = useState(1)
+
   return (
 
-      <MainContents>
+      <MainContents mode={mode}>
         <Header/>
         <div className="wrap">
-          <div className="content">
-            <div className="container1">
-              <p className="margin"></p>
-              <p className="text0">HOWAI.</p>
-              <p className="text1">아이디어가 생각나지 않을 때</p>
-              <p className="text2">쉽고 빠른 AI 브레인 스토밍</p>
-            </div>  
-            <div className="container2">
-
-              <p className="title">로그인</p>
-
-              <div>  
-                <input type="text" className="id"/>
-              </div>  
-
-              <div>  
-                <input type="text" className="pw"/>
-              </div>  
-
-            </div>  
+          <div className="page">
+              <Page1 setMode={setMode}/>
+              <Page2 />
           </div>
         </div>
-        {/* <div className="intro">
-          <p className="top">
-            브레인스토밍 중인 여러분.
-            <br />
-            아이디어가 생각나지 않아 고민하고 있지 않으신가요?
-          </p>
-          <p className="bottom">
-            협업을 위한 첫 걸음 아이디어에서부터 시작합니다.
-            <br />
-            마음에 드는 아이디어가 나올 때까지
-            <span className="break_mobile"> 원하는 트리즈 기법을</span>
-            <span className="break_desktop">
-              이용해서 아이디어를 생성해보세요.
-            </span>
-          </p>
-        </div>
-        <div>
-          <div className="recommend">
-            <h2 className="title">이런 사람이 하면 좋아요!</h2>
-            <ul>
-              <li>
-                <img src={student_logo} alt="student_logo" />
-                <div className="img-title">대학생</div>
-              </li>
-              <li>
-                <img src={ceo_logo} alt="ceo_logo" />
-                <div className="img-title">예비 창업자</div>
-              </li>
-              <li>
-                <img src={planner_logo} alt="planner_logo" />
-                <div className="img-title">기획자</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="move">
-          <Link to={"/login"}>
-            <button type="button">로그인하러 가기</button>
-          </Link>
-        </div> */}
       </MainContents>
   );
 };
