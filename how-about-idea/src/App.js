@@ -14,6 +14,7 @@ import NodeSelect from "./components/NodeSelect";
 import TrizSelect from "./components/TrizSelect";
 import PatentAnalysis from "./components/PatentAnalysis";
 import PatentResult from "./components/PatentResult";
+import Header from "./components/Header";
 /* icon */
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -70,10 +71,11 @@ function App() {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" ></link>
       <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet"></link>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Header/>
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register/>} />
             <Route path="/home" element={<Home />} />
             <Route path="/play" element={<Play />} />
             <Route path="/mind" element={<Mind />} />

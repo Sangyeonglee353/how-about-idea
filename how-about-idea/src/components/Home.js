@@ -132,7 +132,7 @@ const Home = () => {
         onShowFeedDetail={showFeedDetailHandler}
         onSetFeedData={setFeedData}
       />
-      <HomeFooter />
+      
     </HomeCSS>
   );
 };
