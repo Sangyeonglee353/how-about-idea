@@ -294,30 +294,12 @@ const MindMap = (props) => {
 
   return (
     <>
-      {/* <div
-        style={{
-          backgroundColor: "#c1c1c1",
-        }}
-      >
-        <input
-          type="text"
-          id="node_label"
-          placeholder="enter new node name(label)"
-        />
-        <br />
-        <input type="text" id="node_type" placeholder="enter new node type" />
-        <br />
-        <input type-="text" id="from_node" placeholder="enter from node id" />
-        <button onClick={addNode}>Add Node</button>
-      </div> */}
       <MindMapCSS>
-        {/* {console.log("Update", props.graphData)} */}
         {props.onRefreshBtn && (
           <RefreshBtn icon="fa-arrow-rotate-right" onClick={refreshGraph} />
         )}
         <CytoscapeComponent
           elements={CytoscapeComponent.normalizeElements(props.graphData)}
-          // pan={{ x: 200, y: 200 }}
           style={{ width: props.width, height: props.height }}
           userZoomingEnabled={props.onUserZoom} // 사용자 zoom controller
           zoomingEnabled={true}
@@ -340,7 +322,6 @@ const MindMap = (props) => {
               // console.log("TARGET TYkPE", typeof node[0]);
             });
           }}
-          // abc={console.log("myCyRef", myCyRef)}
         />
       </MindMapCSS>
     </>

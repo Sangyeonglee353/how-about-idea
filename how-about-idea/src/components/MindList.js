@@ -1,49 +1,20 @@
 import React from "react";
 import Feeds from "./Feeds.js";
-import HomeFooter from "./HomeFooter.js";
 import { useState } from "react";
 import FeedDetail from "./FeedDetail";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const HomeCSS = styled.div`
-  .startBtn {
-    position: absolute;
-    top: 25px;
-    left: 6%;
-    width: 130px;
-    height: 50px;
-    font-size: 25px;
-    font-weight: bold;
-    line-height: 50px;
-    color: white;
-    background-color: var(--color-main-skyblue);
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-    &:hover {
-      background-color: var(--color-main-blue);
-    }
-    @media (max-width: 600px) {
-      display: none;
-    }
-  }
+const MindListCss= styled.div`
 
-  .mypageBtn {
-    position: absolute;
-    top: 35px;
-    right: 7%;
-    height: 30px;
-    color: var(--color-main-grey);
-    cursor: pointer;
-    @media (max-width: 600px) {
-      display: none;
-    }
-  }
+  width:100vw;
+  height:92vh;
+  overflow-y:scroll;
+  background:rgba(0,0,0,0.03)
 `;
 
-const Home = () => {
+const MindList = () => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
   const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 선택용
 
@@ -115,11 +86,7 @@ const Home = () => {
   };
 
   return (
-    <HomeCSS>
-      <Link to={"/play"}>
-        <button className="startBtn">시작하기</button>
-      </Link>
-      <FontAwesomeIcon className="mypageBtn" icon="fa-user" />
+    <MindListCss>
       {feedDetailShow && (
         <FeedDetail
           // feedData={DUMMY_FEED[0]}
@@ -133,8 +100,8 @@ const Home = () => {
         onSetFeedData={setFeedData}
       />
       
-    </HomeCSS>
+    </MindListCss>
   );
 };
 
-export default Home;
+export default MindList;

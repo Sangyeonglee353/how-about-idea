@@ -123,10 +123,21 @@ const Main = () => {
               <p className="text2">쉽고 빠른 AI 브레인 스토밍</p>
             </div>  
 
-            <div className="container2">
-              <p className="login" onClick={()=>{window.location.href='/login'}}>로그인 하기</p>
-              <p className="signup" onClick={()=>{window.location.href='/register'}}>회원가입</p>
-            </div>  
+            {
+              localStorage.getItem("howai_id")===undefined && 
+              <div className="container2">
+                <p className="login" onClick={()=>{window.location.href='/login'}}>로그인 하기</p>
+                <p className="signup" onClick={()=>{window.location.href='/register'}}>회원가입</p>
+              </div>
+            }
+
+            {
+              localStorage.getItem("howai_id")!==undefined &&
+              <div className="container2">
+                <p className="login" onClick={()=>{window.location.href="/wordselect"}}>브레인 스토밍 시작하기</p>
+                <p className="signup" onClick={()=>{window.location.href="/mind"}}>저장소 바로가기</p>
+              </div>
+            }
 
           </div>
         </div>

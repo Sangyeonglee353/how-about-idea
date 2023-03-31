@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Mind from "./MindMap/Mind";
 
 const ContentBlock = styled.div`
+
   margin: ${(props) => (props.height < 700 ? "10" : "30")}px;
 
   label {
@@ -71,7 +72,7 @@ const FeedDetail = (props) => {
           <b>트리즈 문장:</b> {sentence}
         </p>
         <br />
-        <p>
+        <div>
           <h3>관련 특허</h3>
           <ul>
             <li>날개없는 선풍기</li>
@@ -79,7 +80,7 @@ const FeedDetail = (props) => {
             <li>공기의 흐름을 측정하는 유체</li>
             <li>회전하는 선풍기</li>
           </ul>
-        </p>
+        </div>
       </ContentBlock>
     </Modal>
   );

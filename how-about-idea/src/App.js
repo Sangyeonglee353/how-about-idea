@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route, Link , useNavigate} from "react-router-do
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Home from "./components/Home";
+import MindList from "./components/MindList";
 import Play from "./components/Play";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
@@ -73,13 +73,13 @@ function App() {
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header/>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Main/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register/>} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/mindlist" element={<MindList/>} />
             <Route path="/play" element={<Play />} />
-            <Route path="/mind" element={<Mind />} />
-            <Route path="/wordslect" element={<WordSelect />} />
+            {/* <Route path="/mind" element={<Mind />} /> */}
+            <Route path="/wordselect" element={<WordSelect />} />
             <Route path="/nodeselect" element={<NodeSelect />} />
             <Route path="/trizselect" element={<TrizSelect />} />
             <Route path="/patentanalysis" element={<PatentAnalysis />} />

@@ -91,6 +91,8 @@ const RegisterCss = styled.div`
         border-radius:12px;
         text-align:center;
         font-weight:700;
+        cursor:pointer;
+        transition:0.3s;
       }
 
     }
@@ -183,8 +185,14 @@ const RegisterCss = styled.div`
     justify-content:center;
     margin-top:5vh;
     padding:1vh 0;
-    background:#00000099;
+    background:${props=>
+    props.isvaild.id&&props.isvaild.email&&props.isvaild.pw&&props.isvaild.pw_check?
+      "#3CAEFF":
+      "#00000099"
+    };
     border-radius:12px;
+    transition:0.3s;
+    cursor:pointer;
   }
 
   .right{
@@ -195,27 +203,30 @@ const RegisterCss = styled.div`
 
   .warn1{
 
-    ${props=>!props.blur.blur1?"display:none":""} ; 
+    ${props=>!props.blur.blur1||props.isvaild.id?"display:none":""} ; 
     
   }
 
   .warn2{
 
-    ${props=>!props.blur.blur2?"display:none":""} ; 
+    ${props=>!props.blur.blur2||props.isvaild.email?"display:none":""} ; 
 
   }
 
   .warn3{
 
-    ${props=>!props.blur.blur2?"display:none":""} ; 
+    ${props=>!props.blur.blur3||props.isvaild.pw?"display:none":""} ; 
 
   }
 
   .warn4{
 
-   ${props=>!props.blur.blur2?"display:none":""} ; 
+   ${props=>!props.blur.blur4||props.isvaild.pw_check?"display:none":""} ; 
 
   }
+  
+
+
 
 `;
 
@@ -225,9 +236,11 @@ function Register() {
   const [account,setAccount] = useState({
 
     id:"",
+    id_check:false,
     email:"",
     pw:"",
     pw_check:""
+
 
 
   })
@@ -243,10 +256,10 @@ function Register() {
 
   const [isvaild,setVaild] = useState({
 
-    id:"",
-    email:"",
-    pw:"",
-    pw_check:""
+    id:false,
+    email:false,
+    pw:false,
+    pw_check:false
 
   })
 
@@ -259,15 +272,11 @@ function Register() {
 
   })
 
-/* 
-
-  let regExp =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-  regExp.test(e.target.value)
-    
-*/
   useEffect(()=>{
 
+    if(sessionStorage.getItem("howai_id")!==undefined)
+      window.location.href="/"
+    
     setCss({
       opacity:1,
       top:0
@@ -277,16 +286,20 @@ function Register() {
 
 
   useEffect(()=>{
+    let emailtest =/[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+    let pwtest =/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,}$/;
 
     setVaild({
-
-
+      id: account.id.length>6&&account.id_check,
+      email:emailtest.test(account.email),
+      pw: pwtest.test(account.pw),
+      pw_check: pwtest.test(account.pw_check)&&account.pw_check===account.pw
     })
 
   },[account])
 
   return (
-    <RegisterCss css={css} account={account} blur={blur}>
+    <RegisterCss css={css} isvaild={isvaild} blur={blur}>
       <div className="wrap">
 
         <div className="form">
@@ -296,39 +309,77 @@ function Register() {
             <p className="sub">아이디</p>
             <div className="id">
               <input type="text" placeholder="howai" 
-              onInput={(e)=>{setAccount({...account,id:e.target.value})}}
+              onInput={(e)=>{
+                setAccount({...account, id:e.target.value, id_check:false})
+              }}
               onBlur={()=>{setBlur({...blur,blur1:true})}}/>
 
               <div className="check">
-                <span>중복확인</span>
+                <span onClick={()=>{
+                  if(account.id.length>=4){
+                    setAccount({...account,id_check:true})
+                    alert('사용가능한 아이디입니다')
+                  }
+
+                  else
+                    alert('아이디는 4자리 이상으로 설정해주세요')
+                  }}
+                  
+                  
+                  onMouseOver={(e)=>{
+
+                    e.target.style.color="#ffffff"
+                    e.target.style.background="#3CAEFF";
+
+                  }}
+                  onMouseLeave={(e)=>{
+
+                    e.target.style.color="#00000099"
+                    e.target.style.background="#00000033";
+
+                  }}
+                  
+                  >중복확인</span>
               </div>
 
             </div>
 
-            <span className="warn warn1">아이디는 4자리 이상으로 설정해주세요</span>
+            {account.id_check && <span className="warn warn1">아이디는 4자리 이상으로 설정해주세요</span>}
+            {!account.id_check && <span className="warn warn1">아이디 중복확인을 해주세요</span>}
+
           </div>
 
           <div className="input">
             <p className="sub">이메일</p>
             <input type="text" placeholder="howai@howai.com" 
-            onInput={(e)=>{setAccount({...account,email:e.target.value})}}
+            onInput={(e)=>{
+              setAccount({...account,email:e.target.value})
+            }}
             onBlur={()=>{setBlur({...blur,blur2:true})}}/>
             <span className="warn warn2">이메일 주소를 입력해주세요</span>
           </div>
 
           <div className="input">
             <p className="sub">비밀번호</p>
-            <input type="text" placeholder="특수문자 포함 10자리" 
-            onInput={(e)=>{setAccount({...account, pw:e.target.value})}}
+            <input type="password" placeholder="특수문자 포함 10자리" 
+            onInput={(e)=>{
+              setAccount({...account, pw:e.target.value})
+            }}
             onBlur={()=>{setBlur({...blur,blur3:true})}}/>
             <span className="warn warn3">비밀번호는 특수문자 포함 10자리 이상으로 설정해주세요</span>
           </div>
 
           <div className="input">
+
             <p className="sub">비밀번호 확인</p>
-            <input type="text" placeholder="비밀번호 재입력" 
-            onInput={(e)=>{setAccount({...account, pw_check:e.target.value})}}
-            onBlur={()=>{setBlur({...blur,blur4:true})}}/>
+            <input type="password" placeholder="비밀번호 재입력" 
+              onInput={(e)=>{
+                setAccount({...account, pw_check:e.target.value})
+              }}
+              onBlur={()=>{
+                setBlur({...blur,blur4:true})
+              }}/>
+
             <span className="warn warn4">비밀번호가 다릅니다</span>
           </div>
 
@@ -337,7 +388,33 @@ function Register() {
             <span className="strong-blue">개인정보취급방침</span>에 <br/> 동의한 것으로 간주합니다.
           </p>
 
-          <p className="signup"> 
+          <p className="signup" onClick={()=>{
+
+              if(!isvaild.id){
+              
+                if(!account.id_check)
+                  alert("아이디 중복확인을 해주세요")
+                
+                else
+                  alert("아이디는 4자리 이상 설정해주세요")
+
+              }
+              else if(!isvaild.email)
+                alert("이메일 주소를 확인해주세요")
+
+              else if(!isvaild.pw)
+                alert("비밀번호는 특수문자 포함 10자리 이상으로 설정해주세요")
+
+              else if(!isvaild.pw_check)
+                alert("비밀번호가 서로 다릅니다")
+              
+              else{
+                sessionStorage.setItem("howai_id",account.id)
+                window.location.href='/main'
+                
+              }
+
+            }}> 
             <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="right"/>
           </p>
 

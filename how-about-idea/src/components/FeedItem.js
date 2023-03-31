@@ -14,6 +14,8 @@ const FeedItemCSS = styled.li`
   border-radius: 10px;
   /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
+  background:#ffffff;
+
   @media (max-width: 1200px) {
     width: 35%;
   }
@@ -41,7 +43,7 @@ const FeedItemCSS = styled.li`
     border-radius: 10px;
     margin: 10px auto;
     width: 80%;
-    background-color: white;
+    background-color: #EBF5FF;
   }
 
   .summary {
