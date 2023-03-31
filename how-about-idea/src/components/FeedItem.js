@@ -59,7 +59,12 @@ const FeedItemCSS = styled.li`
   }
 
   &:hover {
-    background-color: var(--color-main-skyblue);
+    background-color:#00000055;
+    .mindmap{
+
+      background-color: #EBF5FF99S;
+
+    }
   }
 `;
 const FeedItem = (props) => {
