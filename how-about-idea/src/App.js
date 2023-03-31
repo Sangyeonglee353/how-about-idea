@@ -161,7 +161,8 @@ function App() {
             <Route path="/patentanalysis" element={<PatentAnalysis />} />
             <Route path="/patentresult" element={<PatentResult />} />
           </Routes>
-          <div className="back">
+          <div className="back"
+          onClick={()=>{setSideBar(false)}}>
 
           </div>
 

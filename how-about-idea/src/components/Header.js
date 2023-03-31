@@ -54,7 +54,7 @@ function Header(props){
             <img src={left} className="fa-chevron-left" onClick={()=>{navigate(-1)}}/>
             </div>
 
-            <Link path="/" className="logo">
+            <Link to="/" className="logo">
               HOWAI
             </Link>
 

@@ -75,11 +75,11 @@ const LoginCss = styled.div`
       .right{
         padding:1vh 0;
         height:25px;
-        color:#ffffff;
-          
+        color:#000000;    
       }
+
       .inner{
-        background:#00000099;
+        border:2px solid #000000;
         width:80%;
         border-radius:12px;
         display:flex;
@@ -95,8 +95,8 @@ const LoginCss = styled.div`
         .text{
           border-radius:12px;
           padding:1vh 0;
-          color:#ffffff;
-          background:#00000055;
+          color:#00000099;
+          background:#00000022;
           display:flex;
           align-items:center;
           justify-content:center;
@@ -118,6 +118,8 @@ const LoginCss = styled.div`
 const Login= () => {
   const id = useRef()
   const pw = useRef()
+  const login1 = useRef()
+  const login2 = useRef()
   useEffect(()=>{
 
     if(sessionStorage.getItem("howai_id")!==null){
@@ -142,20 +144,49 @@ const Login= () => {
           </div>
 
           <div className="login">
-            <div className="inner" onClick={()=>{
+            <div className="inner"  ref={login1}
+              onClick={()=>{
                 sessionStorage.getItem("howai_id",id.current.value)
                 window.location.href="/home"
-              }}>
-              <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="right"/>
+              }}
+              
+              onMouseOver={()=>{
+
+                login1.current.style.background = "#3CAEFF"
+                login1.current.style.border = "2px solid #3CAEFF"
+                login2.current.style.color="#ffffff"
+                
+              }}
+
+              onMouseLeave={()=>{
+
+                login1.current.style.background = "#ffffff"
+                login1.current.style.border = "2px solid #000000"
+                login2.current.style.color="#000000"
+              }}
+
+              >
+              <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="right" ref={login2}/>
             </div>
           </div>
 
 
           <div className="signup">
             <Link to={"/register"} className="link">          
-              <p className="text">
-                회원가입
-              </p>
+              <p className="text" 
+              onMouseOver={(e)=>{
+
+                e.target.style.background="#3CAEFF";
+                e.target.style.color="#ffffff"
+              }}
+              
+              onMouseLeave={(e)=>{
+
+                e.target.style.background="#00000055";
+                e.target.style.color="#00000099"
+              }}
+              
+              >회원가입</p>
             </Link>
           </div>
 
