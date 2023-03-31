@@ -1,4 +1,3 @@
-import MainFooter from "./MainFooter.js";
 import { Link } from "react-router-dom";
 import student_logo from "../images/student.png";
 import ceo_logo from "../images/ceo.png";
@@ -124,7 +123,7 @@ const Main = () => {
             </div>  
 
             {
-              localStorage.getItem("howai_id")===null && 
+              sessionStorage.getItem("howai_id")===null && 
               <div className="container2">
                 <p className="login" 
                 onClick={()=>{window.location.href='/login'}}
@@ -175,7 +174,7 @@ const Main = () => {
             }
 
             {
-              localStorage.getItem("howai_id")!==null &&
+              sessionStorage.getItem("howai_id")!==null &&
               <div className="container2">
                 <p className="login" 
                 onClick={()=>{window.location.href="/wordselect"}}
@@ -201,7 +200,7 @@ const Main = () => {
                 }}>브레인 스토밍 시작하기</p>
 
                 <p className="signup" 
-                onClick={()=>{window.location.href="/mind"}}
+                onClick={()=>{window.location.href="/mindlist"}}
                 
                 onMouseOver={(e)=>{
                   e.target.style.color="#ffffff";

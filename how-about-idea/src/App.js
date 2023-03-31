@@ -52,22 +52,31 @@ const AppCSS = styled.div`
   .sidebar{
     position:fixed;
     top:8vh;
-    right:${props=>props.sidebar?0:-100}vh;
+    right:${props=>props.sidebar?0:-100}vw;
     transition:${props=>props.sidebar?0.3:0}s;
     height:92vh;
     background:#ffffff;
-    width:80vw;
+    width:20vw;
 
+    @media (max-width: 500px) {
+      width: 80vw;
+    }
 
     .menuList{
-      width:80vw;
+      width:20vw;
+      @media (max-width: 500px) {
+        width: 80vw;
+      }
       background:#ffffff;
     }
 
 
     .title{
 
-      width:80vw;
+      width:20vw;
+      @media (max-width: 500px) {
+        width: 80vw;
+      }
       padding:2vh 0;
       text-align:center;
       font-size:24px;
@@ -76,7 +85,7 @@ const AppCSS = styled.div`
     .menu{
       display:block;
       text-decoration:none;
-      padding: 2vh 5vw;
+      padding: 2vh 10%;
       width:100%;
       font-size:20px;
       font-weight:700;
@@ -216,7 +225,7 @@ function App() {
                   }}
                   
                   onMouseOver={(e)=>{
-                    e.target.style.color="#3CAEFF";
+                    e.target.style.color="#EB5A5A";
                   }}
 
                   onMouseLeave={(e)=>{
@@ -225,7 +234,7 @@ function App() {
                   
                                           
                   onTouchStart={(e)=>{
-                    e.target.style.color="#3CAEFF";
+                    e.target.style.color="#EB5A5A";
                   }}
 
                   onTouchEnd={(e)=>{     

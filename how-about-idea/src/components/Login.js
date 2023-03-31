@@ -146,8 +146,8 @@ const Login= () => {
           <div className="login">
             <div className="inner"  ref={login1}
               onClick={()=>{
-                sessionStorage.getItem("howai_id",id.current.value)
-                window.location.href="/home"
+                sessionStorage.setItem("howai_id",id.current.value)
+                window.location.href="/"
               }}
               
               onMouseOver={()=>{
