@@ -7,7 +7,7 @@ import ButtonFooter from "./ButtonFooter";
 const PlayCSS = styled.div`
   height: 640px;
   & h2 {
-    font-family: inherit;
+    font-family: 'Quicksand', sans-serif;
     text-align: center;
     margin-top: 235px;
   }

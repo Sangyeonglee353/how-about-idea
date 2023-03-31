@@ -6,7 +6,7 @@ import ButtonFooter from "./ButtonFooter";
 
 const TrizSelectCSS = styled.div`
   text-align: center;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 15px;
   height: 800px;
 

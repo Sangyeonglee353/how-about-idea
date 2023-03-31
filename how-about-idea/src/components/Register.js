@@ -274,9 +274,11 @@ function Register() {
 
   useEffect(()=>{
 
-    if(sessionStorage.getItem("howai_id")!==undefined)
+    if(sessionStorage.getItem("howai_id")!==null){
+      alert('이미 로그인 중입니다')
       window.location.href="/"
-    
+    }
+
     setCss({
       opacity:1,
       top:0

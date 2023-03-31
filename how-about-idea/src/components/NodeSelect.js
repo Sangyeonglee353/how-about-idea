@@ -7,7 +7,7 @@ import HomeFooter from "./HomeFooter";
 const NodeSelectCSS = styled.div`
   margin-top: 10px;
   height: 800px;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   /* height: calc(100vh - 115px - 80px); */
   @media (max-width: 400px) {
     margin-top: 0px;

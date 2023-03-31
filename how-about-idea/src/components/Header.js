@@ -7,7 +7,7 @@ import menu from "../images/menu.png"
 const HeaderCss  = styled.div`
     width:100vw;
     height:8vh;
-    box-shadow: 1px 0px 1px #00000055;
+    border-bottom:1px  solid #00000033;
     display:flex;
     align-items:center;
     background:#ffffff;
@@ -44,7 +44,7 @@ const HeaderCss  = styled.div`
 `
 
 
-function Header(){
+function Header(props){
 
     const navigate = useNavigate()
 
@@ -55,11 +55,11 @@ function Header(){
             </div>
 
             <Link path="/" className="logo">
-            HOWAI
+              HOWAI
             </Link>
 
-            <div className="img">
-            <img src={menu} className="menu"/>
+            <div className="img" onClick={()=>{props.setSideBar(!props.sidebar)}}>
+              <img src={menu} className="menu"/>
             </div>
         </HeaderCss>
     )

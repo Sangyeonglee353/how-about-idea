@@ -8,8 +8,12 @@ import Mind from "./MindMap/Mind";
 const ContentBlock = styled.div`
 
   margin: ${(props) => (props.height < 700 ? "10" : "30")}px;
+  
+  *{
+    font-family: 'Quicksand', sans-serif;
+  }
 
-  label {
+  label { 
     display: block;
     font-weight: bold;
   }

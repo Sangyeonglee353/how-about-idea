@@ -11,15 +11,23 @@ const FeedsListCSS = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 90%;
-  margin: 30px auto 0 auto;
-
+  height:92vh;
+  margin: 2vh auto;
   @media screen and (max-width: 500px) {
     width: 100%;
     display: block;
-    height: calc(100vh - 180px);
+    height: 92vh;
     overflow-y: scroll;
     margin: 0 auto;
   }
+
+  .padding{
+
+    width:100vw;
+    height:3vh;
+
+  }
+
   /* scrollbar css */
   &::-webkit-scrollbar {
     width: 0px; /* 스크롤바 숨김 */
@@ -59,6 +67,7 @@ const FeedsList = (props) => {
             feedData={feed}
           />
         ))}
+        <div className="padding"></div>
     </FeedsListCSS>
   );
 };

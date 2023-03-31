@@ -1,7 +1,7 @@
 import bottomSubImage from "../images/leaf_img.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import mainBackground from "../images/main_background.jpg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -116,6 +116,16 @@ const LoginCss = styled.div`
 
 
 const Login= () => {
+  const id = useRef()
+  const pw = useRef()
+  useEffect(()=>{
+
+    if(sessionStorage.getItem("howai_id")!==null){
+      alert('이미 로그인 중입니다')
+      window.location.href="/"
+    }
+
+  },[])
   return (
     <LoginCss>
       <div className="wrap">
@@ -124,15 +134,18 @@ const Login= () => {
           <p className="title">로그인</p>
 
           <div className="input">
-            <input type="text" className="id" placeholder="아이디"/>
+            <input type="text" className="id" placeholder="아이디" ref={id}/>
           </div>
 
           <div className="input">
-            <input type="text" className="pw" placeholder="비밀번호"/>
+            <input type="text" className="pw" placeholder="비밀번호" ref={pw}/>
           </div>
 
           <div className="login">
-            <div className="inner" onClick={()=>{window.location.href="/home"}}>
+            <div className="inner" onClick={()=>{
+                sessionStorage.getItem("howai_id",id.current.value)
+                window.location.href="/home"
+              }}>
               <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="right"/>
             </div>
           </div>
