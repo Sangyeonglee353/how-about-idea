@@ -110,108 +110,100 @@ const Main = () => {
 
           {sessionStorage.getItem("howai_id") === null && (
             <div className="container2">
-              <p
-                className="login"
-                onClick={() => {
-                  window.location.href = "/login";
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#3CAEFF";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = "#3CAEFF";
-                  e.target.style.background = "#ffffff";
-                }}
-                onTouchStart={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#3CAEFF";
-                }}
-                onTouchEnd={(e) => {
-                  e.target.style.color = "#3CAEFF";
-                  e.target.style.background = "#ffffff";
-                }}
-              >
-                로그인 하기
-              </p>
-              <p
-                className="signup"
-                onClick={() => {
-                  window.location.href = "/register";
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#000000";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = "#000000";
-                  e.target.style.background = "#ffffff";
-                }}
-                onTouchStart={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#000000";
-                }}
-                onTouchEnd={(e) => {
-                  e.target.style.color = "#000000";
-                  e.target.style.background = "#ffffff";
-                }}
-              >
-                회원가입
-              </p>
+              <Link to="/login" className="Link">
+                <p className="login"
+                  onMouseOver={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#3CAEFF";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "#3CAEFF";
+                    e.target.style.background = "#ffffff";
+                  }}
+                  onTouchStart={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#3CAEFF";
+                  }}
+                  onTouchEnd={(e) => {
+                    e.target.style.color = "#3CAEFF";
+                    e.target.style.background = "#ffffff";
+                  }}
+                >
+                  로그인 하기
+                </p>
+              </Link>
+              <Link to="/register" className="Link">
+                <p className="signup"
+
+                  onMouseOver={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#000000";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "#000000";
+                    e.target.style.background = "#ffffff";
+                  }}
+                  onTouchStart={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#000000";
+                  }}
+                  onTouchEnd={(e) => {
+                    e.target.style.color = "#000000";
+                    e.target.style.background = "#ffffff";
+                  }}
+                >
+                  회원가입
+                </p>
+              </Link>
             </div>
           )}
 
           {sessionStorage.getItem("howai_id") !== null && (
             <div className="container2">
-              <p
-                className="login"
-                onClick={() => {
-                  window.location.href = "/wordselect";
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#3CAEFF";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = "#3CAEFF";
-                  e.target.style.background = "#ffffff";
-                }}
-                onTouchStart={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#3CAEFF";
-                }}
-                onTouchEnd={(e) => {
-                  e.target.style.color = "#3CAEFF";
-                  e.target.style.background = "#ffffff";
-                }}
-              >
-                브레인 스토밍 시작하기
-              </p>
-
-              <p
-                className="signup"
-                onClick={() => {
-                  window.location.href = "/mindlist";
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#000000";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = "#000000";
-                  e.target.style.background = "#ffffff";
-                }}
-                onTouchStart={(e) => {
-                  e.target.style.color = "#ffffff";
-                  e.target.style.background = "#000000";
-                }}
-                onTouchEnd={(e) => {
-                  e.target.style.color = "#000000";
-                  e.target.style.background = "#ffffff";
-                }}
-              >
-                저장소 바로가기
-              </p>
+            <Link to="/wordselect" className="Link">
+                <p className="login"
+                  onMouseOver={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#3CAEFF";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "#3CAEFF";
+                    e.target.style.background = "#ffffff";
+                  }}
+                  onTouchStart={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#3CAEFF";
+                  }}
+                  onTouchEnd={(e) => {
+                    e.target.style.color = "#3CAEFF";
+                    e.target.style.background = "#ffffff";
+                  }}
+                >
+                  브레인 스토밍 시작하기
+                </p>
+              </Link>
+              <Link to="/mindlist" className="Link">
+                <p className="signup"
+                  onMouseOver={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#000000";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "#000000";
+                    e.target.style.background = "#ffffff";
+                  }}
+                  onTouchStart={(e) => {
+                    e.target.style.color = "#ffffff";
+                    e.target.style.background = "#000000";
+                  }}
+                  onTouchEnd={(e) => {
+                    e.target.style.color = "#000000";
+                    e.target.style.background = "#ffffff";
+                  }}
+                >
+                  저장소 바로가기
+                </p>
+              </Link>
             </div>
           )}
         </div>

@@ -48,6 +48,10 @@ const AppCSS = styled.div`
     font-family: 'Quicksand', sans-serif;
   }
   
+  .Link{
+    text-decoration:none;
+    color:#000000;
+  }
 
   .sidebar{
     position:fixed;
