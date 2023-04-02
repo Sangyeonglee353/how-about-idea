@@ -152,6 +152,7 @@ function App() {
           : window.innerHeight
       );
     });
+
   }, []);
 
   return (
@@ -159,7 +160,7 @@ function App() {
       <link rel="preconnect" href="https://fonts.googleapis.com"></link>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" ></link>
       <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet"></link>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={"how-about-idea/"}>
         <Header sidebar={sidebar} setSideBar={setSideBar}/>
           <Routes>
             <Route path="/" element={<Main/>} />

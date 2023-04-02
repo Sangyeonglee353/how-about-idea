@@ -276,7 +276,7 @@ function Register() {
 
     if(sessionStorage.getItem("howai_id")!==null){
       alert('이미 로그인 중입니다')
-      window.location.href="/"
+      window.location.href="/how-about-idea/"
     }
 
     setCss({
@@ -412,7 +412,7 @@ function Register() {
               
               else{
                 sessionStorage.setItem("howai_id",account.id)
-                window.location.href='/main'
+                window.location.href='/how-about-idea/main'
                 
               }
 

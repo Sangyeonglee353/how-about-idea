@@ -124,7 +124,7 @@ const Login= () => {
 
     if(sessionStorage.getItem("howai_id")!==null){
       alert('이미 로그인 중입니다')
-      window.location.href="/"
+      window.location.href="/how-about-idea/"
     }
 
   },[])
@@ -144,11 +144,11 @@ const Login= () => {
           </div>
 
           <div className="login">
-            
+
             <div className="inner"  ref={login1}
               onClick={()=>{
                 sessionStorage.setItem("howai_id",id.current.value)
-                window.location.href="/"
+                window.location.href="/how-about-idea/"
               }}
               
               onMouseOver={()=>{
