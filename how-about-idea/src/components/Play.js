@@ -7,7 +7,7 @@ import ButtonFooter from "./ButtonFooter";
 const PlayCSS = styled.div`
   height: 640px;
   & h2 {
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Quicksand", sans-serif;
     text-align: center;
     margin-top: 235px;
   }
@@ -48,7 +48,7 @@ const Play = () => {
       <img src={leafImage} alt="leafImage"></img>
       <input type="text"></input>
       <LevelButtons />
-      <ButtonFooter nextPage="/wordslect" />
+      <ButtonFooter nextPage="/wordselect" />
       {/* <HomeFooter /> */}
     </PlayCSS>
   );

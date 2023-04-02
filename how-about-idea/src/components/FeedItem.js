@@ -10,16 +10,16 @@ const FeedItemCSS = styled.li`
   /* margin-bottom: 5px; */
   margin: 0 1.5% 3% 1.5%;
   /* border-top: 10px solid var(--color-main-skyblue); */
-  border: 2px solid var(--color-main-skyblue);
+  /* border: 2px solid var(--color-main-skyblue); */
   border-radius: 10px;
   /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
-  background:#ffffff;
+  background: #ffffff;
 
-  *{
-    font-family: 'Quicksand', sans-serif;
+  * {
+    font-family: "Quicksand", sans-serif;
   }
-  
+
   @media (max-width: 1200px) {
     width: 35%;
   }
@@ -28,7 +28,7 @@ const FeedItemCSS = styled.li`
   }
   @media (max-width: 500px) {
     width: 90%;
-    margin: 1.5vh auto ;
+    margin: 1.5vh auto;
   }
   h3 {
     font-size: 10px;
@@ -46,24 +46,21 @@ const FeedItemCSS = styled.li`
     border-radius: 10px;
     margin: 10px auto;
     width: 80%;
-    background-color: #EBF5FF;
+    background-color: #ebf5ff;
   }
 
   .summary {
     margin-top: 0.5vh;
-    p {;
+    p {
       font-size: 15px;
       margin-left: 10%;
     }
-
   }
 
   &:hover {
-    background-color:#00000055;
-    .mindmap{
-
-      background-color: #EBF5FF99;
-
+    background-color: #00000055;
+    .mindmap {
+      background-color: #ebf5ff99;
     }
   }
 `;
@@ -77,7 +74,7 @@ const FeedItem = (props) => {
     props.onSetFeedData(props.feedData);
     props.onShowFeedDetail();
   };
-  
+
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
       <h3>{props.name}</h3>

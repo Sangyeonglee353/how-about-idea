@@ -318,7 +318,9 @@ const MindMap = (props) => {
               var node = evt.target;
               // console.log("EVT", evt);
               // console.log("TARGET", node.data());
-              props.onSelectNodeHandler(node.data());
+              if (typeof props.onSelectNodeHandler != "undefined") {
+                props.onSelectNodeHandler(node.data());
+              }
               // console.log("TARGET TYkPE", typeof node[0]);
             });
           }}

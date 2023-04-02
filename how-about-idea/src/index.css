@@ -1,10 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+:root {
+  --color-main-jinblue: #0aaff1;
+  --color-main-blue: #00b6ff;
+  --color-main-skyblue: #beebfd;
+  --color-main-grey: #999;
+  --color-sub-grey: #c4c4c4;
+}
+
 * {
   margin: 0;
   padding: 0;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
-  
 }
 
 body {
@@ -12,4 +22,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-

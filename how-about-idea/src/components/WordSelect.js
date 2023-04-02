@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import ButtonFooter from "./ButtonFooter";
+import { Link } from "react-router-dom";
 
 const Cvs = styled.canvas`
   margin: 0;
@@ -547,12 +548,14 @@ function Wordselect() {
               </p>
             </div>
 
-            <p className="finish">저장 및 종료</p>
+            <Link to="/nodeselect">
+              <p className="finish">저장 및 종료</p>
+            </Link>
           </div>
         </div>
       </div>
 
-      <ButtonFooter nextPage="/nodeselect" />
+      {/* <ButtonFooter nextPage="/nodeselect" /> */}
     </Appcss>
   );
 }
