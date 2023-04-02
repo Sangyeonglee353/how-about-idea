@@ -7,7 +7,7 @@ import HomeFooter from "./HomeFooter";
 const NodeSelectCSS = styled.div`
   margin-top: 10px;
   height: 800px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   /* height: calc(100vh - 115px - 80px); */
   @media (max-width: 400px) {
     margin-top: 0px;
@@ -145,7 +145,7 @@ const NodeSelect = () => {
           <button id="nextPage">다음</button>
         ) : (
           <Link
-            to={"/trizselect"}
+            to={"/patentAnalysis"}
             state={{
               word1: selectedNode[0].label,
               word2: selectedNode[1].label,

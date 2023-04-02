@@ -54,8 +54,8 @@ const FeedItemCSS = styled.li`
     wrod-break: break-all;
     p {
       font-size: 15px;
-      margin: 0  10%;
-      width:80%;
+      margin: 0 10%;
+      width: 80%;
       word-break: break-all;
     }
   }
@@ -96,7 +96,7 @@ const FeedItem = (props) => {
           <b>트리즈 기법:</b> {props.trizType}
         </p>
         <p>
-          <b>트리즈 문장:</b> {props.sentence+"asdasdasdasdasdasdasdasdasdasdasdasdasdadasdasdasdasdasda"}
+          <b>트리즈 문장:</b> {props.sentence}
         </p>
       </div>
     </FeedItemCSS>

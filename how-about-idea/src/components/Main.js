@@ -111,7 +111,8 @@ const Main = () => {
           {sessionStorage.getItem("howai_id") === null && (
             <div className="container2">
               <Link to="/login" className="Link">
-                <p className="login"
+                <p
+                  className="login"
                   onMouseOver={(e) => {
                     e.target.style.color = "#ffffff";
                     e.target.style.background = "#3CAEFF";
@@ -133,8 +134,8 @@ const Main = () => {
                 </p>
               </Link>
               <Link to="/register" className="Link">
-                <p className="signup"
-
+                <p
+                  className="signup"
                   onMouseOver={(e) => {
                     e.target.style.color = "#ffffff";
                     e.target.style.background = "#000000";
@@ -160,8 +161,9 @@ const Main = () => {
 
           {sessionStorage.getItem("howai_id") !== null && (
             <div className="container2">
-            <Link to="/wordselect" className="Link">
-                <p className="login"
+              <Link to="/play" className="Link">
+                <p
+                  className="login"
                   onMouseOver={(e) => {
                     e.target.style.color = "#ffffff";
                     e.target.style.background = "#3CAEFF";
@@ -183,7 +185,8 @@ const Main = () => {
                 </p>
               </Link>
               <Link to="/mindlist" className="Link">
-                <p className="signup"
+                <p
+                  className="signup"
                   onMouseOver={(e) => {
                     e.target.style.color = "#ffffff";
                     e.target.style.background = "#000000";
