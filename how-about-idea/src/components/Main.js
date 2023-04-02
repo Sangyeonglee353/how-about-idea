@@ -105,7 +105,7 @@ const Main = () => {
             <p className="margin"></p>
             <p className="text0">HOWAI.</p>
             <p className="text1">아이디어가 생각나지 않을 때</p>
-            <p className="text2">쉽고 빠른 AI 브레인 스토밍</p>
+            <p className="text2">쉽고 빠른 AI 브레인스토밍</p>
           </div>
 
           {sessionStorage.getItem("howai_id") === null && (
@@ -181,7 +181,7 @@ const Main = () => {
                     e.target.style.background = "#ffffff";
                   }}
                 >
-                  브레인 스토밍 시작하기
+                  브레인스토밍 시작하기
                 </p>
               </Link>
               <Link to="/mindlist" className="Link">

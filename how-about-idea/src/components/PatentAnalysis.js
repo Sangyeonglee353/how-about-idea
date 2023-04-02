@@ -3,9 +3,11 @@ import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
 import paperImg from "../images/paper.png";
 import lensImg from "../images/lens.png";
+import paperlensImg from "../images/paperlens.png";
 import ButtonFooter from "./ButtonFooter";
 
 const PatentAnalysisCSS = styled.div`
+  margin: 5vh auto 0 auto;
   text-align: center;
   font-family: "Quicksand", sans-serif;
   font-size: 15px;
@@ -37,6 +39,10 @@ const PatentAnalysisCSS = styled.div`
     position: relative;
   }
   img {
+    &.paperlens {
+      margin-top: 20px;
+      margin-left: 30px;
+    }
     &.paper {
       margin-top: 70px;
     }
@@ -57,8 +63,9 @@ const PatentAnalysis = () => {
         <div className="gsentence">날개 머시기 머시기 장치</div>
 
         <div className="analysisBox">
-          <img src={paperImg} className="paper" alt="paper" />
-          <img src={lensImg} className="lens" alt="lens" />
+          <img src={paperlensImg} className="paperlens" alt="paperlens" />
+          {/* <img src={paperImg} className="paper" alt="paper" /> */}
+          {/* <img src={lensImg} className="lens" alt="lens" /> */}
         </div>
         <p className="notice">잠시만 기다려 주세요</p>
         <ButtonFooter nextPage="/patentresult" />

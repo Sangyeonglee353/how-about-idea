@@ -6,8 +6,9 @@ import refreshImg from "../images/refresh.png";
 import { Link } from "react-router-dom";
 
 const PatentResultCSS = styled.div`
+  margin: 5vh auto 0 auto;
   text-align: center;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 15px;
   height: 800px;
 
@@ -101,7 +102,7 @@ const PatentResult = () => {
         <table className="menuBox">
           <tr>
             <td>
-              <Link to={"/home"}>
+              <Link to={"/"}>
                 <img src={homeImg} className="home" alt="home" />
               </Link>
             </td>
@@ -122,7 +123,7 @@ const PatentResult = () => {
         </table>
         <p className="notice">회원은 자동으로 결과가 저장됩니다.</p>
       </PatentResultCSS>
-      <HomeFooter />
+      {/* <HomeFooter /> */}
     </>
   );
 };
