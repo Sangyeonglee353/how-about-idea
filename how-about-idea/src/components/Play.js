@@ -48,7 +48,7 @@ const Play = () => {
       <img src={leafImage} alt="leafImage"></img>
       <input type="text"></input>
       <LevelButtons />
-      <ButtonFooter nextPage="/wordselect" />
+      <ButtonFooter nextPage="/BrainStorming" />
       {/* <HomeFooter /> */}
     </PlayCSS>
   );

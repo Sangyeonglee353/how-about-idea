@@ -258,13 +258,9 @@ function BrainStorming(){
     const [select,setSelect] = useState([json_data.root])
     const [print,setPrint] = useState([])
     const [click,setClick] = useState("단어를 선택해주세요")
-    useEffect(()=>{
+    const [enter,setEnter] = useState(false)
+    const renew_word=()=>{
 
-        setWord(json_data[json_data.root])
-
-    },[])
-    useEffect(()=>{
-        
         if(prev!==""){
 
             let buf=[...word]
@@ -285,8 +281,10 @@ function BrainStorming(){
             setSelect([...select,prev])
             
         }
-    },[prev])
-    useEffect(()=>{
+
+    }
+
+    const renew_print_all=()=>{
 
         let buf=[]
         for(let i =0;i<16;i++){
@@ -321,7 +319,74 @@ function BrainStorming(){
         }
         setPrint(buf)
 
-    },[word])
+    }
+
+    const renew_print=()=>{
+
+        let buf=[...print]
+        let idx
+        for(let i =0;i<print.length;i++){
+
+            if(word[print[i]]===prev){
+                
+                idx=i
+                break;
+            
+            }
+        }
+        console.log(idx)
+        while (true){
+
+            const rand= Math.floor(Math.random() * word.length);
+            let flag = false;
+            console.log(rand)
+            for(let j=0;j<buf.length;j++ ){
+
+                if(buf[j]===rand||prev===word[rand]){
+                    flag=true
+                    break;
+                }
+            }
+
+            if(!flag){
+
+                buf[idx]=rand
+                break
+            }
+
+        }
+
+        console.log("finish")
+
+        setPrint(buf)
+        renew_word()
+    }
+
+
+
+
+    useEffect(()=>{
+
+        setWord(json_data[json_data.root]) 
+        setEnter(true)
+    },[])
+
+    useEffect(()=>{
+
+        renew_print_all()
+
+    },[enter])
+
+
+
+    useEffect(()=>{
+        
+        if(prev!==""){
+            renew_print()
+        }
+
+    },[prev])
+
     return(
         <BrainStormingCss menu={menu}>
             <div className="word_select">
@@ -330,7 +395,7 @@ function BrainStorming(){
                     print.map((e,idx)=>{
 
                         return(
-                            <PrintedWord word={e!==-1?word[e]:""} setPrev={setPrev} key={idx}/>
+                            <PrintedWord word={e!==-1?word[e]:""} setPrev={setPrev} key={idx} />
                         )
                     })
 
@@ -344,7 +409,7 @@ function BrainStorming(){
                     <p className="tool" onClick={()=>setMenu(true)}>도구</p>
                 </div>
                 <div className="slider">
-                    <div className="container">
+                    <div className="container" >
 
                         <div className="word_container">
                             <div className="words">
