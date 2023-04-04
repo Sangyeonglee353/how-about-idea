@@ -190,15 +190,22 @@ display:flex;
         overflow:hidden;
         transform: translate(${props=>props.menu?-100:0}%);
         transition:0.5s;
+        
+        .word_container{
+
+            width:100%;
+            overflow-x:hidden;
+            overflow-y:scroll;
+            height:70vh;
+        }
+
         .words{
 
             margin: 2% 2%;
             width:96%;
-            height:65vh;
             display:flex;
-            overflow-y:scroll;
             flex-wrap:wrap;
-            background:red;
+
         }   
 
         .tools{
@@ -319,18 +326,21 @@ function BrainStorming(){
                 </div>
                 <div className="slider">
                     <div className="container">
-                        <div className="words">
 
-                            {
-                                
-                                select.map((e,idx)=>{
+                        <div className="word_container">
+                            <div className="words">
 
-                                    return(<Node word={e} setMenu={setMenu} key={idx}/>)
+                                {
+                                    
+                                    select.map((e,idx)=>{
 
-                                })
-                            }
+                                        return(<Node word={e} setMenu={setMenu} key={idx}/>)
+
+                                    })
+                                }
+                            </div>
                         </div>
-
+                    
                         <div className="tools">
 
                         </div>
