@@ -168,7 +168,7 @@ function App() {
       <BrowserRouter basename={"how-about-idea"}>
         <Header sidebar={sidebar} setSideBar={setSideBar} />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route  path="/" exact={true} element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/mindlist" element={<MindList />} />

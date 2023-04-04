@@ -16,7 +16,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-
 `
 
 function PrintedWord(props){
@@ -43,7 +42,7 @@ const NodeCss = styled.div`
   border: 1px solid skyblue;
   border-radius: 12px;
   margin:1% 1.5%;
-  padding:1% 1.5%;
+  
   .wrap{
     width:200%;
     display: flex;
@@ -105,12 +104,12 @@ function Node(props){
           <p className="cancle" 
           onClick={()=>{
             menu.current.style.transform="translate(0%)"
-            //props.tool.current.innertext="단어를 선택해 주세요"
+            props.setClick("단어를 선택해주세요")
           }}>취소</p>
 
           <p className="add" 
           onClick={()=>{
-            //props.tool.current.innerText=props.word
+            props.setClick(props.word)
             menu.current.style.transform="translate(0%)"
             props.setMenu(true)
           }}>선택</p>
@@ -188,7 +187,7 @@ display:flex;
         height:90%;
         display:flex;
         overflow:hidden;
-        transform: translate(${props=>props.menu?-100:0}%);
+        transform: translate(${props=>props.menu?-50:0}%);
         transition:0.5s;
         
         .word_container{
@@ -200,7 +199,7 @@ display:flex;
         }
 
         .words{
-
+            
             margin: 2% 2%;
             width:96%;
             display:flex;
@@ -213,6 +212,25 @@ display:flex;
             margin: 2% 2%;
             width:96%;
             height:96%;
+
+            .select{
+
+                width:100%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+
+                span{
+                    
+                    background:rgba(0,0,0,0.1);
+                    border-radius:12px;
+                    padding: 5% 5%;
+                    max-width:60%;
+                    min-width:40%;
+                    word-break:break-all;
+                    text-align:center;
+                }
+            }
         }
 
     }
@@ -234,11 +252,12 @@ function BrainStorming(){
         시츄:["소형견","똑똑함","조용함","갈색","흰색"]
     };
 
-    const [menu,setMenu] = useState(false)
+    const [menu,setMenu] = useState(true)
     const [word,setWord] = useState([])
     const [prev,setPrev] = useState("")
     const [select,setSelect] = useState([json_data.root])
     const [print,setPrint] = useState([])
+    const [click,setClick] = useState("단어를 선택해주세요")
     useEffect(()=>{
 
         setWord(json_data[json_data.root])
@@ -334,7 +353,7 @@ function BrainStorming(){
                                     
                                     select.map((e,idx)=>{
 
-                                        return(<Node word={e} setMenu={setMenu} key={idx}/>)
+                                        return(<Node word={e} setMenu={setMenu} key={idx} setClick={setClick}/>)
 
                                     })
                                 }
@@ -342,6 +361,14 @@ function BrainStorming(){
                         </div>
                     
                         <div className="tools">
+                           
+                            <div className="select">
+                                <span>    
+                                {click}
+                                </span>
+                            </div>
+
+                            <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
 
                         </div>
                     </div>
