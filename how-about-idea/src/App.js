@@ -15,6 +15,7 @@ import MindList from "./components/MindList";
 import Play from "./components/Play";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
+import BrainStorming from "./components/BrainStorming";
 import WordSelect from "./components/WordSelect";
 import NodeSelect from "./components/NodeSelect";
 import TrizSelect from "./components/TrizSelect";
@@ -178,6 +179,7 @@ function App() {
           <Route path="/trizselect" element={<TrizSelect />} />
           <Route path="/patentanalysis" element={<PatentAnalysis />} />
           <Route path="/patentresult" element={<PatentResult />} />
+          <Route path="/BrainStorming" element={<BrainStorming/>} />
         </Routes>
         <div
           className="back"
