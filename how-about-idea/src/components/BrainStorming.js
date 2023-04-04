@@ -333,15 +333,16 @@ function BrainStorming(){
                 break;
             
             }
+
         }
-        console.log(idx)
-        while (true){
+
+       // while (true){
 
             const rand= Math.floor(Math.random() * word.length);
             let flag = false;
-            console.log(rand)
-            for(let j=0;j<buf.length;j++ ){
-
+            for(let j=0;j<buf.length; j++ ){
+                
+                console.log(j)
                 if(buf[j]===rand||prev===word[rand]){
                     flag=true
                     break;
@@ -351,15 +352,10 @@ function BrainStorming(){
             if(!flag){
 
                 buf[idx]=rand
-                break
             }
 
-        }
-
-        console.log("finish")
-
-        setPrint(buf)
-        renew_word()
+        //}
+        //setPrint(buf)
     }
 
 
@@ -369,6 +365,7 @@ function BrainStorming(){
 
         setWord(json_data[json_data.root]) 
         setEnter(true)
+        
     },[])
 
     useEffect(()=>{
@@ -386,6 +383,12 @@ function BrainStorming(){
         }
 
     },[prev])
+
+    useEffect(()=>{
+
+        renew_word()
+
+    },[print])
 
     return(
         <BrainStormingCss menu={menu}>
