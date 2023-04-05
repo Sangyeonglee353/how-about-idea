@@ -330,4 +330,4 @@ const MindMap = (props) => {
   );
 };
 
-export default MindMap;
+export default React.memo(MindMap);
