@@ -261,6 +261,8 @@ function BrainStorming(){
     const [enter,setEnter] = useState(false)
     const renew_word=()=>{
 
+        let flag = false
+
         if(prev!==""){
 
             let buf=[...word]
@@ -270,8 +272,10 @@ function BrainStorming(){
 
                     buf.splice(i,1)
                     
-                    if(json_data[prev]!==undefined)
+                    if(json_data[prev]!==undefined){
                        setWord (buf.concat(json_data[prev]))
+                       flag = true
+                    }
                     else
                         setWord(buf)
                     break
@@ -279,8 +283,9 @@ function BrainStorming(){
             }
 
             setSelect([...select,prev])
-            
         }
+
+        return flag
 
     }
 
@@ -322,10 +327,11 @@ function BrainStorming(){
     }
 
     const renew_print=()=>{
-
+       
+            
         let buf=[...print]
         let idx
-        for(let i =0;i<print.length;i++){
+        for(let i =0;i<buf.length;i++){
 
             if(word[print[i]]===prev){
                 
@@ -336,26 +342,43 @@ function BrainStorming(){
 
         }
 
-       // while (true){
+        const update = renew_word()
+        console.log(update)
+        if(update){
 
-            const rand= Math.floor(Math.random() * word.length);
-            let flag = false;
-            for(let j=0;j<buf.length; j++ ){
-                
-                console.log(j)
-                if(buf[j]===rand||prev===word[rand]){
-                    flag=true
-                    break;
+            while (true){
+
+                const rand= Math.floor(Math.random() * word.length);
+                let flag = false;
+                for(let j=0;j<buf.length; j++ ){
+                    if(buf[j]===rand){
+                        flag=true
+                        break;
+                    }
                 }
+
+                console.log("----------------------")
+
+                if(!flag){
+
+                    buf[idx]=rand
+                    break
+                }
+
             }
+            
+        }
 
-            if(!flag){
+        else{
 
-                buf[idx]=rand
-            }
+            buf.splice(idx,1)
+            buf.push(-1)
+        }
 
-        //}
-        //setPrint(buf)
+        setPrint(buf)
+
+    
+
     }
 
 
