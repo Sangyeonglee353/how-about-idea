@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import HomeFooter from "./HomeFooter";
+import axios from "axios";
 
 const NodeSelectCSS = styled.div`
   margin-top: 10px;
@@ -112,6 +113,31 @@ const NodeSelect = () => {
     setResetActive(true);
   };
 
+  // 문장 생성 AI 데이터 전송
+  const [input, setInput] = useState([]);
+  const [output, setOutput] = useState([]);
+
+  // 1. 문장생성 완료 여부
+  const [isMakeCompleted, setIsMakeCompleted] = useState(false);
+
+  const getSentence = () => {
+    const data = {
+      // firstWord: "비행기",
+      firstWord: selectedNode[0].label,
+    };
+    axios
+      .post("http://localhost:5000/api/hello", data)
+      .then((response) => {
+        // 응답데이터 처리
+        setOutput(response);
+        console.log("결과값: ", output);
+        // 문장생성 완료 여부 처리
+        setIsMakeCompleted(true);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
   return (
     <NodeSelectCSS>
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
@@ -137,13 +163,16 @@ const NodeSelect = () => {
         <div className="word" id="secondWord">
           <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
         </div>
+        <button type="button" onClick={getSentence}>
+          문장 생성 TEST
+        </button>
       </div>
       <div className="btnList">
         <button id="resetWord" onClick={resetSelectedNode}>
           초기화
         </button>
         {!completeSelected ? (
-          <button id="nextPage">다음</button>
+          <button id="nextPage">문장 생성</button>
         ) : (
           <Link
             to={"/patentAnalysis"}
@@ -152,13 +181,25 @@ const NodeSelect = () => {
               word2: selectedNode[1].label,
             }}
           >
-            <button className="activeBtn" id="nextPage">
-              다음
+            <button className="activeBtn" id="nextPage" onClick={getSentence}>
+              문장 생성
             </button>
           </Link>
         )}
+        {/* {isMakeCompleted ? (
+          <Navigate
+            to={"/patentAnalysis"}
+            state={{
+              word1: selectedNode[0].label,
+              word2: selectedNode[1].label,
+            }}
+          />
+        ) : (
+          <button className="activeBtn" id="nextPage" onClick={getSentence}>
+            문장 생성
+          </button>
+        )} */}
       </div>
-      {/* <HomeFooter /> */}
     </NodeSelectCSS>
   );
 };
