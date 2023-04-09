@@ -238,15 +238,15 @@ function Register() {
   }, [account]);
 
   // 백엔드_회원가입 데이터 전달
-  const SignUpHandler = (props) => {
+  const signUpHandler = () => {
     const data = {
-      userId: props.id,
-      userEmail: props.email,
-      userPassword: props.pw,
-      userPasswordCheck: props.pw_check,
+      userId: account.id,
+      userEmail: account.email,
+      userPassword: account.pw,
+      userPasswordCheck: account.pw_check,
     };
     axios
-      .post("http://localhost:8080/how-about-idea", data)
+      .post("http://localhost:8080/", data)
       .then((response) => {
         console.log("SignUp Success!!");
       })
@@ -379,7 +379,8 @@ function Register() {
               else if (!isvaild.pw_check) alert("비밀번호가 서로 다릅니다");
               else {
                 sessionStorage.setItem("howai_id", account.id);
-                SignUpHandler(account);
+                signUpHandler();
+                alert(account.id + "님 회원가입을 축하드립니다.");
                 window.location.href = "/how-about-idea/";
               }
             }}

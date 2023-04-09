@@ -39,7 +39,13 @@ const NodeSelectCSS = styled.div`
         line-height: 50px;
       }
     }
+    .sentence {
+      margin-top: 30px;
+      font-size: 20px;
+      text-align: center;
+    }
   }
+
   .btnList {
     position: fixed;
     bottom: 0;
@@ -121,10 +127,15 @@ const NodeSelect = () => {
   const [isMakeCompleted, setIsMakeCompleted] = useState(false);
 
   const getSentence = () => {
+    if (selectedNode.length == 0) {
+      alert("단어를 선택해주세요!");
+      return;
+    }
     const data = {
       // firstWord: "비행기",
       firstWord: selectedNode[0].label,
     };
+
     axios
       .post("http://localhost:5000/api/hello", data)
       .then((response) => {
@@ -133,6 +144,7 @@ const NodeSelect = () => {
         console.log("결과값: ", output);
         // 문장생성 완료 여부 처리
         setIsMakeCompleted(true);
+        alert("문장 생성 완료!");
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -145,7 +157,7 @@ const NodeSelect = () => {
       <Mind
         width={mindWidth}
         height={mindHeight}
-        onUserZoom={false}
+        onUserZoom={true}
         onRefreshBtn={true}
         onUnSelect={false}
         onUnNodeMove={true}
@@ -163,9 +175,7 @@ const NodeSelect = () => {
         <div className="word" id="secondWord">
           <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
         </div>
-        <button type="button" onClick={getSentence}>
-          문장 생성 TEST
-        </button>
+        <p className="sentence">{output.data}</p>
       </div>
       <div className="btnList">
         <button id="resetWord" onClick={resetSelectedNode}>
@@ -174,26 +184,20 @@ const NodeSelect = () => {
         {!completeSelected ? (
           <button id="nextPage">문장 생성</button>
         ) : (
-          <Link
-            to={"/patentAnalysis"}
-            state={{
-              word1: selectedNode[0].label,
-              word2: selectedNode[1].label,
-            }}
-          >
-            <button className="activeBtn" id="nextPage" onClick={getSentence}>
-              문장 생성
-            </button>
-          </Link>
+          // <Link
+          //   to={"/patentAnalysis"}
+          //   state={{
+          //     word1: selectedNode[0].label,
+          //     word2: selectedNode[1].label,
+          //   }}
+          // >
+          <button className="activeBtn" id="nextPage" onClick={getSentence}>
+            문장 생성
+          </button>
+          // </Link>
         )}
         {/* {isMakeCompleted ? (
-          <Navigate
-            to={"/patentAnalysis"}
-            state={{
-              word1: selectedNode[0].label,
-              word2: selectedNode[1].label,
-            }}
-          />
+          <Navigate to={"/patentResult"} sentence={output.data} />
         ) : (
           <button className="activeBtn" id="nextPage" onClick={getSentence}>
             문장 생성

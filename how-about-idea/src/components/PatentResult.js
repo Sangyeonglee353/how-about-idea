@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeFooter from "./HomeFooter";
 import homeImg from "../images/home.png";
 import refreshImg from "../images/refresh.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const PatentResultCSS = styled.div`
   margin: 5vh auto 0 auto;
@@ -71,12 +71,15 @@ const PatentResultCSS = styled.div`
   }
 `;
 
-const PatentResult = () => {
+const PatentResult = (props) => {
+  const testData = useLocation();
+  useEffect(() => console.log(testData));
   return (
     <>
       <PatentResultCSS>
         <p>특허청 분석 결과</p>
-        <div className="gsentence">날개 머시기 머시기 장치</div>
+        {/* <div className="gsentence">날개 머시기 머시기 장치</div> */}
+        <div className="gsentence">{props.sentence}</div>
         <table className="idea-table">
           <tr>
             <th>비슷한 아이디어</th>
