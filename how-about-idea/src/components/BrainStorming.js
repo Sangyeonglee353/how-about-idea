@@ -394,4 +394,243 @@ function BrainStorming() {
   );
 }
 
+<<<<<<< Updated upstream
 export default BrainStorming;
+=======
+`
+
+
+
+function BrainStorming(){
+
+    let json_data = {
+        root: "개",
+        개: ["리트리버", "푸들", "시츄", "말티즈", "웰시코기", "고양이"],
+        고양이: ["브리티시 숏헤어", "러시안 블루", "페르시안"],
+        리트리버: ["갈색", "대형견", "사냥"],
+        푸들:["대형견","흰색", "곱슬", "영국","말티푸"],
+        시츄:["소형견","똑똑함","조용함","갈색","흰색"]
+    };
+
+    const [menu,setMenu] = useState(true)
+    const [word,setWord] = useState([])
+    const [prev,setPrev] = useState("")
+    const [select,setSelect] = useState([json_data.root])
+    const [print,setPrint] = useState([])
+    const [click,setClick] = useState("단어를 선택해주세요")
+    const [enter,setEnter] = useState(false)
+    const renew_word=()=>{
+
+        let flag = false
+        let word_buf=[...word]
+        let print_buf=[...print]
+        let idx = -1
+        let print_idx =-1
+        let print_len = 0
+        for (let i =0 ; i<word_buf.length ;i++){
+
+            if(word_buf[i]===prev){
+                
+                if(json_data[prev]!==undefined){
+                    word_buf =  word_buf.concat(json_data[prev])
+                    flag = true
+                }
+
+                idx=i;
+
+                break
+            }
+        }
+
+        if(flag){
+
+            const len = word_buf.length>16?16:word_buf.length
+            while (true){
+                const rand= Math.floor(Math.random() * word_buf.length);
+                let flag1 = false;
+                for(let j=0;j<print_buf.length; j++ ){
+                    console.log(print_buf[j],rand)
+                    if(print_idx===-1&&print_buf[j]===prev)
+                        print_idx=j
+
+                    if(print_buf[j]===rand){
+                        flag1=true
+                        break;
+                    }
+
+                    if(print_buf[j]===-1)
+                    {
+                        print_len = j+1
+                        flag1=false
+                        break
+                    }
+                }
+
+                if(!flag1){
+
+                    print_buf[print_idx]=rand
+                    break
+                }
+
+            }
+            console.log("___________________________")
+            console.log(print_buf.length,len)
+
+            while(print_len<len){
+
+                const rand= Math.floor(Math.random() * word_buf.length);
+                flag1 = false;
+                for(let j=0;j<print_buf.length; j++ ){
+
+                    if(print_buf[j]===rand){
+                        flag1=true
+                        break;
+                    }
+                }
+
+                if(!flag1){
+                    print_len+=1
+                    print_buf.push(rand)
+                }
+            }
+
+            print_buf.splice(print_idx,1)
+        }
+
+        else{
+
+            print_buf.splice(idx,1)
+            print_buf.push(-1)
+        }
+
+        word_buf.splice(idx,1)
+        setSelect([...select,prev])
+        setWord (word_buf)
+        setPrint(print_buf)
+
+
+    }
+
+    const renew_print_all=()=>{
+
+        let buf=[]
+        for(let i =0;i<16;i++){
+
+            if(word.length>buf.length){
+            
+                while (true){
+
+                    const rand= Math.floor(Math.random() * word.length);
+                    let flag = false;
+                    for(let j=0;j<buf.length;j++ ){
+
+                        if(buf[j]===rand){
+                            flag=true
+                            break;
+                        }
+                    }
+
+                    if(!flag){
+
+                        buf.push(rand)
+                        break
+                    }
+
+                }
+            }
+
+            else{
+
+                buf.push(-1)
+            }
+        }
+        setPrint(buf)
+
+    }
+
+
+
+    useEffect(()=>{
+
+        setWord(json_data[json_data.root]) 
+        setEnter(true)
+        
+    },[])
+
+    useEffect(()=>{
+
+        renew_print_all()
+
+    },[enter])
+
+
+
+    useEffect(()=>{
+        
+        if(prev!==""){
+            renew_word()
+        }
+
+    },[prev])
+
+
+    return(
+        <BrainStormingCss menu={menu}>
+            <div className="word_select">
+                {
+
+                    print.map((e,idx)=>{
+
+                        return(
+                            <PrintedWord word={e!==-1?word[e]:""} setPrev={setPrev} key={idx} />
+                        )
+                    })
+
+
+
+                }
+            </div>
+            <div className="menu">
+                <div className="title">
+                    <p className="word" onClick={()=>setMenu(false)}>단어</p>
+                    <p className="tool" onClick={()=>setMenu(true)}>도구</p>
+                </div>
+                <div className="slider">
+                    <div className="container" >
+
+                        <div className="word_container">
+                            <div className="words">
+
+                                {
+                                    
+                                    select.map((e,idx)=>{
+
+                                        return(<Node word={e} setMenu={setMenu} key={idx} setClick={setClick}/>)
+
+                                    })
+                                }
+                            </div>
+                        </div>
+                    
+                        <div className="tools">
+                           
+                            <div className="select">
+                                <span>    
+                                {click}
+                                </span>
+                            </div>
+
+                            <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </BrainStormingCss>
+    )
+
+}
+
+
+export default BrainStorming
+>>>>>>> Stashed changes
