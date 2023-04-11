@@ -26,7 +26,7 @@ function PrintedWord(props){
         let print_buf = [...props.print]
         
         for ( let i=0 ; i<print_buf.length; i++){
-            console.log(props.word , print_buf[i])
+
             if( props.word === print_buf[i])
                 print_buf.splice(i,1)
 
@@ -51,26 +51,35 @@ function PrintedWord(props){
 
         const len = 16-print_buf.length
 
-        for(let i =0; i<len && print_buf.length<word_buf.length;){
+        for(let i =0; i<len ;){
+            if(print_buf.length<word_buf.length){
+                while (true){
 
-            while (true){
-
-                const rand= Math.floor(Math.random() *word_buf.length);
-                let flag = false;
-                for(let j=0;j<print_buf.length; j++ ){
-                    if(print_buf[j]===word_buf[rand]){
-                        flag=true
-                        break;
+                    const rand= Math.floor(Math.random() *word_buf.length);
+                    let flag = false;
+                    for(let j=0;j<print_buf.length; j++ ){
+                        if(print_buf[j]===word_buf[rand]){
+                            flag=true
+                            break;
+                        }
                     }
+        
+                    if(!flag){
+                        print_buf.push(word_buf[rand])
+                        i++
+                        break
+                    }
+        
                 }
-    
-                if(!flag){
-                    print_buf.push(word_buf[rand])
-                    i++
-                    break
-                }
-    
             }
+
+            else{
+
+                print_buf.push(-1)
+                i++
+
+            }
+             
         }
 
         props.setPrint([...print_buf])
@@ -190,7 +199,7 @@ background:rgba(0,0,0,0.1);
 display:flex;
 
 .word_select{
-
+    transition:0.3s;
     width:46vw;
     height:80vh;
     background:#ffffff;
@@ -401,7 +410,7 @@ function BrainStorming(){
                     <p className="word" onClick={()=>setMenu(false)}>단어</p>
                     <p className="tool" onClick={()=>setMenu(true)}>도구</p>
                 </div>
-                <div className="slider" onClick={()=>{console.log(print)}}>
+                <div className="slider" >
                     <div className="container" >
 
                         <div className="word_container">
