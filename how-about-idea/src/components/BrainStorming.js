@@ -20,16 +20,13 @@ justify-content:center;
 
 function PrintedWord(props){
 
-    const [word,setWord] = useState(props.word)
-
-
     const renew_word=()=>{
 
         let word_buf=[...props.wordList]
         let print_buf = [...props.print]
         for ( let i=0 ; i<print_buf.length; i++){
 
-            if( word === print_buf[i])
+            if( props.word === print_buf[i])
                 print_buf.splice(i,1)
 
             if(print_buf[i]===-1){
@@ -41,33 +38,12 @@ function PrintedWord(props){
 
         for ( let i=0 ; i<print_buf.length; i++){
 
-            if(word === word_buf[i]){
+            if(props.word === word_buf[i]){
 
                 word_buf.splice(i,1)
-                if(props.json_data[word]!==undefined)
-                    word_buf = [...word_buf,...props.json_data[word]]
+                if(props.json_data[props.word]!==undefined)
+                    word_buf = [...word_buf,...props.json_data[props.word]]
                 break;
-            }
-
-        }
-
-
-
-        while (true){
-
-            const rand= Math.floor(Math.random() *props.wordList.length);
-            let flag = false;
-            for(let j=0;j<print_buf.length; j++ ){
-                if(print_buf[j]===word_buf[rand]){
-                    flag=true
-                    break;
-                }
-            }
-
-            if(!flag){
-
-                print_buf.push(word_buf[rand])
-                break
             }
 
         }
@@ -103,16 +79,16 @@ function PrintedWord(props){
     return(
 
         <PrintedWordCss onClick={()=>{
-            if(word!==""){
+            if(props.word!==""){
 
-                props.setPrev(word)
+                props.setPrev(props.word)
                 renew_word()
                 
             }
         
         }}>
 
-            {word}
+            {props.word}
 
         </PrintedWordCss>
 
