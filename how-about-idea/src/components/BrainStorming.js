@@ -24,8 +24,9 @@ function PrintedWord(props){
 
         let word_buf=[...props.wordList]
         let print_buf = [...props.print]
+        
         for ( let i=0 ; i<print_buf.length; i++){
-
+            console.log(props.word , print_buf[i])
             if( props.word === print_buf[i])
                 print_buf.splice(i,1)
 
@@ -325,15 +326,13 @@ function BrainStorming(){
         let buf=[]
         for(let i =0;i<16;i++){
 
-            if(word.length>buf.length){
-            
+            if(buf.length<word.length){
                 while (true){
-
                     const rand= Math.floor(Math.random() * word.length);
                     let flag = false;
                     for(let j=0;j<buf.length;j++ ){
 
-                        if(buf[j]===rand){
+                        if(buf[j]===word[rand]){
                             flag=true
                             break;
                         }
@@ -348,8 +347,8 @@ function BrainStorming(){
                 }
             }
 
-            else{
 
+            else{
                 buf.push(-1)
             }
         }
