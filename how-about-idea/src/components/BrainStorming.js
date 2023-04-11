@@ -392,8 +392,6 @@ function BrainStorming(){
             renew_word()
         }
 
-        else if(prev!==""&&isclick)
-        alert("빨라")
 
     },[prev])
 
