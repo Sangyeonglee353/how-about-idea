@@ -14,6 +14,7 @@ const PrintedWordCss = styled.div`
   justify-content: center;
 `;
 
+<<<<<<< Updated upstream
 function PrintedWord(props) {
   return (
     <PrintedWordCss
@@ -24,6 +25,116 @@ function PrintedWord(props) {
       {props.word}
     </PrintedWordCss>
   );
+=======
+
+width:25%;
+height:25%;
+display:flex;
+align-items:center;
+justify-content:center;
+
+`
+
+function PrintedWord(props){
+
+    const [word,setWord] = useState(props.word)
+
+
+    const renew_word=()=>{
+
+        let word_buf=[...props.wordList]
+        let print_buf = [...props.print]
+        for ( let i=0 ; i<print_buf.length; i++){
+
+            if( word === print_buf[i])
+                print_buf.splice(i,1)
+
+            if(print_buf[i]===-1){
+                print_buf = print_buf.splice(0,i)
+                break
+            }
+        }
+
+
+        for ( let i=0 ; i<print_buf.length; i++){
+
+            if(word === word_buf[i]){
+
+                word_buf.splice(i,1)
+                if(props.json_data[word]!==undefined)
+                    word_buf = [...word_buf,...props.json_data[word]]
+                break;
+            }
+
+        }
+
+
+
+        while (true){
+
+            const rand= Math.floor(Math.random() *props.wordList.length);
+            let flag = false;
+            for(let j=0;j<print_buf.length; j++ ){
+                if(print_buf[j]===word_buf[rand]){
+                    flag=true
+                    break;
+                }
+            }
+
+            if(!flag){
+
+                print_buf.push(word_buf[rand])
+                break
+            }
+
+        }
+
+        const len = 16-print_buf.length
+
+        for(let i =0; i<len && print_buf.length<word_buf.length;){
+
+            while (true){
+
+                const rand= Math.floor(Math.random() *word_buf.length);
+                let flag = false;
+                for(let j=0;j<print_buf.length; j++ ){
+                    if(print_buf[j]===word_buf[rand]){
+                        flag=true
+                        break;
+                    }
+                }
+    
+                if(!flag){
+                    print_buf.push(word_buf[rand])
+                    i++
+                    break
+                }
+    
+            }
+        }
+
+        props.setPrint([...print_buf])
+        props.setWord([...word_buf])
+    }
+
+    return(
+
+        <PrintedWordCss onClick={()=>{
+            if(word!==""){
+
+                props.setPrev(word)
+                renew_word()
+                
+            }
+        
+        }}>
+
+            {word}
+
+        </PrintedWordCss>
+
+    )
+>>>>>>> Stashed changes
 }
 
 const NodeCss = styled.div`
@@ -419,6 +530,7 @@ function BrainStorming(){
     const [print,setPrint] = useState([])
     const [click,setClick] = useState("단어를 선택해주세요")
     const [enter,setEnter] = useState(false)
+<<<<<<< Updated upstream
     const renew_word=()=>{
 
         let flag = false
@@ -510,6 +622,8 @@ function BrainStorming(){
 
 
     }
+=======
+>>>>>>> Stashed changes
 
     const renew_print_all=()=>{
 
@@ -532,7 +646,7 @@ function BrainStorming(){
 
                     if(!flag){
 
-                        buf.push(rand)
+                        buf.push(word[rand])
                         break
                     }
 
@@ -544,12 +658,19 @@ function BrainStorming(){
                 buf.push(-1)
             }
         }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         setPrint(buf)
 
     }
 
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
     useEffect(()=>{
 
         setWord(json_data[json_data.root]) 
@@ -559,13 +680,15 @@ function BrainStorming(){
 
     useEffect(()=>{
 
-        renew_print_all()
+        if(word.length!==0)
+          renew_print_all()
 
     },[enter])
 
-
+    
 
     useEffect(()=>{
+<<<<<<< Updated upstream
         
         if(prev!==""){
             renew_word()
@@ -574,6 +697,14 @@ function BrainStorming(){
     },[prev])
 
 
+=======
+
+        if(prev!=="")
+            setSelect([...select,prev])
+
+    },[prev])
+
+>>>>>>> Stashed changes
     return(
         <BrainStormingCss menu={menu}>
             <div className="word_select">
@@ -582,11 +713,11 @@ function BrainStorming(){
                     print.map((e,idx)=>{
 
                         return(
-                            <PrintedWord word={e!==-1?word[e]:""} setPrev={setPrev} key={idx} />
+                            <PrintedWord word={e!==-1?e:""} setPrev={setPrev} key={idx}  json_data={json_data}
+                             wordList={word} setWord={setWord} print={print} setPrint={setPrint} 
+                            />
                         )
                     })
-
-
 
                 }
             </div>
@@ -595,7 +726,7 @@ function BrainStorming(){
                     <p className="word" onClick={()=>setMenu(false)}>단어</p>
                     <p className="tool" onClick={()=>setMenu(true)}>도구</p>
                 </div>
-                <div className="slider">
+                <div className="slider" onClick={()=>{console.log(print)}}>
                     <div className="container" >
 
                         <div className="word_container">
@@ -605,7 +736,7 @@ function BrainStorming(){
                                     
                                     select.map((e,idx)=>{
 
-                                        return(<Node word={e} setMenu={setMenu} key={idx} setClick={setClick}/>)
+                                        return(<Node word={e} setMenu={setMenu} key={idx}  setClick={setClick} />)
 
                                     })
                                 }
