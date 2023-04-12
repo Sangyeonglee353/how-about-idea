@@ -16,6 +16,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
+transition:0.3s;
 .root,.word{
 
     display:flex;
@@ -34,19 +35,33 @@ flex-direction:column;
 
 function PrintedWord(props){
 
-
+    const back = useRef()
+    const root = useRef()
+    const word = useRef()
     return(
 
-        <PrintedWordCss onClick={()=>{
+        <PrintedWordCss ref = {back} onClick={()=>{
             if(props.word!==""){
-
                 props.setPrev([props.word,props.root])
-  
             }
+        }}
         
+        onMouseOver={()=>{
+            
+            back.current.style.background="#3CAEFF"
+            root.current.style.color="#ffffff"
+            word.current.style.color="#ffffff"
+        }}
+        
+        onMouseLeave={()=>{
+
+            back.current.style.background="#ffffff"
+            root.current.style.color="#000000"
+            word.current.style.color="#000000"
+
         }}>
-            <p className="root">{props.root}</p>
-            <p className="word">{props.word}</p>
+            <p className="root" ref={root}>{props.root}</p>
+            <p className="word" ref={word}>{props.word}</p>
             
         </PrintedWordCss>
 
