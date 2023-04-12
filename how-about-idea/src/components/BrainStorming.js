@@ -26,7 +26,7 @@ function PrintedWord(props){
         <PrintedWordCss onClick={()=>{
             if(props.word!==""){
 
-                props.setPrev(props.word)
+                props.setPrev([props.word,props.root])
   
             }
         
@@ -273,14 +273,13 @@ function BrainStorming(){
                     let flag = false;
                     for(let j=0;j<buf.length;j++ ){
 
-                        if(buf[j]===word.current[rand]){
+                        if(buf[j][0]===word.current[rand][0]&&buf[j][1]===word.current[rand][1]){
                             flag=true
                             break;
                         }
                     }
 
                     if(!flag){
-
                         buf.push(word.current[rand])
                         break
                     }
@@ -290,7 +289,7 @@ function BrainStorming(){
 
 
             else{
-                buf.push(-1)
+                buf.push([-1,-1])
             }
 
         }
@@ -306,10 +305,10 @@ function BrainStorming(){
 
         for ( let i=0 ; i<print_buf.length; i++){
 
-            if( prev === print_buf[i])
+            if( prev[0] === print_buf[i][0] && prev[1] === print_buf[i][1])
                 print_buf.splice(i,1)
 
-            if(print_buf[i]===-1){
+            if(print_buf[i][0]===-1){
                 print_buf = print_buf.splice(0,i)
                 break
             }
@@ -317,12 +316,21 @@ function BrainStorming(){
 
         for ( let i=0 ; i<word_buf.length; i++){
 
-            if(prev === word_buf[i]){
+            if(prev[0] === word_buf[i][0]&&prev[1] === word_buf[i][1]){
 
                 word_buf.splice(i,1)
-                if(json_data[prev]!==undefined)
-                    word_buf = [...word_buf,...json_data[prev]]
-                break;
+                
+                if(json_data[prev[0]]!==undefined){
+                    let tmp=[]
+                    for(let j =0;j<json_data[prev[0]].length;j++){
+
+                        tmp.push([json_data[prev[0]][j],prev[0]])
+
+                    }
+                    word_buf = [...word_buf,...tmp]
+
+                }
+                break;  
             }
 
         }
@@ -338,7 +346,7 @@ function BrainStorming(){
                     const rand= Math.floor(Math.random() *word_buf.length);
                     let flag = false;   
                     for(let j=0;j<print_buf.length; j++ ){
-                        if(print_buf[j]===word_buf[rand]){
+                        if(print_buf[j][0]===word_buf[rand][0] && print_buf[j][1]===word_buf[rand][1]){
                             flag=true
                             break;
                         }
@@ -355,7 +363,7 @@ function BrainStorming(){
 
             else{
 
-                print_buf.push(-1)
+                print_buf.push([-1,-1])
                 i++
 
             }
@@ -373,7 +381,13 @@ function BrainStorming(){
     useEffect(()=>{
         const  root = decodeURI(location.search.split("root=")[1])
         setSelect([root])
-        word.current=[...json_data[root]]
+        let buf = []
+        for(let i =0 ; i<json_data[root].length;i++){
+
+            buf.push([json_data[root][i],root])
+
+        }
+        word.current=[...buf]
         if(word.length!==0)
           renew_print_all()
 
@@ -403,9 +417,9 @@ function BrainStorming(){
                 {
 
                     print.map((e,idx)=>{
-
+                        
                         return(
-                            <PrintedWord word={e!==-1?e:""} setPrev={setPrev} key={idx} />
+                            <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} root={e[1]!==-1?e[1]:""}/>
                         )
                     })
 
@@ -426,7 +440,7 @@ function BrainStorming(){
                                     
                                     select.map((e,idx)=>{
 
-                                        return(<Node word={e} setMenu={setMenu} key={idx}  setClick={setClick} />)
+                                        return(<Node word={e[0]} root={e[1]} setMenu={setMenu} key={idx}  setClick={setClick} />)
 
                                     })
                                 }
@@ -441,7 +455,11 @@ function BrainStorming(){
                                 </span>
                             </div>
 
-                            <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
+                            <div className="">
+                                
+                                <FontAwesomeIcon icon="fa-solid fa-chevron-right" /> 
+                            
+                            </div>
 
                         </div>
                     </div>
