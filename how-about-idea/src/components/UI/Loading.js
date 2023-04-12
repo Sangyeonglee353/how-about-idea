@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 const LoadingCSS = styled.div`
-  font-size: 25px;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
   position: absolute;
   left: 50%;
   top: 50%;
   z-index: 999;
+  font-size: 25px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
   text-indent: -9999em;
   -webkit-animation: load5 1.1s infinite ease;
   animation: load5 1.1s infinite ease;
