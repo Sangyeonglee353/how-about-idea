@@ -69,10 +69,9 @@ const FeedDetail = (props) => {
           onUnNodeMove={true}
         />
         <p>
-          <b>입력 문장:</b> 선풍기 <br />
+          <b>입력 단어:</b> 선풍기 <br />
           <br />
-          <b>트리즈 기법:</b> {trizType} <br />
-          <b>트리즈 문장:</b> {sentence}
+          <b>생성 문장:</b> {sentence}
         </p>
         <br />
         <div>

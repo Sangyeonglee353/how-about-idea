@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import HomeFooter from "./HomeFooter";
 import axios from "axios";
+import Loading from "./UI/Loading";
 
 const NodeSelectCSS = styled.div`
   margin-top: 10px;
@@ -94,6 +95,10 @@ const NodeSelect = () => {
   const [completeSelected, setCompleteSelected] = useState(false);
   const [resetActive, setResetActive] = useState(false);
 
+  const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
+  const [loading, setLoading] = useState(false); // 로딩 관련
+  const [isMakeCompleted, setIsMakeCompleted] = useState(false); // 1. 문장생성 완료 여부
+
   /* Select Node data manage */
   const [selectedNode, setSelectedNode] = useState([]);
 
@@ -119,13 +124,6 @@ const NodeSelect = () => {
     setResetActive(true);
   };
 
-  // 문장 생성 AI 데이터 전송
-  const [input, setInput] = useState([]);
-  const [output, setOutput] = useState([]);
-
-  // 1. 문장생성 완료 여부
-  const [isMakeCompleted, setIsMakeCompleted] = useState(false);
-
   const getSentence = () => {
     if (selectedNode.length == 0) {
       alert("단어를 선택해주세요!");
@@ -136,6 +134,7 @@ const NodeSelect = () => {
       firstWord: selectedNode[0].label,
     };
 
+    setLoading(true);
     axios
       .post("http://localhost:5000/api/hello", data)
       .then((response) => {
@@ -144,14 +143,18 @@ const NodeSelect = () => {
         console.log("결과값: ", output);
         // 문장생성 완료 여부 처리
         setIsMakeCompleted(true);
+        setLoading(false);
         alert("문장 생성 완료!");
       })
       .catch((error) => {
         console.log("Error: ", error);
+        setLoading(false);
       });
+    //
   };
   return (
     <NodeSelectCSS>
+      {loading ? <Loading /> : ""}
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
       {console.log("CompleteSelected: ", completeSelected)}
       <Mind

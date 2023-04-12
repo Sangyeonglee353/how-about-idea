@@ -51,7 +51,7 @@ const FeedItemCSS = styled.li`
 
   .summary {
     margin-top: 0.5vh;
-    wrod-break: break-all;
+    word-break: break-all;
     p {
       font-size: 15px;
       margin: 0 10%;
@@ -93,10 +93,7 @@ const FeedItem = (props) => {
       </div>
       <div className="summary">
         <p>
-          <b>트리즈 기법:</b> {props.trizType}
-        </p>
-        <p>
-          <b>트리즈 문장:</b> {props.sentence}
+          <b>생성 문장:</b> {props.sentence}
         </p>
       </div>
     </FeedItemCSS>
