@@ -17,6 +17,7 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 transition:0.3s;
+border-radius:12px;
 .root,.word{
 
     display:flex;
@@ -171,6 +172,7 @@ display:flex;
     display:flex;
     align-items:center;
     flex-wrap:wrap;
+    border-radius:12px;
 }
 
 .menu{
@@ -264,6 +266,24 @@ display:flex;
                     text-align:center;
                 }
             }
+
+            .next{
+
+                width:80%;
+                height:8vh;
+                margin: 70% 10% 0 10%;
+                background:skyblue;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#ffffff;
+                border-radius:12px;
+                .icon{
+
+                    height:5vh;
+
+                }
+            }
         }
 
     }
@@ -286,11 +306,12 @@ function BrainStorming(){
     const location = useLocation()
     const enter  = useRef (false)
     const word = useRef([])
-    const [menu,setMenu] = useState(true)
+    const [menu,setMenu] = useState(false)
     const [prev,setPrev] = useState(-1)
     const [select,setSelect] = useState([])
     const [print,setPrint] = useState([])
     const [click,setClick] = useState("단어를 선택해주세요")
+
     const renew_print_all=()=>{
         let buf=[]
         for(let i =0;i<16;i++){
@@ -484,11 +505,11 @@ function BrainStorming(){
                                 </span>
                             </div>
 
-                            <div className="">
+                            <Link to="/NodeSelect" className="next">
                                 
-                                <FontAwesomeIcon icon="fa-solid fa-chevron-right" /> 
+                                <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="icon" /> 
                             
-                            </div>
+                            </Link>
 
                         </div>
                     </div>
