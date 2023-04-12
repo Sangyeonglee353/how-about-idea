@@ -1,4 +1,3 @@
-import LoadingGif from "../../images/Loading_2.gif";
 import styled from "styled-components";
 
 const LoadingCSS = styled.div`
