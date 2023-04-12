@@ -15,6 +15,20 @@ height:25%;
 display:flex;
 align-items:center;
 justify-content:center;
+flex-direction:column;
+.root,.word{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.root{
+
+    font-size:10px;
+    padding-bottom:10%;
+
+}
 
 `
 
@@ -31,9 +45,9 @@ function PrintedWord(props){
             }
         
         }}>
-
-            {props.word}
-
+            <p className="root">{props.root}</p>
+            <p className="word">{props.word}</p>
+            
         </PrintedWordCss>
 
     )
