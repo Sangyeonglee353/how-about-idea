@@ -170,9 +170,7 @@ const LoadingCSS = styled.div`
   }
 `;
 const Loading = () => {
-  return (
-    <LoadingCSS>{/* <img src={LoadingGif} alt="loading" /> */}</LoadingCSS>
-  );
+  return <LoadingCSS></LoadingCSS>;
 };
 
 export default Loading;
