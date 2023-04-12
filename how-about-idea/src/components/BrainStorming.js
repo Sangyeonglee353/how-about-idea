@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const PrintedWordCss = styled.div`
@@ -248,34 +248,32 @@ display:flex;
 function BrainStorming(){
 
     let json_data = {
-        root: "개",
         개: ["리트리버", "푸들", "시츄", "말티즈", "웰시코기", "고양이"],
         고양이: ["브리티시 숏헤어", "러시안 블루", "페르시안"],
         리트리버: ["갈색", "대형견", "사냥"],
         푸들:["대형견","흰색", "곱슬", "영국","말티푸"],
         시츄:["소형견","똑똑함","조용함","갈색","흰색"]
     };
-
+    const location = useLocation()
+    const enter  = useRef (false)
+    const word = useRef([])
     const [menu,setMenu] = useState(true)
-    const [word,setWord] = useState([])
-    const [prev,setPrev] = useState("")
-    const [select,setSelect] = useState([json_data.root])
+    const [prev,setPrev] = useState(-1)
+    const [select,setSelect] = useState([])
     const [print,setPrint] = useState([])
     const [click,setClick] = useState("단어를 선택해주세요")
-    const [enter,setEnter] = useState(false)
-    let isclick = false
     const renew_print_all=()=>{
-
         let buf=[]
         for(let i =0;i<16;i++){
 
-            if(buf.length<word.length){
+            if(buf.length<word.current.length){
+                
                 while (true){
-                    const rand= Math.floor(Math.random() * word.length);
+                    const rand= Math.floor(Math.random() * word.current.length);
                     let flag = false;
                     for(let j=0;j<buf.length;j++ ){
 
-                        if(buf[j]===word[rand]){
+                        if(buf[j]===word.current[rand]){
                             flag=true
                             break;
                         }
@@ -283,7 +281,7 @@ function BrainStorming(){
 
                     if(!flag){
 
-                        buf.push(word[rand])
+                        buf.push(word.current[rand])
                         break
                     }
 
@@ -294,18 +292,18 @@ function BrainStorming(){
             else{
                 buf.push(-1)
             }
+
         }
 
         setPrint(buf)
-
     }
 
     const renew_word=()=>{
 
-        isclick=true
-        let word_buf=[...word]
+        let done= false
+        let word_buf=[...word.current]
         let print_buf = [...print]
-        
+
         for ( let i=0 ; i<print_buf.length; i++){
 
             if( prev === print_buf[i])
@@ -316,7 +314,6 @@ function BrainStorming(){
                 break
             }
         }
-
 
         for ( let i=0 ; i<word_buf.length; i++){
 
@@ -335,10 +332,11 @@ function BrainStorming(){
         for(let i =0; i<len ;){
 
             if(print_buf.length<word_buf.length){
+
                 while (true){
 
                     const rand= Math.floor(Math.random() *word_buf.length);
-                    let flag = false;
+                    let flag = false;   
                     for(let j=0;j<print_buf.length; j++ ){
                         if(print_buf[j]===word_buf[rand]){
                             flag=true
@@ -361,43 +359,47 @@ function BrainStorming(){
                 i++
 
             }
-             
+
+            if(i===len-1)
+                done=true    
         }
 
-        setPrint([...print_buf])
-        setWord([...word_buf])
-        isclick=false
+        if(done)
+            setPrint([...print_buf])
+
+        word.current=[...word_buf]
     }
 
     useEffect(()=>{
-
-        setWord(json_data[json_data.root]) 
-        setEnter(true)
-        
-    },[])
-
-    useEffect(()=>{
-
+        const  root = decodeURI(location.search.split("root=")[1])
+        setSelect([root])
+        word.current=[...json_data[root]]
         if(word.length!==0)
           renew_print_all()
 
-    },[enter])
+    },[])
 
     
 
     useEffect(()=>{
+    
+    
+        if(enter.current){
 
-        if(prev!==""&&!isclick){
             setSelect([...select,prev])
             renew_word()
+
         }
 
+        else{
+            enter.current = true
+        }
 
     },[prev])
 
     return(
         <BrainStormingCss menu={menu}>
-            <div className="word_select">
+            <div className="word_select" >
                 {
 
                     print.map((e,idx)=>{
@@ -415,7 +417,7 @@ function BrainStorming(){
                     <p className="tool" onClick={()=>setMenu(true)}>도구</p>
                 </div>
                 <div className="slider" >
-                    <div className="container" >
+                    <div className="container">
 
                         <div className="word_container">
                             <div className="words">
