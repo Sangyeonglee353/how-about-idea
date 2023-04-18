@@ -6,12 +6,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const MindListCss= styled.div`
-
-  width:100vw;
-  height:92vh;
-  overflow-y:scroll;
-  background:rgba(0,0,0,0.03)
+const MindListCss = styled.div`
+  width: 100vw;
+  height: 92vh;
+  overflow-y: scroll;
+  background: rgba(0, 0, 0, 0.03);
 `;
 
 const MindList = () => {
@@ -99,7 +98,6 @@ const MindList = () => {
         onShowFeedDetail={showFeedDetailHandler}
         onSetFeedData={setFeedData}
       />
-      
     </MindListCss>
   );
 };
