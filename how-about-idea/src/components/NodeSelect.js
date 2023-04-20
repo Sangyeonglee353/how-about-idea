@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
-import HomeFooter from "./HomeFooter";
 import axios from "axios";
 import Loading from "./UI/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NodeSelectCSS = styled.div`
-  margin-top: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   height: 800px;
   font-family: "Quicksand", sans-serif;
 
-  /* height: calc(100vh - 115px - 80px); */
-  @media (max-width: 400px) {
-    margin-top: 0px;
-  }
-  .notify {
+  /* .notify {
     margin-top: 30px;
     & p {
       text-align: center;
@@ -25,20 +25,35 @@ const NodeSelectCSS = styled.div`
     @media (max-width: 400px) {
       margin-top: 0px;
     }
+  } */
+  @media (max-width: 500px) {
+    width: 100vw;
   }
   .wordList {
-    margin-top: 30px;
+    /* width: 600px; */
+    display: flex;
+    margin: 30px auto 0 auto;
+    @media (max-width: 500px) {
+      width: 100vw;
+    }
     .word {
-      width: 290px;
-      height: 58px;
+      width: 120px;
+      height: 120px;
       margin: 10px auto;
-      border: 5px solid var(--color-main-blue);
+      border: 5px solid var(--color-main-skyblue);
       border-radius: 20px;
       & p {
         text-align: center;
         font-size: 20px;
-        line-height: 50px;
+        line-height: 110px;
       }
+    }
+    .plus {
+      display: flex;
+      align-items: center;
+      color: var(--color-main-skyblue);
+      padding: 0 2.5vw;
+      font-size: 80px;
     }
     .sentence {
       margin-top: 30px;
@@ -48,6 +63,42 @@ const NodeSelectCSS = styled.div`
   }
 
   .btnList {
+    width: 428px;
+    height: 58px;
+    margin: 15px auto 0 auto;
+    @media (max-width: 500px) {
+      width: 95vw;
+    }
+    button {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      border: 5px solid var(--color-main-skyblue);
+      border-radius: 20px;
+      font-size: 20px;
+      &:first-child {
+        &:hover {
+          background-color: var(--color-main-skyblue);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+      &:last-child {
+        margin-top: 15px;
+        background-color: var(--color-sub-grey);
+        border-color: var(--color-sub-grey);
+        &.activeBtn {
+          background-color: var(--color-main-skyblue);
+          border-color: var(--color-main-skyblue);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  /* .btnList {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -86,7 +137,7 @@ const NodeSelectCSS = styled.div`
         }
       }
     }
-  }
+  } */
 `;
 
 const NodeSelect = () => {
@@ -124,6 +175,7 @@ const NodeSelect = () => {
     setResetActive(true);
   };
 
+  // [문장 생성 API]
   const getSentence = () => {
     if (selectedNode.length == 0) {
       alert("단어를 선택해주세요!");
@@ -166,15 +218,18 @@ const NodeSelect = () => {
         onUnNodeMove={true}
         onSelectNodeHandler={onSelectNodeHandler}
       />
-      <div className="notify">
+      {/* <div className="notify">
         <p>단어 2개를 선택 해주세요</p>
-      </div>
+      </div> */}
       <div className="wordList">
         <div className="word" id="firstWord">
           <p>
             {selectedNode.length === 0 ? "선택 단어 1" : selectedNode[0].label}
           </p>
         </div>
+        <span className="plus">
+          <FontAwesomeIcon icon="fa-solid fa-plus" />
+        </span>
         <div className="word" id="secondWord">
           <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
         </div>
@@ -185,7 +240,7 @@ const NodeSelect = () => {
           초기화
         </button>
         {!completeSelected ? (
-          <button id="nextPage">문장 생성</button>
+          <button id="nextPage">단어 2개를 선택해 주세요</button>
         ) : (
           // <Link
           //   to={"/patentAnalysis"}
