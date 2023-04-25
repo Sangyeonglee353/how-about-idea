@@ -25,7 +25,7 @@ const RegisterCss = styled.div`
 
   .form {
     width: 90vw;
-    height: 80vh;
+    height: 88vh;
     background: #ffffff;
     border-radius: 12px;
     max-width: 400px;

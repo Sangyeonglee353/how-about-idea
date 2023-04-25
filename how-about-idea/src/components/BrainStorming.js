@@ -73,10 +73,10 @@ function PrintedWord(props){
 const NodeCss = styled.div`
   overflow:hidden;
   width:28%;
-  border: 1px solid skyblue;
+  border: 1px solid #000000;
   border-radius: 12px;
   margin:1% 1.5%;
-  
+
   .wrap{
     width:200%;
     display: flex;
@@ -88,12 +88,19 @@ const NodeCss = styled.div`
       width:50%;
       align-items: center;
       justify-content: center;
+
+      .r{
+            font-size:10px;
+            padding-bottom:10%;
+        }
+
     }
     
     .container1{
 
       text-align:center;
-
+      flex-direction:column;
+      padding: 2vh 0 ;
     }
 
     .add,.cancle{
@@ -131,7 +138,8 @@ function Node(props){
     <NodeCss >
       <div className="wrap" ref={menu}>
         <div className="container1" onClick={()=>{menu.current.style.transform="translate(-50%)"}}>
-          {props.word}
+            <p className="r">{props.root}</p>
+            <p className="w">{props.word}</p>
         </div>
         <div className="container2">
         
@@ -430,7 +438,7 @@ function BrainStorming(){
 
     useEffect(()=>{
         const  root = decodeURI(location.search.split("root=")[1])
-        setSelect([root])
+        setSelect([[root,-1]])
         let buf = []
         for(let i =0 ; i<json_data[root].length;i++){
 
@@ -490,7 +498,7 @@ function BrainStorming(){
                                     
                                     select.map((e,idx)=>{
 
-                                        return(<Node word={e[0]} root={e[1]} setMenu={setMenu} key={idx}  setClick={setClick} />)
+                                        return(<Node word={e[0]} root={e[1]===-1?"시작단어":e[1]} setMenu={setMenu} key={idx}  setClick={setClick} />)
 
                                     })
                                 }
