@@ -23,7 +23,7 @@ const LoginCss = styled.div`
 
   .form {
     width: 90vw;
-    height: 50vh;
+    height: 55vh;
     background: #ffffff;
     border-radius: 12px;
     max-width: 400px;
