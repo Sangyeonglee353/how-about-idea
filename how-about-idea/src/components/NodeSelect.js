@@ -12,7 +12,7 @@ const NodeSelectCSS = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  height: 800px;
+  height: 80vh;
   font-family: "Quicksand", sans-serif;
 
   /* .notify {
@@ -32,7 +32,7 @@ const NodeSelectCSS = styled.div`
   .wordList {
     /* width: 600px; */
     display: flex;
-    margin: 30px auto 0 auto;
+    margin: auto;
     @media (max-width: 500px) {
       width: 100vw;
     }
@@ -64,14 +64,14 @@ const NodeSelectCSS = styled.div`
 
   .btnList {
     width: 428px;
-    height: 58px;
-    margin: 15px auto 0 auto;
+    /* height: 58px; */
+    margin: 15px auto 15px auto;
     @media (max-width: 500px) {
       width: 95vw;
     }
     button {
       width: 100%;
-      height: 100%;
+      height: 58px;
       background-color: white;
       border: 5px solid var(--color-main-skyblue);
       border-radius: 20px;
@@ -142,7 +142,7 @@ const NodeSelectCSS = styled.div`
 
 const NodeSelect = () => {
   const [mindWidth, setMindWidth] = useState("100%");
-  const [mindHeight, setMindHeight] = useState("500px");
+  const [mindHeight, setMindHeight] = useState("50vh");
   const [completeSelected, setCompleteSelected] = useState(false);
   const [resetActive, setResetActive] = useState(false);
 
@@ -212,7 +212,7 @@ const NodeSelect = () => {
       <Mind
         width={mindWidth}
         height={mindHeight}
-        onUserZoom={true}
+        onUserZoom={false}
         onRefreshBtn={true}
         onUnSelect={false}
         onUnNodeMove={true}
