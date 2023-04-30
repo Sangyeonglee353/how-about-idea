@@ -32,14 +32,13 @@ const NodeSelectCSS = styled.div`
   .wordList {
     /* width: 600px; */
     display: flex;
-    margin: auto;
+    justify-content: center;
     @media (max-width: 500px) {
       width: 100vw;
     }
     .word {
       width: 120px;
       height: 120px;
-      margin: 10px auto;
       border: 5px solid var(--color-main-skyblue);
       border-radius: 20px;
       & p {
@@ -55,11 +54,6 @@ const NodeSelectCSS = styled.div`
       padding: 0 2.5vw;
       font-size: 80px;
     }
-    .sentence {
-      margin-top: 30px;
-      font-size: 20px;
-      text-align: center;
-    }
   }
 
   .btnList {
@@ -71,7 +65,10 @@ const NodeSelectCSS = styled.div`
     }
     button {
       width: 100%;
-      height: 58px;
+      height: 5.8vh;
+      @media (max-width: 500px) {
+        height: 10vh;
+      }
       background-color: white;
       border: 5px solid var(--color-main-skyblue);
       border-radius: 20px;
@@ -97,6 +94,14 @@ const NodeSelectCSS = styled.div`
         }
       }
     }
+  }
+  .createSentence {
+    /* margin: 15px auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    height: 10vh;
   }
   /* .btnList {
     position: fixed;
@@ -233,7 +238,6 @@ const NodeSelect = () => {
         <div className="word" id="secondWord">
           <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
         </div>
-        <p className="sentence">{output.data}</p>
       </div>
       <div className="btnList">
         <button id="resetWord" onClick={resetSelectedNode}>
@@ -262,6 +266,7 @@ const NodeSelect = () => {
           </button>
         )} */}
       </div>
+      <p className="createSentence">{output.data}</p>
     </NodeSelectCSS>
   );
 };
