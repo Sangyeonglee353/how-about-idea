@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/how-about-idea/static/css/main.1e76608d.css",
-    "main.js": "/how-about-idea/static/js/main.696bf7c0.js",
+    "main.css": "/how-about-idea/static/css/main.75b86982.css",
+    "main.js": "/how-about-idea/static/js/main.cbeb27d4.js",
+    "static/media/main_background.jpg": "/how-about-idea/static/media/main_background.214d04d83866660466a7.jpg",
     "static/media/planner.png": "/how-about-idea/static/media/planner.f1b9729e620109b5c5e2.png",
     "static/media/ceo.png": "/how-about-idea/static/media/ceo.c5dfcc6746be2198c2a1.png",
     "static/media/student.png": "/how-about-idea/static/media/student.5ef8181f8fe75d95bf3c.png",
     "static/media/howai_logo.jpg": "/how-about-idea/static/media/howai_logo.9b5f503dc284c0897992.jpg",
     "static/media/feed_1.png": "/how-about-idea/static/media/feed_1.7f99e63165a8f2000896.png",
     "index.html": "/how-about-idea/index.html",
-    "main.1e76608d.css.map": "/how-about-idea/static/css/main.1e76608d.css.map",
-    "main.696bf7c0.js.map": "/how-about-idea/static/js/main.696bf7c0.js.map"
+    "main.75b86982.css.map": "/how-about-idea/static/css/main.75b86982.css.map",
+    "main.cbeb27d4.js.map": "/how-about-idea/static/js/main.cbeb27d4.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e76608d.css",
-    "static/js/main.696bf7c0.js"
+    "static/css/main.75b86982.css",
+    "static/js/main.cbeb27d4.js"
   ]
 }
