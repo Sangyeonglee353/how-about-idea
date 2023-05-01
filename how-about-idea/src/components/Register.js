@@ -30,6 +30,7 @@ const RegisterCss = styled.div`
     border-radius: 12px;
     max-width: 400px;
     transition: 0.8s;
+    overflow:auto;
     margin-top: ${(props) => props.css.top}vw;
     opacity: ${(props) => props.css.opacity};
   }
@@ -141,11 +142,11 @@ const RegisterCss = styled.div`
 
   .signup {
     width: 70%;
-    margin-left: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 5vh;
+    margin: 5vh 15%;
+   
     padding: 1vh 0;
     background: ${(props) =>
       props.isvaild.id &&
@@ -158,6 +159,7 @@ const RegisterCss = styled.div`
     transition: 0.3s;
     cursor: pointer;
   }
+
 
   .right {
     height: 25px;
@@ -184,6 +186,7 @@ const RegisterCss = styled.div`
 `;
 
 function Register() {
+  const label = useRef()
   const [account, setAccount] = useState({
     id: "",
     id_check: false,
@@ -263,19 +266,30 @@ function Register() {
 
           <div className="id_input">
             <p className="sub">아이디</p>
-            <div className="id">
+            <div className="id" ref={label}>
               <input
                 type="text"
                 placeholder="howai"
-                onInput={(e) => {
+                
+                onFocus={()=>{
+
+                  
+                  label.current.style.border="2px solid #000000"
+
+                }}  
+
+                onChange={(e) => {
                   setAccount({
                     ...account,
                     id: e.target.value,
                     id_check: false,
                   });
+
                 }}
+
                 onBlur={() => {
                   setBlur({ ...blur, blur1: true });
+                  label.current.style.border="2px solid #00000055"
                 }}
               />
 

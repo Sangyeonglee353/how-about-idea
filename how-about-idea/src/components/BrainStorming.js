@@ -18,6 +18,7 @@ justify-content:center;
 flex-direction:column;
 transition:0.3s;
 border-radius:12px;
+
 .root,.word{
 
     display:flex;
@@ -112,8 +113,8 @@ const NodeCss = styled.div`
     
     .add{
       padding:7% 1%;
-      color:#ffffff;
-      background:skyblue;
+      color: #000000;
+      border-left:1px solid #000000;
     }
 
     .cancle{
@@ -146,12 +147,12 @@ function Node(props){
           <p className="cancle" 
           onClick={()=>{
             menu.current.style.transform="translate(0%)"
-            props.setClick("단어를 선택해주세요")
+            props.setClick(["단어를 선택해주세요",""])
           }}>취소</p>
 
           <p className="add" 
           onClick={()=>{
-            props.setClick(props.word)
+            props.setClick([props.word,props.root])
             menu.current.style.transform="translate(0%)"
             props.setMenu(true)
           }}>선택</p>
@@ -170,6 +171,11 @@ height:92vh;
 background:rgba(0,0,0,0.1);
 display:flex;
 
+overflow-y:auto;
+@media (max-width: 600px) {
+    display:block;
+}
+
 .word_select{
     transition:0.3s;
     width:46vw;
@@ -181,6 +187,10 @@ display:flex;
     align-items:center;
     flex-wrap:wrap;
     border-radius:12px;
+    @media (max-width: 600px) {
+        width:96vw;
+        height: 50vh;
+    }
 }
 
 .menu{
@@ -190,6 +200,10 @@ display:flex;
     background:#ffffff;
     margin: 6vh 2vw;
     border-radius:12px;
+    @media (max-width: 600px) {
+        width:96vw;
+        height: 50vh;
+    }
 
     .title{
 
@@ -239,6 +253,9 @@ display:flex;
             overflow-x:hidden;
             overflow-y:scroll;
             height:70vh;
+            @media (max-width: 600px) {
+                height: 50vh;
+            }
         }
 
         .words{
@@ -260,19 +277,51 @@ display:flex;
 
                 width:100%;
                 display:flex;
-                align-items:center;
+                align-items:center; 
                 justify-content:center;
 
-                span{
+                .selected{
                     
-                    background:rgba(0,0,0,0.1);
+                    border:1px solid #000000;
                     border-radius:12px;
                     padding: 5% 5%;
-                    max-width:60%;
-                    min-width:40%;
+                    max-width:40%;
                     word-break:break-all;
                     text-align:center;
+                    .r{
+                        font-size:12px;
+                        margin-bottom:1vh;
+                    }
                 }
+
+                .input{
+
+                    margin-left:5%;
+                    padding: 1.5vh 1vw;
+                    width:40%;
+                    border-radius:12px;
+                    border:1px solid #000000;
+
+                }
+
+                input[type="text"]{
+                    width:80%;
+                    border:0;
+                }
+
+                input:focus{
+
+                    outline:none;
+
+                }
+
+                .icon{
+
+                    margin-left:5%;
+                    
+
+                }
+
             }
 
             .next{
@@ -318,7 +367,7 @@ function BrainStorming(){
     const [prev,setPrev] = useState(-1)
     const [select,setSelect] = useState([])
     const [print,setPrint] = useState([])
-    const [click,setClick] = useState("단어를 선택해주세요")
+    const [click,setClick] = useState(["단어를 선택해주세요",""])
 
     const renew_print_all=()=>{
         let buf=[]
@@ -502,15 +551,22 @@ function BrainStorming(){
 
                                     })
                                 }
+
                             </div>
                         </div>
                     
                         <div className="tools">
                            
                             <div className="select">
-                                <span>    
-                                {click}
-                                </span>
+                                
+                                <div className="selected">    
+                                    <p className="r">{click[1]}</p>
+                                    <p>{click[0]}</p>
+                                </div>
+                                <div className="input">
+                                    <input type="text" />
+                                    <FontAwesomeIcon icon="fa-solid fa-plus" className="icon" />
+                                </div>
                             </div>
 
                             <Link to="/NodeSelect" className="next">

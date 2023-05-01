@@ -66,8 +66,8 @@ const MainContents = styled.div`
 
         .login,
         .signup {
-          width: 20vw;
-          height: 7vh;
+          width: 30vw;
+
           @media (max-width: 600px) {
             width: 80vw;
           }
@@ -80,6 +80,7 @@ const MainContents = styled.div`
           font-size: 20px;
           font-weight: 700;
           cursor: pointer;
+          padding:2vh 0;
         }
 
         .login {
