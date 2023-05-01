@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FeedItemCSS = styled.li`
   /* width: 100%; */
@@ -52,11 +53,22 @@ const FeedItemCSS = styled.li`
   .summary {
     margin-top: 0.5vh;
     word-break: break-all;
+    margin: 0 10%;
+    .summary-btn {
+      span {
+        margin: 2%;
+      }
+    }
     p {
-      font-size: 15px;
-      margin: 0 10%;
+      margin-top: 2%;
       width: 80%;
       word-break: break-all;
+      &.summary-sentence {
+        font-size: 16px;
+      }
+      &.summary-date {
+        font-size: 12px;
+      }
     }
   }
 
@@ -80,7 +92,7 @@ const FeedItem = (props) => {
 
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
-      <h3>{props.name}</h3>
+      {/* <h3>{props.name}</h3> */}
       <div className="mindmap">
         <Mind
           width={mindWidth}
@@ -92,9 +104,15 @@ const FeedItem = (props) => {
         />
       </div>
       <div className="summary">
-        <p>
-          <b>생성 문장:</b> {props.sentence}
-        </p>
+        <div className="summary-btn">
+          <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />
+          <span>23</span>
+          <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />
+          <span>3</span>
+          <FontAwesomeIcon icon="fa-solid fa-share" />
+        </div>
+        <p className="summary-sentence">{props.sentence}</p>
+        <p className="summary-date">2023년 04월 15일</p>
       </div>
     </FeedItemCSS>
   );
