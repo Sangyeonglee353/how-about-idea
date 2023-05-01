@@ -109,7 +109,7 @@ const FeedItem = (props) => {
           <span>23</span>
           <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />
           <span>3</span>
-          <FontAwesomeIcon icon="fa-solid fa-share" />
+          {/* <FontAwesomeIcon icon="fa-solid fa-share" /> */}
         </div>
         <p className="summary-sentence">{props.sentence}</p>
         <p className="summary-date">2023년 04월 15일</p>
