@@ -3,7 +3,7 @@ import student_logo from "../images/student.png";
 import ceo_logo from "../images/ceo.png";
 import planner_logo from "../images/planner.png";
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import mainBackground from "../images/main_background.jpg";
 
 const MainContents = styled.div`
@@ -95,11 +95,95 @@ const MainContents = styled.div`
       }
     }
   }
+
+  .b{
+    ${props=>!props.popup&&"display:none"};
+    position:fixed;
+    width:100vw;
+    height:100vh;
+    background:#00000099;
+    top:0;
+
+  }
+
+  .popup{
+    position:fixed;
+    width:20vw;
+    background:#ffffff;
+    top:${props=>props.popup?40:120}vh;
+    left: 40vw;
+    transition:${props=>props.popup?0.5:0}s;
+    @media (max-width: 600px) {
+      width:60vw;
+      left:20vw;
+    }
+    border-radius:12px;
+    .popupcontent{
+
+      text-align:center;
+      width:20vw;
+      padding:3vh 0;
+      @media (max-width: 600px) {
+        width:60vw;
+        padding:2vh 0;
+      }
+    }
+
+    input{
+
+      border-radius:12px;
+      border:1px solid #00000099;
+      padding:1vh 2vw;
+      width:16vw;
+      margin-left:2vw;
+      @media (max-width: 600px) {
+        width:50vw;
+        margin-left:5vw;
+
+      }
+    }
+
+    input:focus{
+
+      outline:none;
+      border: 1px solid #000000;
+      
+    }
+
+    .popupmenu{
+      width:100%;
+      display:flex;
+      border-top:1px solid #00000099;
+      margin-top:2vh;
+
+      .btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:1vh 0;
+        width:50%;
+        cursor:pointer;
+      }
+
+      .cancle{
+        color:#B03131;
+        border-right:1px solid #00000099;
+
+      }
+    }
+
+
+  }
+
+
+
 `;
 
 const Main = () => {
+  const start  = useRef()
+  const [popup,setPopup] = useState(false)
   return (
-    <MainContents>
+    <MainContents popup={popup}>
       <div className="wrap">
         <div className="content">
           <div className="container1">
@@ -162,9 +246,16 @@ const Main = () => {
 
           {sessionStorage.getItem("howai_id") !== null && (
             <div className="container2">
-              <Link to="/play" className="Link">
+
                 <p
                   className="login"
+
+                  onClick={()=>{
+
+                   setPopup(true)
+
+                  }}
+
                   onMouseOver={(e) => {
                     e.target.style.color = "#ffffff";
                     e.target.style.background = "#3CAEFF";
@@ -184,7 +275,7 @@ const Main = () => {
                 >
                   브레인스토밍 시작하기
                 </p>
-              </Link>
+
               <Link to="/mindlist" className="Link">
                 <p
                   className="signup"
@@ -212,6 +303,43 @@ const Main = () => {
           )}
         </div>
       </div>
+
+      <div className="b" onClick={()=>{setPopup(false)}}></div>
+
+      <div className="popup">
+
+        <p className="popupcontent">시작 단어</p>
+        
+        <input type="text" className="start" ref={start} placeholder="단어를 입력해주세요"/>
+        <div className="popupmenu">
+
+          <p className="btn cancle"
+            onClick={()=>{
+
+              setPopup(false)
+
+            }}
+
+
+          > 취소 </p>
+          <p className="btn excute"
+          
+          onClick={()=>{
+
+            if(start.current.value!==""&&start.current.value!==" ")
+              window.location.href ="/how-about-idea/BrainStorming?root="+start.current.value
+            else
+              alert("시작 단어를 입력해 주세요")
+
+          }}
+          
+          
+          >시작</p>
+
+        </div>
+      </div>
+
+
     </MainContents>
   );
 };

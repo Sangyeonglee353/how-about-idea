@@ -12,7 +12,6 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import MindList from "./components/MindList";
-import Play from "./components/Play";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
 import BrainStorming from "./components/BrainStorming";
@@ -171,7 +170,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/mindlist" element={<MindList />} />
-          <Route path="/play" element={<Play />} />
           {/* <Route path="/mind" element={<Mind />} /> */}
           <Route path="/nodeselect" element={<NodeSelect />} />
           <Route path="/trizselect" element={<TrizSelect />} />
