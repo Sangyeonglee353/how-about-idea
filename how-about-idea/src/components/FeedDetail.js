@@ -5,12 +5,18 @@ import Mind from "./MindMap/Mind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ContentBlock = styled.div`
-  margin: ${(props) => (props.height < 700 ? "10" : "30")}px;
+  /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
+  margin: 10px;
+
   * {
     font-family: "Quicksand", sans-serif;
   }
-
+  .mindmap {
+    background-color: #ebf5ff;
+    border-radius: 20px;
+  }
   .detail {
+    margin-top: 2%;
     & .detail-btn {
       span {
         margin: 2%;
@@ -18,10 +24,10 @@ const ContentBlock = styled.div`
     }
     p {
       margin-top: 2%;
-      &.detail-start_word {
+      &.detail-word__start {
         margin-top: 5%;
       }
-      &.detail-combine_word {
+      &.detail-word__combine {
         margin-top: 1%;
       }
     }
@@ -65,14 +71,16 @@ const FeedDetail = (props) => {
     <Modal onClick={props.onHideFeedDetail}>
       <ContentBlock height={modalHeight}>
         {/* <h3>{userName}</h3> */}
-        <Mind
-          width={mindWidth}
-          height={mindHeight}
-          onUserZoom={true}
-          onRefreshBtn={true}
-          onUnSelect={true}
-          onUnNodeMove={true}
-        />
+        <div className="mindmap">
+          <Mind
+            width={mindWidth}
+            height={mindHeight}
+            onUserZoom={true}
+            onRefreshBtn={true}
+            onUnSelect={true}
+            onUnNodeMove={true}
+          />
+        </div>
         <div className="detail">
           <div className="detail-btn">
             <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />
@@ -82,10 +90,10 @@ const FeedDetail = (props) => {
             <FontAwesomeIcon icon="fa-solid fa-share" />
           </div>
           <p className="detail-sentence">{sentence}</p>
-          <p className="detail-start_word">
+          <p className="detail-word__start">
             <b>시작 단어:</b> 선풍기
           </p>
-          <p className="detail-combine_word">
+          <p className="detail-word__combine">
             <b>조합 단어:</b> 날개 + 전동기
           </p>
 
