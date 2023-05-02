@@ -187,9 +187,11 @@ function Node(props){
 
           <p className="add" 
           onClick={()=>{
+            
             props.setClick([props.word,props.root])
             menu.current.style.transform="translate(0%)"
             props.setMenu(true)
+          
           }}>선택</p>
         
         </div>
@@ -622,10 +624,11 @@ function BrainStorming(){
 
                                 onClick={()=>{
 
-
-                                    setPrev([add.current.value,click[0]])
-                                    add.current.value=""
-                                    setClick(["단어를 선택해주세요",""])
+                                    if(add.current.value!==""&&add.current.value!==" "){
+                                        setPrev([add.current.value,click[0]])
+                                        add.current.value=""
+                                        setClick(["단어를 선택해주세요",""])
+                                    }
 
                                 }}
 
