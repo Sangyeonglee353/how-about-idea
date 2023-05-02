@@ -17,7 +17,7 @@ const ModalOverlayBlock = styled.div`
   top: 15vh;
   left: 5%;
   width: 90%;
-  background-color: white;
+  background-color: #f8f8f8;
   padding: 1rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);

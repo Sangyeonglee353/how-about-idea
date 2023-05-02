@@ -24,13 +24,13 @@ import Header from "./components/Header";
 /* icon */
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  fas,
   faHouse,
   faUser,
   faPlay,
   faRightFromBracket,
   faArrowRotateRight,
   faAngleLeft,
-  fas,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -167,7 +167,7 @@ function App() {
       <BrowserRouter basename={"how-about-idea"}>
         <Header sidebar={sidebar} setSideBar={setSideBar} />
         <Routes>
-          <Route  path="/" exact={true} element={<Main />} />
+          <Route path="/" exact={true} element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/mindlist" element={<MindList />} />
@@ -177,7 +177,7 @@ function App() {
           <Route path="/trizselect" element={<TrizSelect />} />
           <Route path="/patentanalysis" element={<PatentAnalysis />} />
           <Route path="/patentresult" element={<PatentResult />} />
-          <Route path="/BrainStorming" element={<BrainStorming/>} />
+          <Route path="/BrainStorming" element={<BrainStorming />} />
         </Routes>
         <div
           className="back"

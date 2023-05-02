@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
-import tempImg from "../images/feed_1.png";
-import { Link } from "react-router-dom";
 import Mind from "./MindMap/Mind";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ContentBlock = styled.div`
   margin: ${(props) => (props.height < 700 ? "10" : "30")}px;
-
   * {
     font-family: "Quicksand", sans-serif;
   }
 
-  label {
-    display: block;
-    font-weight: bold;
+  .detail {
+    & .detail-btn {
+      span {
+        margin: 2%;
+      }
+    }
+    p {
+      margin-top: 2%;
+      &.detail-start_word {
+        margin-top: 5%;
+      }
+      &.detail-combine_word {
+        margin-top: 1%;
+      }
+    }
+    & .detail-patent {
+      margin-top: 5%;
+    }
   }
-
-  img {
-    width: 70%;
-  }
-
   ul {
     list-style: none;
   }
@@ -56,7 +64,7 @@ const FeedDetail = (props) => {
   return (
     <Modal onClick={props.onHideFeedDetail}>
       <ContentBlock height={modalHeight}>
-        <h3>{userName}</h3>
+        {/* <h3>{userName}</h3> */}
         <Mind
           width={mindWidth}
           height={mindHeight}
@@ -65,20 +73,31 @@ const FeedDetail = (props) => {
           onUnSelect={true}
           onUnNodeMove={true}
         />
-        <p>
-          <b>입력 단어:</b> 선풍기 <br />
-          <br />
-          <b>생성 문장:</b> {sentence}
-        </p>
-        <br />
-        <div>
-          <h3>관련 특허</h3>
-          <ul>
-            <li>날개없는 선풍기</li>
-            <li>기압으로 전기를 생산하는 선풍기</li>
-            <li>공기의 흐름을 측정하는 유체</li>
-            <li>회전하는 선풍기</li>
-          </ul>
+        <div className="detail">
+          <div className="detail-btn">
+            <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />
+            <span>23</span>
+            <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />
+            <span>3</span>
+            <FontAwesomeIcon icon="fa-solid fa-share" />
+          </div>
+          <p className="detail-sentence">{sentence}</p>
+          <p className="detail-start_word">
+            <b>시작 단어:</b> 선풍기
+          </p>
+          <p className="detail-combine_word">
+            <b>조합 단어:</b> 날개 + 전동기
+          </p>
+
+          <div className="detail-patent">
+            <h3>관련 특허</h3>
+            <ul>
+              <li>날개없는 선풍기</li>
+              <li>기압으로 전기를 생산하는 선풍기</li>
+              <li>공기의 흐름을 측정하는 유체</li>
+              <li>회전하는 선풍기</li>
+            </ul>
+          </div>
         </div>
       </ContentBlock>
     </Modal>
