@@ -381,7 +381,7 @@ function Register() {
             동의한 것으로 간주합니다.
           </p>
 
-          <p
+          <div
             className="signup"
             onClick={() => {
               if (!isvaild.id) {
@@ -403,7 +403,7 @@ function Register() {
               icon="fa-solid fa-chevron-right"
               className="right"
             />
-          </p>
+          </div>
         </div>
       </div>
     </RegisterCss>

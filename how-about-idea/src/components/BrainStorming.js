@@ -33,6 +33,12 @@ border-radius:12px;
 
 }
 
+.rotate{
+
+    font-size:20px;
+
+}
+
 `
 
 function PrintedWord(props){
@@ -70,6 +76,35 @@ function PrintedWord(props){
     )
 }
 
+function Refresh(props){
+
+    const back = useRef()
+    const refresh = useRef()
+    return(
+
+        <PrintedWordCss ref = {back} onClick={()=>{
+
+            props.refresh()
+
+        }}
+        
+        onMouseOver={()=>{
+            
+            back.current.style.background="#3CAEFF"
+            refresh.current.style.color="#ffffff"
+        }}
+        
+        onMouseLeave={()=>{
+
+            back.current.style.background="#ffffff"
+            refresh.current.style.color="#000000"
+        }}>
+            <FontAwesomeIcon icon="fa-solid fa-rotate-right" className="rotate" ref={refresh}/>
+            
+        </PrintedWordCss>
+
+    )
+}
 
 const NodeCss = styled.div`
   overflow:hidden;
@@ -269,12 +304,14 @@ overflow-y:auto;
 
         .tools{
 
-            margin: 2% 2%;
-            width:96%;
-            height:96%;
+            width:100%;
+            height:100%;
 
             .select{
-
+                margin-top:22vh;
+                @media (max-width: 600px) {
+                    margin-top:7vh;
+                } 
                 width:100%;
                 display:flex;
                 align-items:center; 
@@ -284,7 +321,7 @@ overflow-y:auto;
                     
                     border:1px solid #000000;
                     border-radius:12px;
-                    padding: 5% 5%;
+                    padding: 2vh 5%;
                     max-width:40%;
                     word-break:break-all;
                     text-align:center;
@@ -294,55 +331,65 @@ overflow-y:auto;
                     }
                 }
 
-                .input{
+            }
 
-                    margin-left:5%;
-                    padding: 1.5vh 1vw;
-                    width:40%;
-                    border-radius:12px;
-                    border:1px solid #000000;
+            
+            .input{
 
-                }
-
-                input[type="text"]{
-                    width:80%;
-                    border:0;
-                }
-
-                input:focus{
-
-                    outline:none;
-
-                }
-
-                .icon{
-
-                    margin-left:5%;
-                    
-
-                }
+                margin-top:10vh;
+                @media (max-width: 600px) {
+                    margin-top:5vh;
+                }   
+                margin-left:10%;
+                padding: 1.5vh 1vw;
+                width:80%;
+                border-radius:12px;
+                border:1px solid #000000;
 
             }
 
-            .next{
-
+            input[type="text"]{
                 width:80%;
-                height:8vh;
-                margin: 70% 10% 0 10%;
-                background:skyblue;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#ffffff;
-                border-radius:12px;
-                .icon{
+                border:0;
+            }
 
-                    height:5vh;
+            input:focus{
 
-                }
+                outline:none;
+
+            }
+
+            .icon{
+
+                width:20%;
+                font-size:20px;
             }
         }
 
+    }
+
+    .next{
+
+        text-decoration:none;
+        .save{
+
+            margin:0;
+            width:46vw;
+            padding:3vh 0;
+            margin-top:15vh;
+            color:#000000;
+            @media (max-width: 600px) {
+                margin-top:12vh;
+                padding:2vh 0;
+                width:96vw;
+            }   
+            background: gray;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:0 0 12px 12px;
+
+        }
     }
 
 }
@@ -362,6 +409,8 @@ function BrainStorming(){
     };
     const location = useLocation()
     const enter  = useRef (false)
+    const next = useRef()
+    const add = useRef()
     const word = useRef([])
     const [menu,setMenu] = useState(false)
     const [prev,setPrev] = useState(-1)
@@ -371,7 +420,7 @@ function BrainStorming(){
 
     const renew_print_all=()=>{
         let buf=[]
-        for(let i =0;i<16;i++){
+        for(let i =0;i<15;i++){
 
             if(buf.length<word.current.length){
                 
@@ -442,7 +491,7 @@ function BrainStorming(){
 
         }
 
-        const len = 16-print_buf.length
+        const len = 15-print_buf.length
 
         for(let i =0; i<len ;){
 
@@ -531,6 +580,7 @@ function BrainStorming(){
                     })
 
                 }
+                <Refresh refresh={renew_print_all}/>
             </div>
             <div className="menu">
                 <div className="title">
@@ -563,19 +613,47 @@ function BrainStorming(){
                                     <p className="r">{click[1]}</p>
                                     <p>{click[0]}</p>
                                 </div>
-                                <div className="input">
-                                    <input type="text" />
-                                    <FontAwesomeIcon icon="fa-solid fa-plus" className="icon" />
-                                </div>
+
                             </div>
+                            <div className="input">
+                                <input type="text" ref={add}/>
+                                <FontAwesomeIcon icon="fa-solid fa-plus" className="icon" 
 
-                            <Link to="/NodeSelect" className="next">
-                                
-                                <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="icon" /> 
+
+                                onClick={()=>{
+
+
+                                    setPrev([add.current.value,click[0]])
+                                    add.current.value=""
+                                    setClick(["단어를 선택해주세요",""])
+
+                                }}
+
+
+                                />
+                            </div>
+                            <Link to="/NodeSelect" className="next" 
+
+                            onMouseOver={()=>{
+            
+                                next.current.style.background="#3CAEFF"
+                                next.current.style.color="#ffffff"
+                            }}
                             
-                            </Link>
+                            onMouseLeave={()=>{
 
+                                next.current.style.background="gray"
+                                next.current.style.color="#000000"
+
+                            }}> 
+                                <p className="save"  ref={next}>
+
+                                    save & quit
+
+                                </p> 
+                            </Link>
                         </div>
+                        
                     </div>
                 </div>
             </div>
