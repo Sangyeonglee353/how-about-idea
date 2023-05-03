@@ -83,9 +83,9 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />
+            <FontAwesomeIcon icon="fa-regular fa-thumbs-up" />
             <span>23</span>
-            <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />
+            <FontAwesomeIcon icon="fa-regular fa-thumbs-down" />
             <span>3</span>
             <FontAwesomeIcon icon="fa-solid fa-share" />
           </div>

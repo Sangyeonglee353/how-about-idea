@@ -31,7 +31,7 @@ import {
   faArrowRotateRight,
   faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   fas,
@@ -40,7 +40,9 @@ library.add(
   faPlay,
   faRightFromBracket,
   faArrowRotateRight,
-  faAngleLeft
+  faAngleLeft,
+  faThumbsUp,
+  faThumbsDown
 );
 
 /* App CSS */

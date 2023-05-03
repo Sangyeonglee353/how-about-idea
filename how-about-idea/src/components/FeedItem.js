@@ -105,9 +105,9 @@ const FeedItem = (props) => {
       </div>
       <div className="summary">
         <div className="summary-btn">
-          <FontAwesomeIcon icon="fa-solid fa-thumbs-up" />
+          <FontAwesomeIcon icon="fa-regular fa-thumbs-up" />
           <span>23</span>
-          <FontAwesomeIcon icon="fa-solid fa-thumbs-down" />
+          <FontAwesomeIcon icon="fa-regular fa-thumbs-down" />
           <span>3</span>
           {/* <FontAwesomeIcon icon="fa-solid fa-share" /> */}
         </div>
