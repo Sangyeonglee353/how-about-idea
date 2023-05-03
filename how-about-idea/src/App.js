@@ -119,7 +119,7 @@ function App() {
   );
   const [menuList1, setMenuList1] = useState([
     { name: "홈", link: "/" },
-    { name: "브레인스토밍", link: "/play" },
+    { name: "브레인스토밍", link: "/?brainstorming" },
     { name: "저장소", link: "/mindlist" },
     { name: "검색", link: "/search" },
   ]);

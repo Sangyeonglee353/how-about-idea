@@ -593,6 +593,7 @@ function BrainStorming(){
                     <div className="container">
 
                         <div className="word_container">
+
                             <div className="words">
 
                                 {
@@ -605,6 +606,7 @@ function BrainStorming(){
                                 }
 
                             </div>
+                            
                         </div>
                     
                         <div className="tools">

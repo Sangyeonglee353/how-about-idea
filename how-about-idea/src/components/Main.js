@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import student_logo from "../images/student.png";
 import ceo_logo from "../images/ceo.png";
 import planner_logo from "../images/planner.png";
 import styled from "styled-components";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import mainBackground from "../images/main_background.jpg";
 
 const MainContents = styled.div`
@@ -179,13 +179,29 @@ const MainContents = styled.div`
 
 `;
 
-const Main = () => {
+let currentPath  = ""
+const Main = (props) => {
   const start  = useRef()
   const [popup,setPopup] = useState(false)
+  const location = useLocation()
+  useEffect(() => {
+
+    if(location.search === "?start")
+      setPopup(true)
+
+  },[]);
+
+  useEffect(()=>{
+
+    if(location.search === "?brainstorming")
+      window.location.href = "/how-about-idea?start"
+
+  })
   return (
     <MainContents popup={popup}>
       <div className="wrap">
         <div className="content">
+        
           <div className="container1">
             <p className="margin"></p>
             <p className="text0">HOWAI.</p>
