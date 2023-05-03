@@ -50,7 +50,7 @@ function PrintedWord(props){
 
         <PrintedWordCss ref = {back} onClick={()=>{
             if(props.word!==""){
-                props.setPrev([props.word,props.root])
+                props.setPrev([props.word,props.root,props.level,props.wordid,props.rootid])
             }
         }}
         
@@ -410,6 +410,7 @@ function BrainStorming(){
         시츄:["소형견","똑똑함","조용함","갈색","흰색"]
     };
     const location = useLocation()
+    const previd = useRef(1)
     const enter  = useRef (false)
     const next = useRef()
     const add = useRef()
@@ -419,7 +420,7 @@ function BrainStorming(){
     const [select,setSelect] = useState([])
     const [print,setPrint] = useState([])
     const [click,setClick] = useState(["단어를 선택해주세요",""])
-
+    
     const renew_print_all=()=>{
         let buf=[]
         for(let i =0;i<15;i++){
@@ -482,8 +483,8 @@ function BrainStorming(){
                     let tmp=[]
                     for(let j =0;j<json_data[prev[0]].length;j++){
 
-                        tmp.push([json_data[prev[0]][j],prev[0]])
-
+                        tmp.push([json_data[prev[0]][j],prev[0],prev[2]+1,previd.current+1,prev[4]])
+                        previd.current++
                     }
                     word_buf = [...word_buf,...tmp]
 
@@ -536,16 +537,42 @@ function BrainStorming(){
         word.current=[...word_buf]
     }
 
+    const make_mind = ()=>{
+
+        let node=[
+
+        ]
+
+        let edge=[
+
+
+        ]
+
+        select.map(e=>{
+            
+            node.push({data:{id:e[3].toString() , label:e[0].toString(), type:"level"+e[2]}})
+            
+            if(e[4]!==-1)
+                edge.push({data:{id:e[4]+"->"+e[3], source:e[3].toString() , target: e[4].toString()}})
+
+        })
+
+        return[...node,...edge]
+
+    }
+
     useEffect(()=>{
         const  root = decodeURI(location.search.split("root=")[1])
-        setSelect([[root,-1]])
+        setSelect([[root,-1,1,1,-1]])
         let buf = []
         for(let i =0 ; i<json_data[root].length;i++){
 
-            buf.push([json_data[root][i],root])
-
+            buf.push([json_data[root][i],root,2,previd.current+1,root[2]])
+            previd.current++;
         }
+
         word.current=[...buf]
+
         if(word.length!==0)
           renew_print_all()
 
@@ -577,7 +604,8 @@ function BrainStorming(){
                     print.map((e,idx)=>{
                         
                         return(
-                            <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} root={e[1]!==-1?e[1]:""}/>
+                            <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} 
+                            root={e[1]!==-1?e[1]:""} level={e[2]} wordid={e[3]} rootid={e[4]} />
                         )
                     })
 
@@ -637,7 +665,7 @@ function BrainStorming(){
 
                                 />
                             </div>
-                            <Link to="/NodeSelect" className="next" 
+                            <Link to="/NodeSelect" className="next" state={ {mindmap : make_mind()}}
 
                             onMouseOver={()=>{
             
