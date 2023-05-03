@@ -33,6 +33,12 @@ border-radius:12px;
 
 }
 
+.rotate{
+
+    font-size:20px;
+
+}
+
 `
 
 function PrintedWord(props){
@@ -44,7 +50,7 @@ function PrintedWord(props){
 
         <PrintedWordCss ref = {back} onClick={()=>{
             if(props.word!==""){
-                props.setPrev([props.word,props.root])
+                props.setPrev([props.word,props.root,props.level,props.wordid,props.rootid])
             }
         }}
         
@@ -70,6 +76,35 @@ function PrintedWord(props){
     )
 }
 
+function Refresh(props){
+
+    const back = useRef()
+    const refresh = useRef()
+    return(
+
+        <PrintedWordCss ref = {back} onClick={()=>{
+
+            props.refresh()
+
+        }}
+        
+        onMouseOver={()=>{
+            
+            back.current.style.background="#3CAEFF"
+            refresh.current.style.color="#ffffff"
+        }}
+        
+        onMouseLeave={()=>{
+
+            back.current.style.background="#ffffff"
+            refresh.current.style.color="#000000"
+        }}>
+            <FontAwesomeIcon icon="fa-solid fa-rotate-right" className="rotate" ref={refresh}/>
+            
+        </PrintedWordCss>
+
+    )
+}
 
 const NodeCss = styled.div`
   overflow:hidden;
@@ -152,9 +187,11 @@ function Node(props){
 
           <p className="add" 
           onClick={()=>{
+            
             props.setClick([props.word,props.root])
             menu.current.style.transform="translate(0%)"
             props.setMenu(true)
+          
           }}>선택</p>
         
         </div>
@@ -269,12 +306,14 @@ overflow-y:auto;
 
         .tools{
 
-            margin: 2% 2%;
-            width:96%;
-            height:96%;
+            width:100%;
+            height:100%;
 
             .select{
-
+                margin-top:22vh;
+                @media (max-width: 600px) {
+                    margin-top:7vh;
+                } 
                 width:100%;
                 display:flex;
                 align-items:center; 
@@ -284,7 +323,7 @@ overflow-y:auto;
                     
                     border:1px solid #000000;
                     border-radius:12px;
-                    padding: 5% 5%;
+                    padding: 2vh 5%;
                     max-width:40%;
                     word-break:break-all;
                     text-align:center;
@@ -294,55 +333,65 @@ overflow-y:auto;
                     }
                 }
 
-                .input{
+            }
 
-                    margin-left:5%;
-                    padding: 1.5vh 1vw;
-                    width:40%;
-                    border-radius:12px;
-                    border:1px solid #000000;
+            
+            .input{
 
-                }
-
-                input[type="text"]{
-                    width:80%;
-                    border:0;
-                }
-
-                input:focus{
-
-                    outline:none;
-
-                }
-
-                .icon{
-
-                    margin-left:5%;
-                    
-
-                }
+                margin-top:10vh;
+                @media (max-width: 600px) {
+                    margin-top:5vh;
+                }   
+                margin-left:10%;
+                padding: 1.5vh 1vw;
+                width:80%;
+                border-radius:12px;
+                border:1px solid #000000;
 
             }
 
-            .next{
-
+            input[type="text"]{
                 width:80%;
-                height:8vh;
-                margin: 70% 10% 0 10%;
-                background:skyblue;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#ffffff;
-                border-radius:12px;
-                .icon{
+                border:0;
+            }
 
-                    height:5vh;
+            input:focus{
 
-                }
+                outline:none;
+
+            }
+
+            .icon{
+
+                width:20%;
+                font-size:20px;
             }
         }
 
+    }
+
+    .next{
+
+        text-decoration:none;
+        .save{
+
+            margin:0;
+            width:46vw;
+            padding:3vh 0;
+            margin-top:15vh;
+            color:#000000;
+            @media (max-width: 600px) {
+                margin-top:12vh;
+                padding:2vh 0;
+                width:96vw;
+            }   
+            background: gray;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:0 0 12px 12px;
+
+        }
     }
 
 }
@@ -361,17 +410,20 @@ function BrainStorming(){
         시츄:["소형견","똑똑함","조용함","갈색","흰색"]
     };
     const location = useLocation()
+    const previd = useRef(1)
     const enter  = useRef (false)
+    const next = useRef()
+    const add = useRef()
     const word = useRef([])
     const [menu,setMenu] = useState(false)
     const [prev,setPrev] = useState(-1)
     const [select,setSelect] = useState([])
     const [print,setPrint] = useState([])
     const [click,setClick] = useState(["단어를 선택해주세요",""])
-
+    
     const renew_print_all=()=>{
         let buf=[]
-        for(let i =0;i<16;i++){
+        for(let i =0;i<15;i++){
 
             if(buf.length<word.current.length){
                 
@@ -431,8 +483,8 @@ function BrainStorming(){
                     let tmp=[]
                     for(let j =0;j<json_data[prev[0]].length;j++){
 
-                        tmp.push([json_data[prev[0]][j],prev[0]])
-
+                        tmp.push([json_data[prev[0]][j],prev[0],prev[2]+1,previd.current+1,prev[4]])
+                        previd.current++
                     }
                     word_buf = [...word_buf,...tmp]
 
@@ -442,7 +494,7 @@ function BrainStorming(){
 
         }
 
-        const len = 16-print_buf.length
+        const len = 15-print_buf.length
 
         for(let i =0; i<len ;){
 
@@ -485,16 +537,42 @@ function BrainStorming(){
         word.current=[...word_buf]
     }
 
+    const make_mind = ()=>{
+
+        let node=[
+
+        ]
+
+        let edge=[
+
+
+        ]
+
+        select.map(e=>{
+            
+            node.push({data:{id:e[3].toString() , label:e[0].toString(), type:"level"+e[2]}})
+            
+            if(e[4]!==-1)
+                edge.push({data:{id:e[4]+"->"+e[3], source:e[3].toString() , target: e[4].toString()}})
+
+        })
+
+        return[...node,...edge]
+
+    }
+
     useEffect(()=>{
         const  root = decodeURI(location.search.split("root=")[1])
-        setSelect([[root,-1]])
+        setSelect([[root,-1,1,1,-1]])
         let buf = []
         for(let i =0 ; i<json_data[root].length;i++){
 
-            buf.push([json_data[root][i],root])
-
+            buf.push([json_data[root][i],root,2,previd.current+1,root[2]])
+            previd.current++;
         }
+
         word.current=[...buf]
+
         if(word.length!==0)
           renew_print_all()
 
@@ -526,11 +604,13 @@ function BrainStorming(){
                     print.map((e,idx)=>{
                         
                         return(
-                            <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} root={e[1]!==-1?e[1]:""}/>
+                            <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} 
+                            root={e[1]!==-1?e[1]:""} level={e[2]} wordid={e[3]} rootid={e[4]} />
                         )
                     })
 
                 }
+                <Refresh refresh={renew_print_all}/>
             </div>
             <div className="menu">
                 <div className="title">
@@ -541,6 +621,7 @@ function BrainStorming(){
                     <div className="container">
 
                         <div className="word_container">
+
                             <div className="words">
 
                                 {
@@ -553,6 +634,7 @@ function BrainStorming(){
                                 }
 
                             </div>
+                            
                         </div>
                     
                         <div className="tools">
@@ -563,19 +645,48 @@ function BrainStorming(){
                                     <p className="r">{click[1]}</p>
                                     <p>{click[0]}</p>
                                 </div>
-                                <div className="input">
-                                    <input type="text" />
-                                    <FontAwesomeIcon icon="fa-solid fa-plus" className="icon" />
-                                </div>
+
                             </div>
+                            <div className="input">
+                                <input type="text" ref={add}/>
+                                <FontAwesomeIcon icon="fa-solid fa-plus" className="icon" 
 
-                            <Link to="/NodeSelect" className="next">
-                                
-                                <FontAwesomeIcon icon="fa-solid fa-chevron-right" className="icon" /> 
+
+                                onClick={()=>{
+
+                                    if(add.current.value!==""&&add.current.value!==" "){
+                                        setPrev([add.current.value,click[0]])
+                                        add.current.value=""
+                                        setClick(["단어를 선택해주세요",""])
+                                    }
+
+                                }}
+
+
+                                />
+                            </div>
+                            <Link to="/NodeSelect" className="next" state={ {mindmap : make_mind()}}
+
+                            onMouseOver={()=>{
+            
+                                next.current.style.background="#3CAEFF"
+                                next.current.style.color="#ffffff"
+                            }}
                             
-                            </Link>
+                            onMouseLeave={()=>{
 
+                                next.current.style.background="gray"
+                                next.current.style.color="#000000"
+
+                            }}> 
+                                <p className="save"  ref={next}>
+
+                                    save & quit
+
+                                </p> 
+                            </Link>
                         </div>
+                        
                     </div>
                 </div>
             </div>
