@@ -50,7 +50,8 @@ function PrintedWord(props){
 
         <PrintedWordCss ref = {back} onClick={()=>{
             if(props.word!==""){
-                props.setPrev([props.word, props.root, props.level , props.word_id ,props.root_id])
+                props.setPrev([props.word, props.root, props.level , props.previd+1 ,props.root_id])
+                props.setPrevId(props.previd+1)
             }
         }}
         
@@ -410,7 +411,7 @@ function BrainStorming(){
         시츄:["소형견","똑똑함","조용함","갈색","흰색"]
     };
     const location = useLocation()
-    const previd = useRef(1)
+    const [previd,setPrevId] = useState(1)
     const enter  = useRef (false)
     const next = useRef()
     const add = useRef()
@@ -483,8 +484,8 @@ function BrainStorming(){
                     let tmp=[]
                     for(let j =0;j<json_data[prev[0]].length;j++){
 
-                        tmp.push([json_data[prev[0]][j],prev[0],prev[2]+1,previd.current+1,prev[3]])
-                        previd.current++
+                        tmp.push([json_data[prev[0]][j],prev[0],prev[2]+1,-1,prev[3]])
+    
                     }
                     word_buf = [...word_buf,...tmp]
 
@@ -563,8 +564,8 @@ function BrainStorming(){
         let buf = []
         for(let i =0 ; i<json_data[root].length;i++){
 
-            buf.push([json_data[root][i], root , 2, previd.current+1, 1])
-            previd.current++;
+            buf.push([json_data[root][i], root , 2, -1, 1])
+
         }
 
         word.current=[...buf]
@@ -601,7 +602,7 @@ function BrainStorming(){
                         
                         return(
                             <PrintedWord word={e[0]!==-1?e[0]:""} setPrev={setPrev} key={idx} 
-                            root={e[1]!==-1?e[1]:""} level={e[2]} word_id={e[3]} root_id={e[4]} />
+                            root={e[1]!==-1?e[1]:""} level={e[2]} previd={previd} setPrevId={setPrevId} root_id={e[4]} />
                         )
                     })
 
