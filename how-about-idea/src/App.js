@@ -31,7 +31,7 @@ import {
   faArrowRotateRight,
   faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons";
+
 
 library.add(
   fas,
@@ -41,8 +41,6 @@ library.add(
   faRightFromBracket,
   faArrowRotateRight,
   faAngleLeft,
-  faThumbsUp,
-  faThumbsDown
 );
 
 /* App CSS */
