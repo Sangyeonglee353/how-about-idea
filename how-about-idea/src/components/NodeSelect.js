@@ -28,7 +28,7 @@ const NodeSelectCSS = styled.div`
     .word {
       width: 120px;
       height: 120px;
-      border: 5px solid var(--color-main-skyblue);
+      border: 5px solid var(--color-main-blue);
       border-radius: 20px;
       & p {
         text-align: center;
@@ -39,7 +39,7 @@ const NodeSelectCSS = styled.div`
     .plus {
       display: flex;
       align-items: center;
-      color: var(--color-main-skyblue);
+      color: var(--color-main-blue);
       padding: 0 2.5vw;
       font-size: 80px;
     }
@@ -59,12 +59,12 @@ const NodeSelectCSS = styled.div`
         height: 10vh;
       }
       background-color: white;
-      border: 5px solid var(--color-main-skyblue);
+      border: 5px solid var(--color-main-blue);
       border-radius: 20px;
       font-size: 20px;
       &:first-child {
         &:hover {
-          background-color: var(--color-main-skyblue);
+          background-color: var(--color-main-blue);
           color: white;
           font-weight: bold;
           cursor: pointer;
@@ -75,8 +75,8 @@ const NodeSelectCSS = styled.div`
         background-color: var(--color-sub-grey);
         border-color: var(--color-sub-grey);
         &.activeBtn {
-          background-color: var(--color-main-skyblue);
-          border-color: var(--color-main-skyblue);
+          background-color: var(--color-main-blue);
+          border-color: var(--color-main-blue);
           color: white;
           font-weight: bold;
           cursor: pointer;
@@ -100,9 +100,8 @@ const NodeSelect = () => {
   const [completeSelected, setCompleteSelected] = useState(false);
   const [resetActive, setResetActive] = useState(false);
 
-  const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
-  const [loading, setLoading] = useState(false); // 로딩 관련
-  const [isMakeCompleted, setIsMakeCompleted] = useState(false); // 1. 문장생성 완료 여부
+  // const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
+  // const [loading, setLoading] = useState(false); // 로딩 관련
 
   /* Select Node data manage */
   const [selectedNode, setSelectedNode] = useState([]);
@@ -135,39 +134,9 @@ const NodeSelect = () => {
   // 처음 선택시 중복 선택 에러 해결
   useEffect(resetSelectedNode, []);
 
-  // [문장 생성 API]
-  const getSentence = () => {
-    if (selectedNode.length == 0) {
-      alert("단어를 선택해주세요!");
-      return;
-    }
-    const data = {
-      // firstWord: "비행기",
-      firstWord: selectedNode[0].label,
-    };
-
-    setLoading(true);
-    axios
-      .post("http://localhost:5000/api/hello", data)
-      .then((response) => {
-        // 응답데이터 처리
-        setOutput(response);
-        console.log("결과값: ", output);
-        // 문장생성 완료 여부 처리
-        setIsMakeCompleted(true);
-        setLoading(false);
-        alert("문장 생성 완료!");
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-        setLoading(false);
-      });
-    //
-  };
-
   return (
     <NodeSelectCSS>
-      {loading ? <Loading /> : ""}
+      {/* {loading ? <Loading /> : ""} */}
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
       {console.log("CompleteSelected: ", completeSelected)}
       <Mind
@@ -199,27 +168,19 @@ const NodeSelect = () => {
         {!completeSelected ? (
           <button id="nextPage">단어 2개를 선택해 주세요</button>
         ) : (
-          // <Link
-          //   to={"/patentAnalysis"}
-          //   state={{
-          //     word1: selectedNode[0].label,
-          //     word2: selectedNode[1].label,
-          //   }}
-          // >
-          <button className="activeBtn" id="nextPage" onClick={getSentence}>
-            문장 생성
-          </button>
-          // </Link>
+          <Link
+            to={"/patentResult"}
+            state={{
+              word1: selectedNode[0].label,
+              word2: selectedNode[1].label,
+            }}
+          >
+            <button className="activeBtn" id="nextPage">
+              문장 생성
+            </button>
+          </Link>
         )}
-        {/* {isMakeCompleted ? (
-          <Navigate to={"/patentResult"} sentence={output.data} />
-        ) : (
-          <button className="activeBtn" id="nextPage" onClick={getSentence}>
-            문장 생성
-          </button>
-        )} */}
       </div>
-      <p className="createSentence">{output.data}</p>
     </NodeSelectCSS>
   );
 };

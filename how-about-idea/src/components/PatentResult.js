@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import HomeFooter from "./HomeFooter";
 import homeImg from "../images/home.png";
 import refreshImg from "../images/refresh.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Loading from "./UI/Loading";
 
 const PatentResultCSS = styled.div`
   margin: 5vh auto 0 auto;
@@ -20,19 +21,24 @@ const PatentResultCSS = styled.div`
       font-size: 20px;
     }
   }
-  .gsentence {
+  .gsentence-wrapper {
     width: 370px;
-    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 15px auto;
     border: 5px solid var(--color-main-blue);
     border-radius: 20px;
-    font-size: 20px;
-    color: var(--color-main-blue);
-    margin: 15px auto 0 auto;
+
     @media (max-width: 400px) {
       width: 90%;
+    }
+    & .gsentence {
+      font-size: 20px;
+      /* height: auto; */
+      color: var(--color-main-blue);
+      margin: 15px auto;
+      word-break: break-all;
     }
   }
   table.idea-table {
@@ -72,14 +78,50 @@ const PatentResultCSS = styled.div`
 `;
 
 const PatentResult = (props) => {
-  const testData = useLocation();
-  useEffect(() => console.log(testData));
+  const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
+  const [loading, setLoading] = useState(false); // 로딩 관련
+
+  const navigate = useNavigate();
+  const words = useLocation();
+  useEffect(() => {
+    console.log(words.state["word1"]);
+    getSentence();
+  }, []);
+
+  // [문장 생성 API]
+  const getSentence = () => {
+    const data = {
+      // firstWord: selectedNode[0].label,
+      firstWord: words.state["word1"],
+    };
+    setLoading(true);
+    axios
+      .post("http://localhost:5000/api/hello", data)
+      .then((response) => {
+        // 응답데이터 처리
+        setOutput(response);
+        console.log("결과값: ", output);
+        // 문장생성 완료 여부 처리
+        // setIsMakeCompleted(true);
+        setLoading(false);
+        // alert("문장 생성 완료!");
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        setLoading(false);
+      });
+  };
+
   return (
     <>
+      {loading ? <Loading /> : ""}
       <PatentResultCSS>
-        <p>특허청 분석 결과</p>
+        <p>문장 생성 결과</p>
         {/* <div className="gsentence">날개 머시기 머시기 장치</div> */}
-        <div className="gsentence">{props.sentence}</div>
+        {/* <div className="gsentence">{props.sentence}</div> */}
+        <div className="gsentence-wrapper">
+          <span className="gsentence">{output.data}</span>
+        </div>
         <table className="idea-table">
           <tr>
             <th>비슷한 아이디어</th>
@@ -110,9 +152,14 @@ const PatentResult = (props) => {
               </Link>
             </td>
             <td>
-              <Link to={"/nodeselect"}>
-                <img src={refreshImg} className="refresh" alt="refresh" />
-              </Link>
+              <img
+                src={refreshImg}
+                className="refresh"
+                alt="refresh"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              />
             </td>
           </tr>
           <tr>
@@ -126,7 +173,6 @@ const PatentResult = (props) => {
         </table>
         <p className="notice">회원은 자동으로 결과가 저장됩니다.</p>
       </PatentResultCSS>
-      {/* <HomeFooter /> */}
     </>
   );
 };
