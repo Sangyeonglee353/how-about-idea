@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
@@ -15,17 +15,6 @@ const NodeSelectCSS = styled.div`
   height: 80vh;
   font-family: "Quicksand", sans-serif;
 
-  /* .notify {
-    margin-top: 30px;
-    & p {
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-    }
-    @media (max-width: 400px) {
-      margin-top: 0px;
-    }
-  } */
   @media (max-width: 500px) {
     width: 100vw;
   }
@@ -103,46 +92,6 @@ const NodeSelectCSS = styled.div`
     font-size: 20px;
     height: 10vh;
   }
-  /* .btnList {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 428px;
-    height: 80px;
-    margin: 0 auto;
-    @media (max-width: 500px) {
-      width: 100vw;
-    }
-    button {
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      background-color: white;
-      border: 5px solid var(--color-main-blue);
-      text-align: center;
-      font-size: 20px;
-      &:first-child {
-        &:hover {
-          background-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-      &:last-child {
-        background-color: var(--color-sub-grey);
-        border-color: var(--color-sub-grey);
-        &.activeBtn {
-          background-color: var(--color-main-blue);
-          border-color: var(--color-main-blue);
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
-    }
-  } */
 `;
 
 const NodeSelect = () => {
@@ -158,6 +107,7 @@ const NodeSelect = () => {
   /* Select Node data manage */
   const [selectedNode, setSelectedNode] = useState([]);
 
+  /* 노드 선택 */
   const onSelectNodeHandler = (selectData) => {
     if (resetActive) {
       setResetActive(false);
@@ -174,11 +124,16 @@ const NodeSelect = () => {
       setCompleteSelected(true);
     }
   };
+
+  /* 노드 선택 초기화 */
   const resetSelectedNode = () => {
     setSelectedNode([]);
     setCompleteSelected(false);
     setResetActive(true);
   };
+
+  // 처음 선택시 중복 선택 에러 해결
+  useEffect(resetSelectedNode, []);
 
   // [문장 생성 API]
   const getSentence = () => {
@@ -210,8 +165,6 @@ const NodeSelect = () => {
     //
   };
 
-  
-
   return (
     <NodeSelectCSS>
       {loading ? <Loading /> : ""}
@@ -226,9 +179,6 @@ const NodeSelect = () => {
         onUnNodeMove={true}
         onSelectNodeHandler={onSelectNodeHandler}
       />
-      {/* <div className="notify">
-        <p>단어 2개를 선택 해주세요</p>
-      </div> */}
       <div className="wordList">
         <div className="word" id="firstWord">
           <p>
