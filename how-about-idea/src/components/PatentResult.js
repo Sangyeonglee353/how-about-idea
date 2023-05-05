@@ -86,7 +86,7 @@ const PatentResult = (props) => {
   useEffect(() => {
     console.log(words.state["word1"]);
     getSentence();
-  }, []);
+  }, [words.state]);
 
   // [문장 생성 API]
   const getSentence = () => {

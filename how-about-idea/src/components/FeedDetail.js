@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import thumbsUp from "../images/thumbs-up-regular.svg";
+import thumbsDown from "../images/thumbs-down-regular.svg";
+import share from "../images/share.png";
 
 const ContentBlock = styled.div`
   /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
@@ -18,6 +20,18 @@ const ContentBlock = styled.div`
   .detail {
     margin-top: 2%;
     & .detail-btn {
+      img {
+        cursor: pointer;
+        &.fa-thumbs-up {
+          height: 16px;
+        }
+        &.fa-thumbs-down {
+          height: 16px;
+        }
+        &.fa-share {
+          height: 16px;
+        }
+      }
       span {
         margin: 2%;
       }
@@ -83,11 +97,11 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <FontAwesomeIcon icon="fa-regular fa-thumbs-up" />
+            <img src={thumbsUp} className="fa-thumbs-up" />
             <span>23</span>
-            <FontAwesomeIcon icon="fa-regular fa-thumbs-down" />
+            <img src={thumbsDown} className="fa-thumbs-down" />
             <span>3</span>
-            <FontAwesomeIcon icon="fa-solid fa-share" />
+            <img src={share} className="fa-share" />
           </div>
           <p className="detail-sentence">{sentence}</p>
           <p className="detail-word__start">

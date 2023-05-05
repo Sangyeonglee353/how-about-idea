@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MindMap from "./MindMap";
-import DummyMindMap from "./DummyMindMap";
 import { useLocation } from "react-router-dom";
 
 const MindCss = styled.div`
@@ -47,7 +46,7 @@ const Mind = (props) => {
     if (location.state != null) {
       setGraphData(location.state.mindmap);
     }
-  }, []);
+  }, [location.state]);
 
   return (
     <MindCss>

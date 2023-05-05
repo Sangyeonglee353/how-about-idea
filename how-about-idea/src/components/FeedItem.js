@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import thumbsUp from "../images/thumbs-up-regular.svg";
+import thumbsDown from "../images/thumbs-down-regular.svg";
 
 const FeedItemCSS = styled.li`
-  /* width: 100%; */
   flex: auto;
   width: 23%;
   padding: 10px 0px;
-  /* margin-bottom: 5px; */
   margin: 0 1.5% 3% 1.5%;
-  /* border-top: 10px solid var(--color-main-skyblue); */
-  /* border: 2px solid var(--color-main-skyblue); */
   border-radius: 10px;
-  /* background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); */
   cursor: pointer;
   background: #ffffff;
 
@@ -37,9 +33,12 @@ const FeedItemCSS = styled.li`
   }
 
   img {
-    display: block;
-    border-radius: 10px;
-    margin: 0 auto;
+    &.fa-thumbs-up {
+      height: 16px;
+    }
+    &.fa-thumbs-down {
+      height: 16px;
+    }
   }
 
   .mindmap {
@@ -92,7 +91,6 @@ const FeedItem = (props) => {
 
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
-      {/* <h3>{props.name}</h3> */}
       <div className="mindmap">
         <Mind
           width={mindWidth}
@@ -105,11 +103,10 @@ const FeedItem = (props) => {
       </div>
       <div className="summary">
         <div className="summary-btn">
-          <FontAwesomeIcon icon="fa-regular fa-thumbs-up" />
+          <img src={thumbsUp} className="fa-thumbs-up" />
           <span>23</span>
-          <FontAwesomeIcon icon="fa-regular fa-thumbs-down" />
+          <img src={thumbsDown} className="fa-thumbs-down" />
           <span>3</span>
-          {/* <FontAwesomeIcon icon="fa-solid fa-share" /> */}
         </div>
         <p className="summary-sentence">{props.sentence}</p>
         <p className="summary-date">2023년 04월 15일</p>

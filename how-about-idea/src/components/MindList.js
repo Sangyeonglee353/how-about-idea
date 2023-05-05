@@ -3,8 +3,6 @@ import Feeds from "./Feeds.js";
 import { useState } from "react";
 import FeedDetail from "./FeedDetail";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MindListCss = styled.div`
   width: 100vw;
@@ -88,7 +86,6 @@ const MindList = () => {
     <MindListCss>
       {feedDetailShow && (
         <FeedDetail
-          // feedData={DUMMY_FEED[0]}
           feedData={feedData}
           onHideFeedDetail={hideFeedDetailHandler}
         />
