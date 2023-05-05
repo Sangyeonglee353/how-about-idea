@@ -12,7 +12,7 @@ const MindCss = styled.div`
 `;
 
 const Mind = (props) => {
-  const location = useLocation()
+  const location = useLocation();
   const [graphData, setGraphData] = useState([
     // nodes: [
     { data: { id: "1", label: "선풍기", type: "level1" } },
@@ -26,7 +26,7 @@ const Mind = (props) => {
     { data: { id: "9", label: "흐름", type: "level3" } },
     { data: { id: "10", label: "기압", type: "level3" } },
     { data: { id: "11", label: "전기", type: "level3" } },
-    { data: { id: "12", label: "회전", type: "level3" } }, 
+    { data: { id: "12", label: "회전", type: "level3" } },
     // ],
     // edges: [
     { data: { id: "1->2", source: "2", target: "1" } },
@@ -43,12 +43,11 @@ const Mind = (props) => {
     // ],
   ]);
 
-  useEffect(()=>{
-
-    setGraphData(location.state.mindmap)
-  
-
-  },[])
+  useEffect(() => {
+    if (location.state != null) {
+      setGraphData(location.state.mindmap);
+    }
+  }, []);
 
   return (
     <MindCss>
@@ -63,7 +62,6 @@ const Mind = (props) => {
         onUnNodeMove={props.onUnNodeMove} // 노트 이동 가능 여부
         onSelectNodeHandler={props.onSelectNodeHandler}
       />
-      {/* <DummyMindMap graphData={dummyData} setGraphData={setDummyData} /> */}
     </MindCss>
   );
 };
