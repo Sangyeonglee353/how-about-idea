@@ -82,8 +82,6 @@ const FeedItem = (props) => {
   const [mindWidth, setMindWidth] = useState("90%");
   const [mindHeight, setMindHeight] = useState("200px");
 
-  const source = props.imgSource;
-
   const showAndSetFeed = () => {
     props.onSetFeedData(props.feedData);
     props.onShowFeedDetail();

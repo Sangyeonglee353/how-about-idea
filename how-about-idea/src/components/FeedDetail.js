@@ -68,10 +68,6 @@ const FeedDetail = (props) => {
     window.innerHeight < 800 ? "150px" : "300px"
   );
   const [modalHeight, setModalHeight] = useState(window.innerHeight);
-
-  const userName = props.feedData.name;
-  const imgSource = props.feedData.imgSource;
-  const trizType = props.feedData.trizType;
   const sentence = props.feedData.sentence;
 
   useEffect(() => {
@@ -84,7 +80,6 @@ const FeedDetail = (props) => {
   return (
     <Modal onClick={props.onHideFeedDetail}>
       <ContentBlock height={modalHeight}>
-        {/* <h3>{userName}</h3> */}
         <div className="mindmap">
           <Mind
             width={mindWidth}
@@ -97,11 +92,15 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <img src={thumbsUp} className="fa-thumbs-up" />
+            <img src={thumbsUp} className="fa-thumbs-up" alt="fa-thumbs-up" />
             <span>23</span>
-            <img src={thumbsDown} className="fa-thumbs-down" />
+            <img
+              src={thumbsDown}
+              className="fa-thumbs-down"
+              alt="fa-thumbs-down"
+            />
             <span>3</span>
-            <img src={share} className="fa-share" />
+            <img src={share} className="fa-share" alt="fa-share" />
           </div>
           <p className="detail-sentence">{sentence}</p>
           <p className="detail-word__start">

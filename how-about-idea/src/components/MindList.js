@@ -8,7 +8,8 @@ const MindListCss = styled.div`
   width: 100vw;
   height: 92vh;
   overflow-y: scroll;
-  background: rgba(0, 0, 0, 0.03);
+  /* background: rgba(0, 0, 0, 0.03); */
+  background-color: #f3f3f3;
 `;
 
 const MindList = () => {

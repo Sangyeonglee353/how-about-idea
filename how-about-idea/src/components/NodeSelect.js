@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
-import axios from "axios";
-import Loading from "./UI/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NodeSelectCSS = styled.div`
@@ -136,7 +134,6 @@ const NodeSelect = () => {
 
   return (
     <NodeSelectCSS>
-      {/* {loading ? <Loading /> : ""} */}
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
       {console.log("CompleteSelected: ", completeSelected)}
       <Mind

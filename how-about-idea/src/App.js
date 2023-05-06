@@ -11,6 +11,8 @@ import {
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import MindStore from "./components/MindStore";
+import MindSearch from "./components/MindSearch";
 import MindList from "./components/MindList";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
@@ -32,7 +34,6 @@ import {
   faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 library.add(
   fas,
   faHouse,
@@ -40,7 +41,7 @@ library.add(
   faPlay,
   faRightFromBracket,
   faArrowRotateRight,
-  faAngleLeft,
+  faAngleLeft
 );
 
 /* App CSS */
@@ -120,8 +121,8 @@ function App() {
   const [menuList1, setMenuList1] = useState([
     { name: "홈", link: "/" },
     { name: "브레인스토밍", link: "/?brainstorming" },
-    { name: "저장소", link: "/mindlist" },
-    { name: "검색", link: "/search" },
+    { name: "저장소", link: "/mindstore" },
+    { name: "검색", link: "/mindsearch" },
   ]);
 
   const [menuList2, setMenuList2] = useState([
@@ -169,7 +170,8 @@ function App() {
           <Route path="/" exact={true} element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/mindlist" element={<MindList />} />
+          <Route path="/mindstore" element={<MindStore />} />
+          <Route path="/mindsearch" element={<MindSearch />} />
           {/* <Route path="/mind" element={<Mind />} /> */}
           <Route path="/nodeselect" element={<NodeSelect />} />
           <Route path="/trizselect" element={<TrizSelect />} />
