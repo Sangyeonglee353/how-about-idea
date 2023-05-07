@@ -1,6 +1,7 @@
 import MindList from "./MindList";
 import styled from "styled-components";
 import magnifyingGlass from "../images/magnifying-glass-solid.svg";
+import { useState } from "react";
 
 const MindSearchCSS = styled.div`
   background-color: #f3f3f3;
@@ -8,10 +9,6 @@ const MindSearchCSS = styled.div`
 
   .search-wrapper {
     width: 55vw;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0px auto;
     background-color: #fff;
     border-radius: 20px;
@@ -20,41 +17,64 @@ const MindSearchCSS = styled.div`
     }
     .search-form {
       width: 95%;
-      @media (max-width: 600px) {
-        width: 90%;
-      }
+      margin-left: 20px;
       img {
-        &.fa-magnifyingGlass {
-          margin-left: 2%;
-          height: 16px;
+        height: 16px;
+        cursor: pointer;
+        &.fa-magnifyingGlass__on {
+          filter: invert(58%) sepia(91%) saturate(5131%) hue-rotate(172deg)
+            brightness(115%) contrast(92%);
+        }
+        &.fa-magnifyingGlass__off {
+          filter: invert(91%) sepia(60%) saturate(5920%) hue-rotate(182deg)
+            brightness(143%) contrast(78%);
         }
       }
       input {
         border: none;
-        &:focus {
-          outline: none;
-        }
         &.search {
-          width: 85%;
+          width: 90%;
           font-size: 20px;
-          margin: 15px auto 15px 1vw;
-          word-break: break-all;
+          margin: 15px auto 15px 10px;
+          &:focus {
+            outline: none;
+          }
         }
       }
     }
   }
 `;
 const MindSearch = () => {
+  const [magnifyColor, setMagnifyColor] = useState(false);
+
+  const handleFocusColor = () => {
+    setMagnifyColor(true);
+  };
+
+  const handleBlurColor = () => {
+    setMagnifyColor(false);
+  };
+
   return (
     <MindSearchCSS>
       <div className="search-wrapper">
         <form className="search-form">
           <img
             src={magnifyingGlass}
-            className="fa-magnifyingGlass"
+            className={
+              magnifyColor
+                ? "fa-magnifyingGlass__on"
+                : "fa-magnifyingGlass__off"
+            }
             alt="fa-magnifyingGlass"
           />
-          <input type="text" className="search" placeHolder="Search..." />
+          <input
+            type="text"
+            className="search"
+            placeHolder="Search..."
+            onFocus={handleFocusColor}
+            onBlur={handleBlurColor}
+          />
         </form>
       </div>
       <MindList />
