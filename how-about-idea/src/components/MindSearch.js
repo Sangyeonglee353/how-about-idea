@@ -2,7 +2,7 @@ import MindList from "./MindList";
 import styled from "styled-components";
 import magnifyingGlass from "../images/magnifying-glass-solid.svg";
 import { useState } from "react";
-
+import React from "react";
 const MindSearchCSS = styled.div`
   background-color: #f3f3f3;
   padding-top: 1.5vh;
