@@ -5,6 +5,9 @@ import Mind from "./MindMap/Mind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NodeSelectCSS = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -13,6 +16,9 @@ const NodeSelectCSS = styled.div`
   height: 80vh;
   font-family: "Quicksand", sans-serif;
 
+  @media (max-width: 920px) {
+    display: block;
+  }
   @media (max-width: 500px) {
     width: 100vw;
   }
@@ -93,7 +99,7 @@ const NodeSelectCSS = styled.div`
 `;
 
 const NodeSelect = () => {
-  const [mindWidth, setMindWidth] = useState("100%");
+  const [mindWidth, setMindWidth] = useState("50vw");
   const [mindHeight, setMindHeight] = useState("50vh");
   const [completeSelected, setCompleteSelected] = useState(false);
   const [resetActive, setResetActive] = useState(false);
@@ -145,38 +151,44 @@ const NodeSelect = () => {
         onUnNodeMove={true}
         onSelectNodeHandler={onSelectNodeHandler}
       />
-      <div className="wordList">
-        <div className="word" id="firstWord">
-          <p>
-            {selectedNode.length === 0 ? "선택 단어 1" : selectedNode[0].label}
-          </p>
+      <div className="list-wrapper">
+        <div className="wordList">
+          <div className="word" id="firstWord">
+            <p>
+              {selectedNode.length === 0
+                ? "선택 단어 1"
+                : selectedNode[0].label}
+            </p>
+          </div>
+          <span className="plus">
+            <FontAwesomeIcon icon="fa-solid fa-plus" />
+          </span>
+          <div className="word" id="secondWord">
+            <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
+          </div>
         </div>
-        <span className="plus">
-          <FontAwesomeIcon icon="fa-solid fa-plus" />
-        </span>
-        <div className="word" id="secondWord">
-          <p>{!selectedNode[1] ? "선택 단어 2" : selectedNode[1].label}</p>
-        </div>
-      </div>
-      <div className="btnList">
-        <button id="resetWord" onClick={resetSelectedNode}>
-          초기화
-        </button>
-        {!completeSelected ? (
-          <button id="nextPage">단어 2개를 선택해 주세요</button>
-        ) : (
-          <Link
-            to={"/patentResult"}
-            state={{
-              word1: selectedNode[0].label,
-              word2: selectedNode[1].label,
-            }}
-          >
-            <button className="activeBtn" id="nextPage">
-              문장 생성
+        <div className="btnList">
+          <button type="button" id="resetWord" onClick={resetSelectedNode}>
+            초기화
+          </button>
+          {!completeSelected ? (
+            <button type="button" id="notice">
+              단어 2개를 선택해 주세요
             </button>
-          </Link>
-        )}
+          ) : (
+            <Link
+              to={"/patentResult"}
+              state={{
+                word1: selectedNode[0].label,
+                word2: selectedNode[1].label,
+              }}
+            >
+              <button className="activeBtn" id="nextPage">
+                문장 생성
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     </NodeSelectCSS>
   );
