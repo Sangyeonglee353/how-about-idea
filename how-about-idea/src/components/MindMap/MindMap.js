@@ -7,7 +7,10 @@ import styled from "styled-components";
 
 const MindMapCSS = styled.div`
   position: relative;
-  background-color: transparent;
+  /* background-color: transparent; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RefreshBtn = styled(FontAwesomeIcon)`

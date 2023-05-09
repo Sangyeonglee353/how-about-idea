@@ -6,21 +6,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NodeSelectCSS = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  position: absolute;
-  top: 50%;
+  flex-wrap: wrap;
+  /* position: absolute; */
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 
-  height: 80vh;
+  height: 92vh;
   font-family: "Quicksand", sans-serif;
+  background: rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 
   @media (max-width: 920px) {
     display: block;
   }
   @media (max-width: 500px) {
     width: 100vw;
+  }
+
+  .mind-wrapper {
+    background-color: #fff;
+    border-radius: 20px;
+    width: 48vw;
+    height: 95%;
+  }
+
+  .list-wrapper {
+    background-color: #fff;
+    border-radius: 20px;
+    width: 48vw;
+    height: 95%;
   }
   .wordList {
     /* width: 600px; */
@@ -99,8 +116,8 @@ const NodeSelectCSS = styled.div`
 `;
 
 const NodeSelect = () => {
-  const [mindWidth, setMindWidth] = useState("50vw");
-  const [mindHeight, setMindHeight] = useState("50vh");
+  const [mindWidth, setMindWidth] = useState("100%");
+  const [mindHeight, setMindHeight] = useState("80vh");
   const [completeSelected, setCompleteSelected] = useState(false);
   const [resetActive, setResetActive] = useState(false);
 
@@ -142,15 +159,17 @@ const NodeSelect = () => {
     <NodeSelectCSS>
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
       {console.log("CompleteSelected: ", completeSelected)}
-      <Mind
-        width={mindWidth}
-        height={mindHeight}
-        onUserZoom={false}
-        onRefreshBtn={true}
-        onUnSelect={false}
-        onUnNodeMove={true}
-        onSelectNodeHandler={onSelectNodeHandler}
-      />
+      <div className="mind-wrapper">
+        <Mind
+          width={mindWidth}
+          height={mindHeight}
+          onUserZoom={false}
+          onRefreshBtn={true}
+          onUnSelect={false}
+          onUnNodeMove={true}
+          onSelectNodeHandler={onSelectNodeHandler}
+        />
+      </div>
       <div className="list-wrapper">
         <div className="wordList">
           <div className="word" id="firstWord">

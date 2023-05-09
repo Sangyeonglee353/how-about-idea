@@ -70,6 +70,7 @@ const PatentResultCSS = styled.div`
     color: var(--color-main-blue);
     img {
       vertical-align: middle;
+      cursor: pointer;
     }
     td {
       width: 150px;
@@ -156,9 +157,10 @@ const PatentResult = (props) => {
                 src={refreshImg}
                 className="refresh"
                 alt="refresh"
-                onClick={() => {
-                  navigate(-1);
-                }}
+                // onClick={() => {
+                //   navigate(-1);
+                // }}
+                onClick={getSentence}
               />
             </td>
           </tr>
