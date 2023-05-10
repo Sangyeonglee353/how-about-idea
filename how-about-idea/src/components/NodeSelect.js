@@ -12,17 +12,11 @@ const NodeSelectCSS = styled.div`
   height: 92vh;
   font-family: "Quicksand", sans-serif;
   background: rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
   flex-wrap: wrap;
   overflow-y: auto;
   @media (max-width: 920px) {
     display: block;
   }
-  /* @media (max-width: 500px) {
-    width: 100vw;
-  } */
-
-  // 반응형 수정해야됨_230510
   .mind-wrapper {
     background-color: #fff;
     border-radius: 12px;
@@ -67,7 +61,6 @@ const NodeSelectCSS = styled.div`
     .word {
       width: 120px;
       height: 120px;
-      /* border: 2px solid var(--color-main-blue); */
       border: 1px solid #000;
       border-radius: 20px;
       & p {

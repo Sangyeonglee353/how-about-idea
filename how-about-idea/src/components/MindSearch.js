@@ -5,11 +5,12 @@ import { useState } from "react";
 import React from "react";
 const MindSearchCSS = styled.div`
   background-color: #f3f3f3;
-  padding-top: 1.5vh;
+  padding-top: 5px;
 
   .search-wrapper {
+    position: relative;
     width: 55vw;
-    margin: 0px auto;
+    margin: 5px auto 10px auto;
     background-color: #fff;
     border-radius: 20px;
     @media (max-width: 600px) {
