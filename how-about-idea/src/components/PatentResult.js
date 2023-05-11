@@ -7,19 +7,34 @@ import axios from "axios";
 import Loading from "./UI/Loading";
 
 const PatentResultCSS = styled.div`
-  margin: 5vh auto 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 92vh;
+  margin: 0 auto;
   text-align: center;
-  font-family: "Quicksand", sans-serif;
   font-size: 15px;
-  height: 800px;
-
-  p {
-    color: var(--color-main-blue);
-    font-size: 30px;
-    &.notice {
-      margin-top: 15px;
-      font-size: 20px;
+  font-family: "Quicksand", sans-serif;
+  background: rgba(0, 0, 0, 0.1);
+  .result-wrapper {
+    width: 92vw;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 12px;
+    .result-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10vh;
+      border-bottom: 1px solid #00000033;
+      span {
+        font-size: 30px;
+      }
     }
+  }
+  .result-content-wrapper {
+    display: flex;
   }
   .gsentence-wrapper {
     width: 370px;
@@ -76,6 +91,20 @@ const PatentResultCSS = styled.div`
       width: 150px;
     }
   }
+  .result-save {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: var(--color-main-blue);
+    span {
+      color: #fff;
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
 `;
 
 const PatentResult = (props) => {
@@ -86,7 +115,7 @@ const PatentResult = (props) => {
   const words = useLocation();
   useEffect(() => {
     console.log(words.state["word1"]);
-    getSentence();
+    // getSentence();
   }, [words.state]);
 
   // [문장 생성 API]
@@ -117,63 +146,66 @@ const PatentResult = (props) => {
     <>
       {loading ? <Loading /> : ""}
       <PatentResultCSS>
-        <p>문장 생성 결과</p>
-        {/* <div className="gsentence">날개 머시기 머시기 장치</div> */}
-        {/* <div className="gsentence">{props.sentence}</div> */}
-        <div className="gsentence-wrapper">
-          <span className="gsentence">{output.data}</span>
+        <div className="result-wrapper">
+          <div className="result-title">
+            <span>문장 생성 결과</span>
+          </div>
+
+          <div className="result-content-wrapper">
+            <div className="result-sentence">
+              <div className="gsentence-wrapper">
+                <span className="gsentence">{output.data}</span>
+              </div>
+              <table className="idea-table">
+                <tr>
+                  <th>유사한 아이디어(특허)</th>
+                </tr>
+                <tr>
+                  <td>천안</td>
+                </tr>
+                <tr>
+                  <td>병천</td>
+                </tr>
+                <tr>
+                  <td>한기대</td>
+                </tr>
+                <tr>
+                  <td>컴퓨터공학부</td>
+                </tr>
+                <tr>
+                  <td>졸업작품!</td>
+                </tr>
+              </table>
+            </div>
+
+            <div className="result-evaluation">
+              <table className="menuBox">
+                <tr>
+                  <td>
+                    <img
+                      src={refreshImg}
+                      className="refresh"
+                      alt="refresh"
+                      // onClick={() => {
+                      //   navigate(-1);
+                      // }}
+                      onClick={getSentence}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>다시 생성하기</label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div className="result-save">
+            <span>Save & Quit</span>
+          </div>
         </div>
-        <table className="idea-table">
-          <tr>
-            <th>비슷한 아이디어</th>
-            <th>유사도</th>
-          </tr>
-          <tr>
-            <td>천안</td>
-            <td>20%</td>
-          </tr>
-          <tr>
-            <td>병천</td>
-            <td>10%</td>
-          </tr>
-          <tr>
-            <td>한기대</td>
-            <td>35.5%</td>
-          </tr>
-          <tr>
-            <td>컴퓨터공학부</td>
-            <td>14.8%</td>
-          </tr>
-        </table>
-        <table className="menuBox">
-          <tr>
-            <td>
-              <Link to={"/"}>
-                <img src={homeImg} className="home" alt="home" />
-              </Link>
-            </td>
-            <td>
-              <img
-                src={refreshImg}
-                className="refresh"
-                alt="refresh"
-                // onClick={() => {
-                //   navigate(-1);
-                // }}
-                onClick={getSentence}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>메인으로</label>
-            </td>
-            <td>
-              <label>다시 생성하기</label>
-            </td>
-          </tr>
-        </table>
-        <p className="notice">회원은 자동으로 결과가 저장됩니다.</p>
       </PatentResultCSS>
     </>
   );
