@@ -32,6 +32,9 @@ import {
   faRightFromBracket,
   faArrowRotateRight,
   faAngleLeft,
+  faEye,
+  faEyeSlash,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -41,7 +44,10 @@ library.add(
   faPlay,
   faRightFromBracket,
   faArrowRotateRight,
-  faAngleLeft
+  faAngleLeft,
+  faStar,
+  faEye,
+  faEyeSlash
 );
 
 /* App CSS */
