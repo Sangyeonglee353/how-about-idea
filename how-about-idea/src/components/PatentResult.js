@@ -17,11 +17,16 @@ const PatentResultCSS = styled.div`
   font-size: 15px;
   font-family: "Quicksand", sans-serif;
   background: rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
   .result-wrapper {
     width: 92vw;
     height: 80vh;
     background-color: #fff;
     border-radius: 12px;
+    @media (max-width: 1300px) {
+      height: 800px;
+      margin: 20vh auto 15vh auto;
+    }
     .result-title {
       display: flex;
       justify-content: center;
@@ -38,23 +43,33 @@ const PatentResultCSS = styled.div`
     justify-content: space-around;
     align-items: center;
     height: 60vh;
+    @media (max-width: 1300px) {
+      flex-direction: column;
+      height: 700px;
+    }
     .result-sentence {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 46vw;
+      /* width: 46vw; */
+      width: 50%;
       height: 100%;
-      /* background-color: blue; */
-
+      /* background-color: blue; // temp */
+      @media (max-width: 1300px) {
+        width: 90%;
+      }
       .gsentence-wrapper {
         width: 550px;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 15px auto;
-        border: 5px solid var(--color-main-blue);
+        border: 2px solid var(--color-main-blue);
         border-radius: 20px;
+        @media (max-width: 1300px) {
+          width: 70vw;
+        }
         & .gsentence {
           font-size: 20px;
           color: var(--color-main-blue);
@@ -64,16 +79,19 @@ const PatentResultCSS = styled.div`
         }
       }
       table.idea-table {
-        border: 5px solid var(--color-main-blue);
+        border: 2px solid var(--color-main-blue);
         border-collapse: collapse;
         width: 550px;
         height: 370px;
         margin: 15px auto 0 auto;
         color: var(--color-main-blue);
+        @media (max-width: 1300px) {
+          width: 70vw;
+        }
         tr,
         td,
         th {
-          border: 5px solid var(--color-main-blue);
+          border: 2px solid var(--color-main-blue);
           border-collapse: collapse;
         }
         th {
@@ -89,24 +107,42 @@ const PatentResultCSS = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 46vw;
+    /* width: 46vw; */
+    width: 50%;
     height: 100%;
     /* background-color: green; // temp */
+    @media (max-width: 1300px) {
+      flex-direction: row;
+      width: 90%;
+    }
     .result-evaluation__satisfy {
-      width: 40vw;
-      height: 15vh;
+      height: 20vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       /* background-color: blue; // temp */
       .result-evaluation__satisfy-star {
         width: 100%;
         height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
         /* background-color: skyblue; // temp */
+        @media (max-width: 1980px) {
+          height: 70%;
+        }
+        @media (max-width: 1770px) {
+          height: 60%;
+        }
+        @media (max-width: 1575px) {
+          height: 50%;
+        }
         .fa-star {
           /* width: 20%; */
-          height: 95%;
+          height: 90%;
           filter: invert(47%) sepia(90%) saturate(2417%) hue-rotate(170deg)
             brightness(110%) contrast(101%);
           &:hover {
@@ -115,7 +151,7 @@ const PatentResultCSS = styled.div`
           }
         }
         .fa-star-fill {
-          height: 95%;
+          height: 90%;
           filter: invert(100%) sepia(100%) saturate(7497%) hue-rotate(357deg)
             brightness(103%) contrast(104%);
         }
@@ -140,6 +176,9 @@ const PatentResultCSS = styled.div`
       display: flex;
       justify-content: space-around;
       align-items: center;
+      @media (max-width: 1300px) {
+        width: 30vw;
+      }
       .result-evaluation__setting-private {
         width: 50%;
         height: 100%;
@@ -147,6 +186,9 @@ const PatentResultCSS = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        @media (max-width: 1300px) {
+          height: 60%;
+        }
         /* background-color: skyblue; // temp */
         .result-evaluation__setting-private-icon {
           display: flex;
@@ -182,6 +224,9 @@ const PatentResultCSS = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        @media (max-width: 1300px) {
+          height: 60%;
+        }
         /* background-color: grey; // temp */
         .result-evaluation__setting-refresh-icon {
           display: flex;
