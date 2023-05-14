@@ -19,13 +19,14 @@ const PatentResultCSS = styled.div`
   background: rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   .result-wrapper {
+    // 전체 블럭
     width: 92vw;
     height: 80vh;
     background-color: #fff;
     border-radius: 12px;
     @media (max-width: 1300px) {
-      height: 800px;
-      margin: 20vh auto 15vh auto;
+      height: 910px;
+      margin: 10vh auto 5vh auto;
     }
     .result-title {
       display: flex;
@@ -57,7 +58,7 @@ const PatentResultCSS = styled.div`
       height: 100%;
       /* background-color: blue; // temp */
       @media (max-width: 1300px) {
-        width: 90%;
+        width: 100%;
       }
       .gsentence-wrapper {
         width: 550px;
@@ -113,9 +114,17 @@ const PatentResultCSS = styled.div`
     /* background-color: green; // temp */
     @media (max-width: 1300px) {
       flex-direction: row;
-      width: 90%;
+      width: 100%;
+    }
+    @media (max-width: 1100px) {
+      flex-direction: column;
+      width: 100%;
+    }
+    @media (max-width: 360px) {
+      width: 360px;
     }
     .result-evaluation__satisfy {
+      width: 50%;
       height: 20vh;
       display: flex;
       flex-direction: column;
@@ -139,6 +148,12 @@ const PatentResultCSS = styled.div`
         }
         @media (max-width: 1575px) {
           height: 50%;
+        }
+        @media (max-width: 940px) {
+          /* height: 100px; */
+        }
+        @media (max-width: 360px) {
+          height: 20px;
         }
         .fa-star {
           /* width: 20%; */
@@ -166,6 +181,9 @@ const PatentResultCSS = styled.div`
           font-size: 20px;
           font-weight: bold;
           color: var(--color-main-blue);
+          @media (max-width: 360px) {
+            font-size: 10px;
+          }
         }
       }
     }
@@ -179,6 +197,9 @@ const PatentResultCSS = styled.div`
       @media (max-width: 1300px) {
         width: 30vw;
       }
+      @media (max-width: 960px) {
+        /* width: 50%; */
+      }
       .result-evaluation__setting-private {
         width: 50%;
         height: 100%;
@@ -188,6 +209,12 @@ const PatentResultCSS = styled.div`
         align-items: center;
         @media (max-width: 1300px) {
           height: 60%;
+        }
+        @media (max-width: 940px) {
+          height: 100px;
+        }
+        @media (max-width: 360px) {
+          height: 30px;
         }
         /* background-color: skyblue; // temp */
         .result-evaluation__setting-private-icon {
@@ -214,6 +241,9 @@ const PatentResultCSS = styled.div`
             font-size: 20px;
             font-weight: bold;
             color: var(--color-main-blue);
+            @media (max-width: 360px) {
+              font-size: 10px;
+            }
           }
         }
       }
@@ -226,6 +256,12 @@ const PatentResultCSS = styled.div`
         align-items: center;
         @media (max-width: 1300px) {
           height: 60%;
+        }
+        @media (max-width: 940px) {
+          /* height: 100px; */
+        }
+        @media (max-width: 360px) {
+          height: 30px;
         }
         /* background-color: grey; // temp */
         .result-evaluation__setting-refresh-icon {
@@ -248,6 +284,9 @@ const PatentResultCSS = styled.div`
             font-size: 20px;
             font-weight: bold;
             color: var(--color-main-blue);
+            @media (max-width: 360px) {
+              font-size: 10px;
+            }
           }
         }
       }
