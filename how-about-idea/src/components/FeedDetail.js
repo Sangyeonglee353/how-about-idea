@@ -5,10 +5,13 @@ import Mind from "./MindMap/Mind";
 import thumbsUp from "../images/thumbs-up-regular.svg";
 import thumbsDown from "../images/thumbs-down-regular.svg";
 import share from "../images/share.png";
+import download from "../images/download.svg";
+import html2canvas from "html2canvas";
 
 const ContentBlock = styled.div`
   /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
   margin: 10px;
+  padding: 20px; // 이미지 저장용 여백
 
   * {
     font-family: "Quicksand", sans-serif;
@@ -31,7 +34,11 @@ const ContentBlock = styled.div`
         &.fa-share {
           height: 16px;
         }
+        &.fa-download {
+          height: 16px;
+        }
       }
+
       span {
         margin: 2%;
       }
@@ -77,9 +84,44 @@ const FeedDetail = (props) => {
     });
   }, []);
 
+  // 이미지로 저장
+  const makeDivToImageFile = (props) => {
+    const saveAs = (url, fileName) => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    html2canvas(props, {
+      allowTaint: true,
+      useCORS: true,
+
+      /* 아래 3 속성이 canvas의 크기를 정해준다. */
+      width: props.offsetWidth,
+      height: props.offsetHeight,
+      // padding: 10,
+      // scale: 1,
+    })
+      .then(function (canvas) {
+        const imageURL = canvas.toDataURL("image/png");
+        saveAs(imageURL, "new file.png");
+        alert("다운로드 성공!");
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
+
+  const captureAndDownload = () => {
+    const captureDiv = document.getElementById("DetailContent");
+    makeDivToImageFile(captureDiv);
+  };
   return (
     <Modal onClick={props.onHideFeedDetail}>
-      <ContentBlock height={modalHeight}>
+      <ContentBlock id="DetailContent" height={modalHeight}>
         <div className="mindmap">
           <Mind
             width={mindWidth}
@@ -100,7 +142,13 @@ const FeedDetail = (props) => {
               alt="fa-thumbs-down"
             />
             <span>3</span>
-            <img src={share} className="fa-share" alt="fa-share" />
+            {/* <img src={share} className="fa-share" alt="fa-share" /> */}
+            <img
+              src={download}
+              className="fa-download"
+              alt="fa-download"
+              onClick={() => captureAndDownload()}
+            />
           </div>
           <p className="detail-sentence">{sentence}</p>
           <p className="detail-word__start">
@@ -117,6 +165,7 @@ const FeedDetail = (props) => {
               <li>기압으로 전기를 생산하는 선풍기</li>
               <li>공기의 흐름을 측정하는 유체</li>
               <li>회전하는 선풍기</li>
+              <li>무소음 선풍기</li>
             </ul>
           </div>
         </div>

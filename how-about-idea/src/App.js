@@ -36,7 +36,6 @@ import {
   faEyeSlash,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-
 library.add(
   fas,
   faHouse,
