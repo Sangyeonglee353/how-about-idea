@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faRegularStar from "../images/star-regular.svg";
 
 const PatentResultCSS = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; */
   width: 100vw;
   height: 92vh;
   margin: 0 auto;
@@ -24,15 +24,21 @@ const PatentResultCSS = styled.div`
     height: 80vh;
     background-color: #fff;
     border-radius: 12px;
+    margin: 6vh auto;
     @media (max-width: 1300px) {
-      height: 910px;
-      margin: 10vh auto 5vh auto;
+      height: 750px;
+    }
+    @media (max-width: 990px) {
+      height: 900px;
     }
     .result-title {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 10vh;
+      @media (max-width: 1300px) {
+        height: 11%;
+      }
       border-bottom: 1px solid #00000033;
       span {
         font-size: 30px;
@@ -46,7 +52,11 @@ const PatentResultCSS = styled.div`
     height: 60vh;
     @media (max-width: 1300px) {
       flex-direction: column;
-      height: 700px;
+      display: block;
+      height: 78%;
+    }
+    @media (max-width: 990px) {
+      /* height: 70vh; */
     }
     .result-sentence {
       display: flex;
@@ -59,6 +69,10 @@ const PatentResultCSS = styled.div`
       /* background-color: blue; // temp */
       @media (max-width: 1300px) {
         width: 100%;
+        height: 70%;
+      }
+      @media (max-width: 990px) {
+        height: 60%;
       }
       .gsentence-wrapper {
         width: 550px;
@@ -88,6 +102,7 @@ const PatentResultCSS = styled.div`
         color: var(--color-main-blue);
         @media (max-width: 1300px) {
           width: 70vw;
+          /* height: 70%; */
         }
         tr,
         td,
@@ -115,13 +130,13 @@ const PatentResultCSS = styled.div`
     @media (max-width: 1300px) {
       flex-direction: row;
       width: 100%;
+      height: 30%;
     }
-    @media (max-width: 1100px) {
+    @media (max-width: 990px) {
       flex-direction: column;
-      width: 100%;
-    }
-    @media (max-width: 360px) {
-      width: 360px;
+      height: 40%;
+      /* display: block;
+      height: 40%; */
     }
     .result-evaluation__satisfy {
       width: 50%;
@@ -130,7 +145,10 @@ const PatentResultCSS = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
+      @media (max-width: 990px) {
+        width: 100%;
+        height: 12vh;
+      }
       /* background-color: blue; // temp */
       .result-evaluation__satisfy-star {
         width: 100%;
@@ -149,12 +167,11 @@ const PatentResultCSS = styled.div`
         @media (max-width: 1575px) {
           height: 50%;
         }
-        @media (max-width: 940px) {
-          /* height: 100px; */
+        @media (max-width: 990px) {
+          /* width: 90vw; */
+          height: 80%;
         }
-        @media (max-width: 360px) {
-          height: 20px;
-        }
+
         .fa-star {
           /* width: 20%; */
           height: 90%;
@@ -181,9 +198,6 @@ const PatentResultCSS = styled.div`
           font-size: 20px;
           font-weight: bold;
           color: var(--color-main-blue);
-          @media (max-width: 360px) {
-            font-size: 10px;
-          }
         }
       }
     }
@@ -196,9 +210,15 @@ const PatentResultCSS = styled.div`
       align-items: center;
       @media (max-width: 1300px) {
         width: 30vw;
+        height: 90%;
       }
-      @media (max-width: 960px) {
-        /* width: 50%; */
+      @media (max-width: 990px) {
+        margin: 20px auto 0 auto;
+        width: 60vw;
+        height: 12vh;
+      }
+      @media (max-width: 600px) {
+        width: 80vw;
       }
       .result-evaluation__setting-private {
         width: 50%;
@@ -208,13 +228,10 @@ const PatentResultCSS = styled.div`
         justify-content: center;
         align-items: center;
         @media (max-width: 1300px) {
-          height: 60%;
+          /* height: 60%; */ // -> 확인할 부분 [23-05-16] ###################################################################
         }
-        @media (max-width: 940px) {
-          height: 100px;
-        }
-        @media (max-width: 360px) {
-          height: 30px;
+        @media (max-width: 990px) {
+          width: 50%;
         }
         /* background-color: skyblue; // temp */
         .result-evaluation__setting-private-icon {
@@ -241,9 +258,6 @@ const PatentResultCSS = styled.div`
             font-size: 20px;
             font-weight: bold;
             color: var(--color-main-blue);
-            @media (max-width: 360px) {
-              font-size: 10px;
-            }
           }
         }
       }
@@ -255,13 +269,10 @@ const PatentResultCSS = styled.div`
         justify-content: center;
         align-items: center;
         @media (max-width: 1300px) {
-          height: 60%;
+          /* height: 60%; */
         }
-        @media (max-width: 940px) {
-          /* height: 100px; */
-        }
-        @media (max-width: 360px) {
-          height: 30px;
+        @media (max-width: 990px) {
+          width: 50%;
         }
         /* background-color: grey; // temp */
         .result-evaluation__setting-refresh-icon {
@@ -284,9 +295,6 @@ const PatentResultCSS = styled.div`
             font-size: 20px;
             font-weight: bold;
             color: var(--color-main-blue);
-            @media (max-width: 360px) {
-              font-size: 10px;
-            }
           }
         }
       }
@@ -302,6 +310,9 @@ const PatentResultCSS = styled.div`
     border-bottom-right-radius: 15px;
     background-color: grey;
     cursor: pointer;
+    @media (max-width: 1300px) {
+      height: 11%;
+    }
     &:hover {
       background-color: var(--color-main-blue);
       color: #fff;
