@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loading from "./UI/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -592,7 +592,9 @@ const PatentResult = (props) => {
           </div>
 
           <div className="result-save">
-            <span>Save & Quit</span>
+            <Link to="/">
+              <span>Save & Quit</span>
+            </Link>
           </div>
         </div>
       </PatentResultCSS>

@@ -102,13 +102,11 @@ const FeedDetail = (props) => {
       /* 아래 3 속성이 canvas의 크기를 정해준다. */
       width: props.offsetWidth,
       height: props.offsetHeight,
-      // padding: 10,
       // scale: 1,
     })
       .then(function (canvas) {
         const imageURL = canvas.toDataURL("image/png");
         saveAs(imageURL, "new file.png");
-        alert("다운로드 성공!");
       })
       .catch(function (err) {
         console.log(err);
