@@ -7,6 +7,9 @@ import thumbsDown from "../images/thumbs-down-regular.svg";
 import share from "../images/share.png";
 import download from "../images/download.svg";
 import html2canvas from "html2canvas";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import faRegularStar from "../images/star-regular.svg";
+import StarRating from "./UI/StarRating";
 
 const ContentBlock = styled.div`
   /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
@@ -24,17 +27,14 @@ const ContentBlock = styled.div`
     margin-top: 2%;
     & .detail-btn {
       img {
-        cursor: pointer;
-        &.fa-thumbs-up {
-          height: 16px;
-        }
-        &.fa-thumbs-down {
-          height: 16px;
-        }
-        &.fa-share {
-          height: 16px;
-        }
         &.fa-download {
+          cursor: pointer;
+          height: 16px;
+        }
+        &.fa-star {
+          height: 16px;
+        }
+        &.fa-star-fill {
           height: 16px;
         }
       }
@@ -117,6 +117,68 @@ const FeedDetail = (props) => {
     const captureDiv = document.getElementById("DetailContent");
     makeDivToImageFile(captureDiv);
   };
+
+  // 별점 표시
+  // const [starRating, setStarRating] = {
+  //   star1: "false",
+  //   star2: "false",
+  //   star3: "false",
+  //   star4: "false",
+  //   star5: "false",
+  // };
+
+  // const handleStarRating = (starNum) => {
+  //   if (starNum === "1") {
+  //     setStarRating({
+  //       star1: true,
+  //       star2: false,
+  //       star3: false,
+  //       star4: false,
+  //       star5: false,
+  //     });
+  //   } else if (starNum === "2") {
+  //     setStarRating({
+  //       star1: true,
+  //       star2: true,
+  //       star3: false,
+  //       star4: false,
+  //       star5: false,
+  //     });
+  //   } else if (starNum === "3") {
+  //     setStarRating({
+  //       star1: true,
+  //       star2: true,
+  //       star3: true,
+  //       star4: false,
+  //       star5: false,
+  //     });
+  //   } else if (starNum === "4") {
+  //     setStarRating({
+  //       star1: true,
+  //       star2: true,
+  //       star3: true,
+  //       star4: true,
+  //       star5: false,
+  //     });
+  //   } else if (starNum === "5") {
+  //     setStarRating({
+  //       star1: true,
+  //       star2: true,
+  //       star3: true,
+  //       star4: true,
+  //       star5: true,
+  //     });
+  //   } else if (props === "0") {
+  //     setStarRating({
+  //       star1: false,
+  //       star2: false,
+  //       star3: false,
+  //       star4: false,
+  //       star5: false,
+  //     });
+  //   }
+  // };
+
   return (
     <Modal onClick={props.onHideFeedDetail}>
       <ContentBlock id="DetailContent" height={modalHeight}>
@@ -132,15 +194,7 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <img src={thumbsUp} className="fa-thumbs-up" alt="fa-thumbs-up" />
-            <span>23</span>
-            <img
-              src={thumbsDown}
-              className="fa-thumbs-down"
-              alt="fa-thumbs-down"
-            />
-            <span>3</span>
-            {/* <img src={share} className="fa-share" alt="fa-share" /> */}
+            <StarRating starNum={1} />
             <img
               src={download}
               className="fa-download"

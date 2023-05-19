@@ -329,17 +329,17 @@ const PatentResult = (props) => {
   const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
   const [loading, setLoading] = useState(true); // 로딩 관련
 
-  const [starOn, setStarOn] = useState({
+  const [starRating, setStarRating] = useState({
     star1: false,
     star2: false,
     star3: false,
     star4: false,
     star5: false,
-  }); // 문장 만족도 평가
+  }); // 문장 만족도 평가[별점 표시]
 
-  const handleStarOn = (props) => {
+  const handleStarRating = (props) => {
     if (props === "star1") {
-      setStarOn({
+      setStarRating({
         star1: true,
         star2: false,
         star3: false,
@@ -347,7 +347,7 @@ const PatentResult = (props) => {
         star5: false,
       });
     } else if (props === "star2") {
-      setStarOn({
+      setStarRating({
         star1: true,
         star2: true,
         star3: false,
@@ -355,7 +355,7 @@ const PatentResult = (props) => {
         star5: false,
       });
     } else if (props === "star3") {
-      setStarOn({
+      setStarRating({
         star1: true,
         star2: true,
         star3: true,
@@ -363,7 +363,7 @@ const PatentResult = (props) => {
         star5: false,
       });
     } else if (props === "star4") {
-      setStarOn({
+      setStarRating({
         star1: true,
         star2: true,
         star3: true,
@@ -371,7 +371,7 @@ const PatentResult = (props) => {
         star5: false,
       });
     } else if (props === "star5") {
-      setStarOn({
+      setStarRating({
         star1: true,
         star2: true,
         star3: true,
@@ -379,7 +379,7 @@ const PatentResult = (props) => {
         star5: true,
       });
     } else if (props === "empty") {
-      setStarOn({
+      setStarRating({
         star1: false,
         star2: false,
         star3: false,
@@ -468,74 +468,74 @@ const PatentResult = (props) => {
             <div className="result-evaluation">
               <div className="result-evaluation__satisfy">
                 <div className="result-evaluation__satisfy-star">
-                  {!starOn.star1 ? (
+                  {!starRating.star1 ? (
                     <img
                       src={faRegularStar}
                       className="fa-star"
                       alt="fa-regular-star"
-                      onClick={() => handleStarOn("star1")}
+                      onClick={() => handleStarRating("star1")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon="fa-soild fa-star"
                       className="fa-star-fill"
-                      onClick={() => handleStarOn("star1")}
+                      onClick={() => handleStarRating("star1")}
                     />
                   )}
-                  {!starOn.star2 ? (
+                  {!starRating.star2 ? (
                     <img
                       src={faRegularStar}
                       className="fa-star"
                       alt="fa-regular-star"
-                      onClick={() => handleStarOn("star2")}
+                      onClick={() => handleStarRating("star2")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon="fa-soild fa-star"
                       className="fa-star-fill"
-                      onClick={() => handleStarOn("star2")}
+                      onClick={() => handleStarRating("star2")}
                     />
                   )}
-                  {!starOn.star3 ? (
+                  {!starRating.star3 ? (
                     <img
                       src={faRegularStar}
                       className="fa-star"
                       alt="fa-regular-star"
-                      onClick={() => handleStarOn("star3")}
+                      onClick={() => handleStarRating("star3")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon="fa-soild fa-star"
                       className="fa-star-fill"
-                      onClick={() => handleStarOn("star3")}
+                      onClick={() => handleStarRating("star3")}
                     />
                   )}
-                  {!starOn.star4 ? (
+                  {!starRating.star4 ? (
                     <img
                       src={faRegularStar}
                       className="fa-star"
                       alt="fa-regular-star"
-                      onClick={() => handleStarOn("star4")}
+                      onClick={() => handleStarRating("star4")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon="fa-soild fa-star"
                       className="fa-star-fill"
-                      onClick={() => handleStarOn("star4")}
+                      onClick={() => handleStarRating("star4")}
                     />
                   )}
-                  {!starOn.star5 ? (
+                  {!starRating.star5 ? (
                     <img
                       src={faRegularStar}
                       className="fa-star"
                       alt="fa-regular-star"
-                      onClick={() => handleStarOn("star5")}
+                      onClick={() => handleStarRating("star5")}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon="fa-soild fa-star"
                       className="fa-star-fill"
-                      onClick={() => handleStarOn("empty")}
+                      onClick={() => handleStarRating("empty")}
                     />
                   )}
                 </div>
