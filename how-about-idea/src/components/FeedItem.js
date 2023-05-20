@@ -88,9 +88,8 @@ const FeedItem = (props) => {
     props.onShowFeedDetail();
   };
 
-  const starInfo = {
-    starNumber: "1",
-  };
+  const starInfo = 1;
+
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
       <div className="mindmap">
