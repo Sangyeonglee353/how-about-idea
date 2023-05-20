@@ -371,28 +371,25 @@ overflow-y:auto;
 
     }
 
-    .next{
 
-        text-decoration:none;
-        .save{
+    .save{
 
-            margin:0;
-            width:46vw;
-            padding:3vh 0;
-            margin-top:15vh;
-            color:#000000;
-            @media (max-width: 600px) {
-                margin-top:12vh;
-                padding:2vh 0;
-                width:96vw;
-            }   
-            background: gray;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            border-radius:0 0 12px 12px;
+        margin:0;
+        width:46vw;
+        padding:3vh 0;
+        margin-top:15vh;
+        color:#000000;
+        @media (max-width: 600px) {
+            margin-top:12vh;
+            padding:2vh 0;
+            width:96vw;
+        }   
+        background: gray;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:0 0 12px 12px;
 
-        }
     }
 
 }
@@ -545,7 +542,7 @@ function BrainStorming(){
         let edge=[]
 
         select.map(e=>{
-            
+            console.log(e)
             node.push({data:{id:e[3].toString() , label:e[0].toString(), type:"level"+e[2]}})
             
 
@@ -638,7 +635,7 @@ function BrainStorming(){
                            
                             <div className="select">
                                 
-                                <div className="selected">    
+                                <div className="selected" onClick={()=>{console.log(add.current.value)}}>    
                                     <p className="r">{click[1]}</p>
                                     <p>{click[0]}</p>
                                 </div>
@@ -651,37 +648,26 @@ function BrainStorming(){
 
                                 onClick={()=>{
 
-                                    if(add.current.value!==""&&add.current.value!==" "){
+                                    if(add.current.value!==""&&add.current.value!==" "&&add.current.value!==null&&click[0]!=="단어를 선택해주세요"){
                                         setPrev([add.current.value,click[0]])
                                         add.current.value=""
                                         setClick(["단어를 선택해주세요",""])
                                     }
-
+                                    else
+                                    alert('단어를 선택해주세요')
                                 }}
 
 
                                 />
                             </div>
-                            <Link to="/NodeSelect" className="next" state={ {mindmap : select.length!==0?make_mind():""}}
+                            {/* <Link to="/NodeSelect" className="next" state={ {mindmap : select.length!==0?make_mind():""}} */}
 
-                            onMouseOver={()=>{
-            
-                                next.current.style.background="#3CAEFF"
-                                next.current.style.color="#ffffff"
-                            }}
-                            
-                            onMouseLeave={()=>{
-
-                                next.current.style.background="gray"
-                                next.current.style.color="#000000"
-
-                            }}> 
                                 <p className="save"  ref={next}>
 
                                     save & quit
 
                                 </p> 
-                            </Link>
+                            
                         </div>
                         
                     </div>
