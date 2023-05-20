@@ -76,6 +76,10 @@ const FeedDetail = (props) => {
   );
   const [modalHeight, setModalHeight] = useState(window.innerHeight);
   const sentence = props.feedData.sentence;
+  const rootWord = props.feedData.root_word;
+  const star_rating = props.feedData.star_rating;
+  const combineWord1 = props.feedData.combine_word1;
+  const combineWord2 = props.feedData.combine_word2;
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -194,7 +198,7 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <StarRating starNum={1} />
+            <StarRating starNum={star_rating} />
             <img
               src={download}
               className="fa-download"
@@ -204,10 +208,10 @@ const FeedDetail = (props) => {
           </div>
           <p className="detail-sentence">{sentence}</p>
           <p className="detail-word__start">
-            <b>시작 단어:</b> 선풍기
+            <b>시작 단어:</b> {rootWord}
           </p>
           <p className="detail-word__combine">
-            <b>조합 단어:</b> 날개 + 전동기
+            <b>조합 단어:</b> {combineWord1} + {combineWord2}
           </p>
 
           <div className="detail-patent">

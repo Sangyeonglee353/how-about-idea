@@ -184,8 +184,8 @@ const PatentResultCSS = styled.div`
         }
         .fa-star-fill {
           height: 90%;
-          filter: invert(100%) sepia(100%) saturate(7497%) hue-rotate(357deg)
-            brightness(103%) contrast(104%);
+          filter: invert(70%) sepia(52%) saturate(853%) hue-rotate(353deg)
+            brightness(109%) contrast(103%);
         }
       }
       .result-evaluation__satisfy-label {

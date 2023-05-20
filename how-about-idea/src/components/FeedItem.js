@@ -88,7 +88,7 @@ const FeedItem = (props) => {
     props.onShowFeedDetail();
   };
 
-  const starInfo = 1;
+  const starInfo = 1; // temp starNumber
 
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
@@ -109,7 +109,7 @@ const FeedItem = (props) => {
           <img src={thumbsDown} className="fa-thumbs-down" />
           <span>3</span> */}
           {/* <span>{starInfo}</span> */}
-          <StarRating starNum={starInfo} />
+          <StarRating starNum={props.star_rating} />
         </div>
         <p className="summary-sentence">{props.sentence}</p>
         <p className="summary-date">2023년 04월 15일</p>

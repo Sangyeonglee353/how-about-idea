@@ -11,7 +11,7 @@ const FeedsListCSS = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 90%;
-  height:92vh;
+  height: 92vh;
   margin: 2vh auto;
   @media screen and (max-width: 500px) {
     width: 100%;
@@ -21,11 +21,9 @@ const FeedsListCSS = styled.ul`
     margin: 0 auto;
   }
 
-  .padding{
-
-    width:100vw;
-    height:3vh;
-
+  .padding {
+    width: 100vw;
+    height: 3vh;
   }
 
   /* scrollbar css */
@@ -59,15 +57,17 @@ const FeedsList = (props) => {
           <FeedItem
             key={feed.id}
             name={feed.name}
-            imgSource={feed.imgSource}
-            trizType={feed.trizType}
+            star_rating={feed.star_rating}
+            root_word={feed.root_word}
+            combine_word1={feed.combine_word1}
+            combine_word2={feed.combine_word2}
             sentence={feed.sentence}
             onShowFeedDetail={props.onShowFeedDetail}
             onSetFeedData={props.onSetFeedData}
             feedData={feed}
           />
         ))}
-        <div className="padding"></div>
+      <div className="padding"></div>
     </FeedsListCSS>
   );
 };

@@ -12,7 +12,7 @@ const StarRatingCSS = styled.div`
   }
 `;
 
-const StarRating = ({ totalStars = 5 }, props) => {
+const StarRating = (props, { totalStars = 5 }) => {
   // 1. API에서 넘겨줄 때 개수로 넘겨준다.
   // 2. 해당 개수 만큼 State를 변경한다.(handleStarRating 사용)
 
@@ -34,15 +34,16 @@ const StarRating = ({ totalStars = 5 }, props) => {
 
   const getData = props.starNum;
 
-  console.log("starNum: ", getData);
-  // useEffect(setStars(starNum), []);
+  useEffect(() => {
+    setStars(getData);
+  }, []);
 
   const Star = ({ selected = false, onSelect = (f) => f }) => {
     return (
       <>
         <FontAwesomeIcon
           icon="fa-solid fa-star"
-          color={selected ? "yellow" : "gray"}
+          color={selected ? "#ffc807" : "gray"}
           onClick={onSelect}
           className="fa-star-fill"
         />
@@ -57,9 +58,6 @@ const StarRating = ({ totalStars = 5 }, props) => {
           <Star key={i} selected={stars > i} onSelect={() => setStars(i + 1)} />
         );
       })}
-      <button type="button" onClick={() => setStars(4)}>
-        테스트
-      </button>
     </StarRatingCSS>
   );
 };
