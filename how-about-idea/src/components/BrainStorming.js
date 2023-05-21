@@ -182,7 +182,7 @@ function Node(props) {
           <p
             className="add"
             onClick={() => {
-              props.setClick([props.word, props.root]);
+              props.setClick([props.word, props.root,props.level,props.word_id,props.root_id]);
               menu.current.style.transform = "translate(0%)";
               props.setMenu(true);
             }}
@@ -381,7 +381,7 @@ function BrainStorming() {
   const [prev, setPrev] = useState(-1);
   const [select, setSelect] = useState([]);
   const [print, setPrint] = useState([]);
-  const [click, setClick] = useState(["단어를 선택해주세요", ""]);
+  const [click, setClick] = useState(["단어를 선택해주세요", "",-1,-1,-1]);
   const printIdx = useRef([])
   const wordWeight  = useRef({})
   const isExist = useRef({})
@@ -404,6 +404,7 @@ function BrainStorming() {
         else
           i--
       } 
+
       else {
         if(buf.length===word.current.length)
           isExist.current["-1,-1"] = i
@@ -435,7 +436,7 @@ function BrainStorming() {
 
     for (let i = 0; i < res.data.length; i++) {
       wordWeight.current[prev[0]+","+res.data[i]["word"]] =res.data[i]["weight"]
-      tmp.push([res.data[i]["word"],prev[0], prev[2] + 1,, -1, prev[3]]);
+      tmp.push([res.data[i]["word"],prev[0], prev[2] + 1, -1, prev[3]]);
     }
 
     word_buf = [...word_buf ,...tmp];
@@ -456,7 +457,7 @@ function BrainStorming() {
       } 
       
       else {
-        if(buf.length===word.current.length)
+        if(print_buf.length===word.current.length)
           isExist.current["-1,-1"] = i
 
         print_idx.push(-1)
@@ -484,7 +485,7 @@ function BrainStorming() {
     let edge = [];
 
     select.map((e) => {
-      console.log(e)
+
       node.push({
         data: {
           id: e[3].toString(),
@@ -562,7 +563,7 @@ function BrainStorming() {
         <Refresh refresh={renew_print_all} />
       </div>
       <div className="menu">
-        <div className="title" onClick={()=>{console.log(word.current)}}>
+        <div className="title" >
           <p className="word" onClick={() => setMenu(false)}>
             단어
           </p>
@@ -580,6 +581,9 @@ function BrainStorming() {
                     <Node
                       word={e[0]}
                       root={e[1] === -1 ? "시작단어" : e[1]}
+                      level={e[2]}
+                      word_id={e[3]}
+                      root_id={e[4]}
                       setMenu={setMenu}
                       key={idx}
                       setClick={setClick}
@@ -611,10 +615,10 @@ function BrainStorming() {
                       add.current.value !== null &&
                       click[0] !== "단어를 선택해주세요") 
                     {
-
-                      setPrev([add.current.value, click[0]]);
+                      setPrev([add.current.value, click[0],click[2]+1,previd + 1,click[3]]);
 
                       add.current.value = "";
+                      setPrevId(previd + 1)
                       setClick(["단어를 선택해주세요", ""]);
 
                     } 
@@ -639,7 +643,7 @@ function BrainStorming() {
 
           let mindmap = make_mind()
           console.log(mindmap)
-          //navigate("/NodeSelect",{state: mindmap})
+          navigate("/NodeSelect",{state: mindmap})
 
         }}
 
