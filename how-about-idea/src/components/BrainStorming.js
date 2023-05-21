@@ -404,6 +404,7 @@ function BrainStorming() {
         else
           i--
       } 
+
       else {
         if(buf.length===word.current.length)
           isExist.current["-1,-1"] = i
@@ -435,7 +436,7 @@ function BrainStorming() {
 
     for (let i = 0; i < res.data.length; i++) {
       wordWeight.current[prev[0]+","+res.data[i]["word"]] =res.data[i]["weight"]
-      tmp.push([res.data[i]["word"],prev[0], prev[2] + 1,, -1, prev[3]]);
+      tmp.push([res.data[i]["word"],prev[0], prev[2] + 1, -1, prev[3]]);
     }
 
     word_buf = [...word_buf ,...tmp];
@@ -484,7 +485,7 @@ function BrainStorming() {
     let edge = [];
 
     select.map((e) => {
-      console.log(e)
+
       node.push({
         data: {
           id: e[3].toString(),
@@ -562,7 +563,7 @@ function BrainStorming() {
         <Refresh refresh={renew_print_all} />
       </div>
       <div className="menu">
-        <div className="title" onClick={()=>{console.log(word.current)}}>
+        <div className="title" >
           <p className="word" onClick={() => setMenu(false)}>
             단어
           </p>
@@ -642,7 +643,7 @@ function BrainStorming() {
 
           let mindmap = make_mind()
           console.log(mindmap)
-          //navigate("/NodeSelect",{state: mindmap})
+          navigate("/NodeSelect",{state: mindmap})
 
         }}
 
