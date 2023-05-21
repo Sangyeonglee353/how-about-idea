@@ -423,9 +423,25 @@ function BrainStorming() {
     let print_buf = [...print];
     let tmp = [];
     let print_idx = [...printIdx.current]
-    let idx = print_idx.indexOf(isExist.current[prev[1]+","+prev[0]])
-    print_idx.splice(idx,1)
-    print_buf.splice(idx, 1);
+    let idx = isExist.current[prev[1]+","+prev[0]]
+    if(idx===undefined){
+      for(let i=0;i<word_buf.length;i++){
+        
+        if(word_buf[i][0]===prev[0]&&word_buf[i][1]===prev[1]){
+          word_buf.splice(i, 1);
+        }
+
+      }
+      word.current =  [...word_buf]
+      return
+    }
+
+    else{
+
+      idx = print_idx.indexOf(isExist.current[prev[1]+","+prev[0]])
+      print_idx.splice(idx,1)
+      print_buf.splice(idx, 1);
+    }
 
     if(isExist.current["-1,-1"]>0)
       print_buf = print_buf.splice(0, isExist.current["-1,-1"]);
@@ -471,12 +487,16 @@ function BrainStorming() {
 
   };
 
-  async function creatWord(){
+  async function creatWord(rootword,word){
 
-    CheckWordRelation()
-
-
-
+    let res1 = await CheckWordRelation(rootword,word)
+    if(!res1.data){
+      await createWordRelation({
+        rootWord:rootword,
+        word:word,
+        weight:10
+      })
+    }
   }
 
   const make_mind = () => {
@@ -509,6 +529,21 @@ function BrainStorming() {
     return [...node, ...edge];
   };
 
+  const exist_select=()=>{
+
+    for(let i=0; i<select.length;i++){
+
+      if(select[i][0]===prev[0]&&select[i][1]===prev[1]){
+
+        return true
+
+      }
+    }
+  
+    return false
+
+  }
+
 
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
@@ -517,9 +552,8 @@ function BrainStorming() {
 
     let res = getWordRelation(root)
     res.then((e)=>{
- 
       for (let i = 0; i < e.data.length; i++) {
-        wordWeight.current[e.data[root+","+e.data[i]["word"]]] =e.data[i]["weight"]
+        wordWeight.current[root+","+e.data[i]["word"]] =e.data[i]["weight"]
         buf.push([e.data[i]["word"], root, 2, -1, 1]);
       }
   
@@ -534,9 +568,12 @@ function BrainStorming() {
   }, []);
 
   useEffect(() => {
-    if (enter.current) {
+    if (enter.current&&!exist_select()) {
+
       setSelect([...select, prev]);
-      renew_word();
+      if(wordWeight.current[prev[1]+","+prev[0]]!==undefined)
+        renew_word();
+
     } 
     else {
       enter.current = true;
@@ -616,11 +653,11 @@ function BrainStorming() {
                       click[0] !== "단어를 선택해주세요") 
                     {
                       setPrev([add.current.value, click[0],click[2]+1,previd + 1,click[3]]);
-
+                      creatWord(click[0],add.current.value)
                       add.current.value = "";
                       setPrevId(previd + 1)
                       setClick(["단어를 선택해주세요", ""]);
-
+                     
                     } 
 
                     else 
@@ -642,8 +679,7 @@ function BrainStorming() {
         onClick={()=>{
 
           let mindmap = make_mind()
-          console.log(mindmap)
-          navigate("/NodeSelect",{state: mindmap})
+          navigate("/NodeSelect",{state: mindmap, })
 
         }}
 
