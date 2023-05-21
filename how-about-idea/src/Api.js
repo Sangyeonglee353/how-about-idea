@@ -180,3 +180,38 @@ export async function getMindMap(id) {
 //memberStar
 
 //wordRelation
+export async function createWordRelation(data){
+
+  const res  = await axios.post(`${origin}/api/auth/saveWord`,
+  {
+
+    ...data
+  },
+  {
+
+    headers:{
+
+      Authorization:sessionStorage.getItem("token")            
+
+    }
+
+  })
+
+  return res
+
+}
+
+export async function CheckWordRelation(rootword,word){
+
+  const res  = await axios.get(`${origin}/api/auth/wordRelation/${rootword}/${word}`)
+
+  return res
+}
+
+export async function getWordRelation(word){
+
+    const res  = await axios.get(`${origin}/api/auth/wordRelation/${word}`)
+
+    return res
+}
+
