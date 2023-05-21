@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import mainBackground from "../images/main_background.jpg";
 import axios from "axios";
+import { signUp, signIn } from "../Api";
+
 const RegisterCss = styled.div`
   width: 100vw;
   height: 92vh;
@@ -30,7 +32,7 @@ const RegisterCss = styled.div`
     border-radius: 12px;
     max-width: 400px;
     transition: 0.8s;
-    overflow:auto;
+    overflow: auto;
     margin-top: ${(props) => props.css.top}vw;
     opacity: ${(props) => props.css.opacity};
   }
@@ -146,7 +148,7 @@ const RegisterCss = styled.div`
     align-items: center;
     justify-content: center;
     margin: 5vh 15%;
-   
+
     padding: 1vh 0;
     background: ${(props) =>
       props.isvaild.id &&
@@ -159,7 +161,6 @@ const RegisterCss = styled.div`
     transition: 0.3s;
     cursor: pointer;
   }
-
 
   .right {
     height: 25px;
@@ -186,7 +187,7 @@ const RegisterCss = styled.div`
 `;
 
 function Register() {
-  const label = useRef()
+  const label = useRef();
   const [account, setAccount] = useState({
     id: "",
     id_check: false,
@@ -240,7 +241,7 @@ function Register() {
     });
   }, [account]);
 
-  // 백엔드_회원가입 데이터 전달
+  // [백엔드]_회원가입 데이터 전달
   const signUpHandler = () => {
     const data = {
       userId: account.id,
@@ -248,13 +249,45 @@ function Register() {
       userPassword: account.pw,
       userPasswordCheck: account.pw_check,
     };
-    axios
-      .post("http://localhost:8080/", data)
+    const res = signUp(data);
+    res
       .then((response) => {
         console.log("SignUp Success!!");
       })
       .catch((error) => {
         console.log("SignUp Faild!!");
+      });
+    // axios
+    //   .post("http://localhost:8080/", data)
+    //   .then((response) => {
+    //     console.log("SignUp Success!!");
+    //   })
+    //   .catch((error) => {
+    //     console.log("SignUp Faild!!");
+    //   });
+  };
+
+  // [백엔드]_token 받아와 저장 후 로그인
+  const signInHandler = () => {
+    const data = {
+      userId: account.id,
+      userPassword: account.pw,
+    };
+
+    const res = signIn(data);
+    res
+      .then((res) => {
+        console.log("SignIn Success!!");
+        if (res.data.result) {
+          sessionStorage.setItem("howai_id", account.id);
+          const token = res.data.data["token"];
+          sessionStorage.setItem("token", token);
+          alert(account.id + "님 회원가입을 축하드립니다.");
+          window.location.href = "/how-about-idea/";
+        }
+      })
+      .catch((error) => {
+        console.log("SignIn Faild!!");
       });
   };
 
@@ -270,26 +303,19 @@ function Register() {
               <input
                 type="text"
                 placeholder="howai"
-                
-                onFocus={()=>{
-
-                  
-                  label.current.style.border="2px solid #000000"
-
-                }}  
-
+                onFocus={() => {
+                  label.current.style.border = "2px solid #000000";
+                }}
                 onChange={(e) => {
                   setAccount({
                     ...account,
                     id: e.target.value,
                     id_check: false,
                   });
-
                 }}
-
                 onBlur={() => {
                   setBlur({ ...blur, blur1: true });
-                  label.current.style.border="2px solid #00000055"
+                  label.current.style.border = "2px solid #00000055";
                 }}
               />
 
@@ -392,10 +418,9 @@ function Register() {
                 alert("비밀번호는 특수문자 포함 10자리 이상으로 설정해주세요");
               else if (!isvaild.pw_check) alert("비밀번호가 서로 다릅니다");
               else {
-                sessionStorage.setItem("howai_id", account.id);
+                // sessionStorage.setItem("howai_id", account.id);
                 signUpHandler();
-                alert(account.id + "님 회원가입을 축하드립니다.");
-                window.location.href = "/how-about-idea/";
+                signInHandler();
               }
             }}
           >

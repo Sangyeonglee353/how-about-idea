@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useEffect, useRef } from "react";
 import mainBackground from "../images/main_background.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import { signIn } from "../Api";
 
 const LoginCss = styled.div`
   width: 100vw;
@@ -33,7 +33,7 @@ const LoginCss = styled.div`
       font-size: 28px;
       font-weight: 700;
       text-align: center;
-      mrgin-top: 5vh;
+      margin-top: 5vh;
       padding: 5vh 0;
     }
 
@@ -108,17 +108,21 @@ const Login = () => {
   const login1 = useRef();
   const login2 = useRef();
 
+  // [백엔드]_로그인 하기
   const SignInHandler = () => {
     const data = {
       userId: id.current.value,
       userPassword: pw.current.value,
     };
-    axios
-      .post("http://localhost:8080/api/auth/signIn", data)
-      .then((response) => {
+
+    const res = signIn(data);
+    res
+      .then((res) => {
         console.log("SignIn Success!!");
-        if (response.data.result) {
+        if (res.data.result) {
           sessionStorage.setItem("howai_id", id.current.value);
+          const token = res.data.data["token"];
+          sessionStorage.setItem("token", token);
           alert(id.current.value + "님 환영합니다.");
           window.location.href = "/how-about-idea/";
         } else {
@@ -128,6 +132,22 @@ const Login = () => {
       .catch((error) => {
         console.log("SignIn Faild!!");
       });
+
+    // axios
+    //   .post("http://localhost:8080/api/auth/signIn", data)
+    //   .then((response) => {
+    //     console.log("SignIn Success!!");
+    //     if (response.data.result) {
+    //       sessionStorage.setItem("howai_id", id.current.value);
+    //       alert(id.current.value + "님 환영합니다.");
+    //       window.location.href = "/how-about-idea/";
+    //     } else {
+    //       alert("아이디와 비밀번호가 틀립니다!");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("SignIn Faild!!");
+    //   });
   };
 
   useEffect(() => {

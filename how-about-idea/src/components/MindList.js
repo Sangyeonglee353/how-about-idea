@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Feeds from "./Feeds.js";
 import { useState } from "react";
 import FeedDetail from "./FeedDetail";
 import styled from "styled-components";
+import { getMyMindMap } from "../Api";
+
+// [MindList_컴포넌트 => MindSearch와 MindStore에서 공통으로 사용]
 
 const MindListCss = styled.div`
   width: 100vw;
@@ -99,6 +102,10 @@ const MindList = () => {
   const hideFeedDetailHandler = () => {
     setFeedDetailShow(false);
   };
+
+  useEffect(() => {
+    getMyMindMap();
+  }, []);
 
   return (
     <MindListCss>
