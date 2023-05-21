@@ -15,10 +15,12 @@ const MindListCss = styled.div`
   background-color: #f3f3f3;
 `;
 
-const MindList = () => {
+const MindList = (props) => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
   const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 선택용
+  const [mindmapAll, setMindmapAll] = useState([]); // 전체 마인드맵 데이터 상태
 
+  // 마인드맵 데이터가 없을 때 임시로 보여주는 데이터
   const DUMMY_FEED = [
     {
       id: "feed1",
@@ -104,7 +106,14 @@ const MindList = () => {
   };
 
   useEffect(() => {
-    getMyMindMap();
+    if (props.mindmapData) {
+      setMindmapAll(props.mindmapData["TEMP_FEED"]);
+      console.log("props.mindmapData: ", props.mindmapData); // 객체
+      console.log("success: ", mindmapAll);
+    } else {
+      setMindmapAll(DUMMY_FEED);
+      console.log("fail: ", mindmapAll);
+    }
   }, []);
 
   return (
@@ -117,6 +126,7 @@ const MindList = () => {
       )}
       <Feeds
         items={DUMMY_FEED}
+        // items={mindmapAll}
         onShowFeedDetail={showFeedDetailHandler}
         onSetFeedData={setFeedData}
       />

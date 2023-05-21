@@ -163,7 +163,11 @@ export async function getMindMapAll() {
 
 //자신의 마인드맵 전체조회
 export async function getMyMindMap() {
-  const res = await axios.get(`${origin}/mindMap`);
+  const res = await axios.get(`${origin}/mindMap`, {
+    headers: {
+      Authorization: sessionStorage.getItem("token"),
+    },
+  });
 
   return res;
 }

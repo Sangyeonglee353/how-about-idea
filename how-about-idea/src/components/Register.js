@@ -281,7 +281,7 @@ function Register() {
         if (res.data.result) {
           sessionStorage.setItem("howai_id", account.id);
           const token = res.data.data["token"];
-          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("token", "Bearer " + token);
           alert(account.id + "님 회원가입을 축하드립니다.");
           window.location.href = "/how-about-idea/";
         }

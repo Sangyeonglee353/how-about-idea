@@ -122,7 +122,7 @@ const Login = () => {
         if (res.data.result) {
           sessionStorage.setItem("howai_id", id.current.value);
           const token = res.data.data["token"];
-          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("token", "Bearer " + token);
           alert(id.current.value + "님 환영합니다.");
           window.location.href = "/how-about-idea/";
         } else {
