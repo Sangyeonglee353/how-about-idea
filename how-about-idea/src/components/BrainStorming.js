@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {CheckWordRelation, createWordRelation, getWordRelation} from '../Api'
+import {CheckWordRelation, createWordRelation, getWordRelation, createMindMap} from '../Api'
 const PrintedWordCss = styled.div`
   width: 25%;
   height: 25%;
@@ -499,11 +499,12 @@ function BrainStorming() {
     }
   }
 
-  const make_mind = () => {
+  async function make_mind(){
+    const root = decodeURI(location.search.split("root=")[1]);
     let node = [];
-
+    let node_api=[]
     let edge = [];
-
+    let edge_api=[]
     select.map((e) => {
 
       node.push({
@@ -514,7 +515,13 @@ function BrainStorming() {
         },
       });
 
-      if (e[4] !== -1)
+      node_api.push({
+        id: e[3].toString(),
+        label: e[0].toString(),
+        type: "level" + e[2],
+      })
+
+      if (e[4] !== -1){
 
         edge.push({
           data: {
@@ -524,9 +531,24 @@ function BrainStorming() {
           },
         });
 
+        edge_api.push({
+          id: e[4] + "->" + e[3],
+          source: e[3].toString(),
+          target: e[4].toString(),
+        })
+
+      }
+
     });
 
-    return [...node, ...edge];
+   let res = await createMindMap({
+      highestWord:root,
+      mindMapNode:node_api, 
+      mindMapEdge:edge_api
+    })
+
+    return {mindMap:[...node, ...edge] ,id:res.data.data.id};
+
   };
 
   const exist_select=()=>{
@@ -679,7 +701,12 @@ function BrainStorming() {
         onClick={()=>{
 
           let mindmap = make_mind()
-          navigate("/NodeSelect",{state: mindmap, })
+          mindmap.then((e)=>{
+            navigate("/NodeSelect",{state: {mindMap: e.mindMap, id: e.id}})
+          }).catch(()=>{
+            alert("에러 발생, 다시 시도해 주세요")
+          })
+
 
         }}
 

@@ -43,9 +43,9 @@ const Mind = (props) => {
   ]);
 
   useEffect(() => {
-    console.log(location.state)
-    if (location.state != null) {
-      setGraphData(location.state);
+    console.log(location)
+    if (location.state!= null) {
+      setGraphData(location.state.mindMap);
 
     }
   }, [location.state]);
