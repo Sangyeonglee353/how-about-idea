@@ -202,8 +202,57 @@ const MindMap = (props) => {
     {
       selector: "node[type='level3']",
       style: {
-        "border-width": "2px",
-        "border-color": "#E1E1E1",
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level4']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level5']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level6']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level7']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level8']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level9']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
+      },
+    },
+    {
+      selector: "node[type='level10']",
+      style: {
+        color: "white",
+        backgroundColor: randomColor(),
       },
     },
     {
