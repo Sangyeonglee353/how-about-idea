@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {CheckWordRelation, createWordRelation, getWordRelation} from '../Api'
 const PrintedWordCss = styled.div`
   width: 25%;
   height: 25%;
@@ -277,9 +277,9 @@ const BrainStormingCss = styled.div`
         width: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
-        height: 70vh;
+        height: 64vh;
         @media (max-width: 600px) {
-          height: 50vh;
+          height: 44vh;
         }
       }
 
@@ -292,8 +292,10 @@ const BrainStormingCss = styled.div`
 
       .tools {
         width: 100%;
-        height: 100%;
-
+        height: 64vh;
+        @media (max-width: 600px) {
+          height: 44vh;
+        }
         .select {
           margin-top: 22vh;
           @media (max-width: 600px) {
@@ -346,34 +348,29 @@ const BrainStormingCss = styled.div`
       }
     }
 
-    .save {
-      margin: 0;
-      width: 46vw;
-      padding: 3vh 0;
-      margin-top: 15vh;
-      color: #000000;
-      @media (max-width: 600px) {
-        margin-top: 12vh;
+    
+  }
+
+  .save {
+    margin: 0;
+    width: 46vw;
+    padding: 3vh 0;
+    color: #000000;
+    @media (max-width: 600px) {
         padding: 2vh 0;
         width: 96vw;
-      }
-      background: gray;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0 0 12px 12px;
     }
-  }
+    background: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 12px 12px;
+    }
 `;
 
 function BrainStorming() {
-  let json_data = {
-    개: ["리트리버", "푸들", "시츄", "말티즈", "웰시코기", "고양이"],
-    고양이: ["브리티시 숏헤어", "러시안 블루", "페르시안"],
-    리트리버: ["갈색", "대형견", "사냥"],
-    푸들: ["대형견", "흰색", "곱슬", "영국", "말티푸"],
-    시츄: ["소형견", "똑똑함", "조용함", "갈색", "흰색"],
-  };
+
+  const navigate = useNavigate();
   const location = useLocation();
   const [previd, setPrevId] = useState(1);
   const enter = useRef(false);
@@ -385,108 +382,101 @@ function BrainStorming() {
   const [select, setSelect] = useState([]);
   const [print, setPrint] = useState([]);
   const [click, setClick] = useState(["단어를 선택해주세요", ""]);
+  const printIdx = useRef([])
+  const wordWeight  = useRef({})
+  const isExist = useRef({})
 
   const renew_print_all = () => {
     let buf = [];
-    for (let i = 0; i < 15; i++) {
+    let idx_buf = []
+    isExist.current["-1,-1"]=0
+    for (let i = 0; i < 15;i++) {
       if (buf.length < word.current.length) {
-        while (true) {
-          const rand = Math.floor(Math.random() * word.current.length);
-          let flag = false;
-          for (let j = 0; j < buf.length; j++) {
-            if (
-              buf[j][0] === word.current[rand][0] &&
-              buf[j][1] === word.current[rand][1]
-            ) {
-              flag = true;
-              break;
-            }
-          }
 
-          if (!flag) {
-            buf.push(word.current[rand]);
-            break;
-          }
+        const rand = Math.floor(Math.random() * word.current.length);
+
+        if(buf.indexOf(rand)===-1){
+          idx_buf.push(rand)
+          buf.push(word.current[rand]);
+          isExist.current[word.current[rand][1]+","+word.current[rand][0]] = rand
         }
-      } else {
+        
+        else
+          i--
+      } 
+      else {
+        if(buf.length===word.current.length)
+          isExist.current["-1,-1"] = i
+        idx_buf.push(-1)
         buf.push([-1, -1]);
       }
     }
-
     setPrint(buf);
+    printIdx.current = [...idx_buf]
+
   };
 
-  const renew_word = () => {
-    let done = false;
+  async function renew_word(){
+
     let word_buf = [...word.current];
     let print_buf = [...print];
+    let tmp = [];
+    let print_idx = [...printIdx.current]
+    let idx = print_idx.indexOf(isExist.current[prev[1]+","+prev[0]])
+    print_idx.splice(idx,1)
+    print_buf.splice(idx, 1);
 
-    for (let i = 0; i < print_buf.length; i++) {
-      if (prev[0] === print_buf[i][0] && prev[1] === print_buf[i][1])
-        print_buf.splice(i, 1);
+    if(isExist.current["-1,-1"]>0)
+      print_buf = print_buf.splice(0, isExist.current["-1,-1"]);
 
-      if (print_buf[i][0] === -1) {
-        print_buf = print_buf.splice(0, i);
-        break;
-      }
+    word_buf.splice(isExist[prev[1]+","+prev[0]], 1);
+    
+    let res = await getWordRelation(prev[0])
+
+    for (let i = 0; i < res.data.length; i++) {
+      wordWeight.current[prev[0]+","+res.data[i]["word"]] =res.data[i]["weight"]
+      tmp.push([res.data[i]["word"],prev[0], prev[2] + 1,, -1, prev[3]]);
     }
 
-    for (let i = 0; i < word_buf.length; i++) {
-      if (prev[0] === word_buf[i][0] && prev[1] === word_buf[i][1]) {
-        word_buf.splice(i, 1);
-
-        if (json_data[prev[0]] !== undefined) {
-          let tmp = [];
-          for (let j = 0; j < json_data[prev[0]].length; j++) {
-            tmp.push([
-              json_data[prev[0]][j],
-              prev[0],
-              prev[2] + 1,
-              -1,
-              prev[3],
-            ]);
-          }
-          word_buf = [...word_buf, ...tmp];
-        }
-        break;
-      }
-    }
-
+    word_buf = [...word_buf ,...tmp];
     const len = 15 - print_buf.length;
-
-    for (let i = 0; i < len; ) {
+    for (let i = 0; i < len; i++ ) {
       if (print_buf.length < word_buf.length) {
-        while (true) {
-          const rand = Math.floor(Math.random() * word_buf.length);
-          let flag = false;
-          for (let j = 0; j < print_buf.length; j++) {
-            if (
-              print_buf[j][0] === word_buf[rand][0] &&
-              print_buf[j][1] === word_buf[rand][1]
-            ) {
-              flag = true;
-              break;
-            }
-          }
 
-          if (!flag) {
-            print_buf.push(word_buf[rand]);
-            i++;
-            break;
-          }
+        const rand = Math.floor(Math.random() * word_buf.length);
+
+        if(print_idx.indexOf(rand)===-1){
+          print_idx.push(rand)
+          print_buf.push(word_buf[rand]);
+          isExist.current[word_buf[rand][1]+","+word_buf[rand][0]] = rand
         }
-      } else {
+
+        else
+          i--        
+      } 
+      
+      else {
+        if(buf.length===word.current.length)
+          isExist.current["-1,-1"] = i
+
+        print_idx.push(-1)
         print_buf.push([-1, -1]);
-        i++;
       }
-
-      if (i === len - 1) done = true;
     }
-
-    if (done) setPrint([...print_buf]);
-
+    
     word.current = [...word_buf];
+    setPrint([...print_buf])
+    printIdx.current=[...print_idx]
+
   };
+
+  async function creatWord(){
+
+    CheckWordRelation()
+
+
+
+  }
 
   const make_mind = () => {
     let node = [];
@@ -494,7 +484,7 @@ function BrainStorming() {
     let edge = [];
 
     select.map((e) => {
-      console.log(e);
+      console.log(e)
       node.push({
         data: {
           id: e[3].toString(),
@@ -504,6 +494,7 @@ function BrainStorming() {
       });
 
       if (e[4] !== -1)
+
         edge.push({
           data: {
             id: e[4] + "->" + e[3],
@@ -511,29 +502,42 @@ function BrainStorming() {
             target: e[4].toString(),
           },
         });
+
     });
 
     return [...node, ...edge];
   };
 
+
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
     setSelect([[root, -1, 1, 1, -1]]);
     let buf = [];
-    for (let i = 0; i < json_data[root].length; i++) {
-      buf.push([json_data[root][i], root, 2, -1, 1]);
-    }
 
-    word.current = [...buf];
+    let res = getWordRelation(root)
+    res.then((e)=>{
+ 
+      for (let i = 0; i < e.data.length; i++) {
+        wordWeight.current[e.data[root+","+e.data[i]["word"]]] =e.data[i]["weight"]
+        buf.push([e.data[i]["word"], root, 2, -1, 1]);
+      }
+  
+      word.current = [...buf];
 
-    if (word.length !== 0) renew_print_all();
+      if (word.length !== 0) 
+        renew_print_all();
+
+    })
+
+      
   }, []);
 
   useEffect(() => {
     if (enter.current) {
       setSelect([...select, prev]);
       renew_word();
-    } else {
+    } 
+    else {
       enter.current = true;
     }
   }, [prev]);
@@ -558,7 +562,7 @@ function BrainStorming() {
         <Refresh refresh={renew_print_all} />
       </div>
       <div className="menu">
-        <div className="title">
+        <div className="title" onClick={()=>{console.log(word.current)}}>
           <p className="word" onClick={() => setMenu(false)}>
             단어
           </p>
@@ -566,6 +570,7 @@ function BrainStorming() {
             도구
           </p>
         </div>
+
         <div className="slider">
           <div className="container">
             <div className="word_container">
@@ -587,15 +592,13 @@ function BrainStorming() {
             <div className="tools">
               <div className="select">
                 <div
-                  className="selected"
-                  onClick={() => {
-                    console.log(add.current.value);
-                  }}
-                >
+                  className="selected">
                   <p className="r">{click[1]}</p>
                   <p>{click[0]}</p>
                 </div>
               </div>
+
+
               <div className="input">
                 <input type="text" ref={add} />
                 <FontAwesomeIcon
@@ -606,27 +609,53 @@ function BrainStorming() {
                       add.current.value !== "" &&
                       add.current.value !== " " &&
                       add.current.value !== null &&
-                      click[0] !== "단어를 선택해주세요"
-                    ) {
+                      click[0] !== "단어를 선택해주세요") 
+                    {
+
                       setPrev([add.current.value, click[0]]);
+
                       add.current.value = "";
                       setClick(["단어를 선택해주세요", ""]);
-                    } else alert("단어를 선택해주세요");
+
+                    } 
+
+                    else 
+                      alert("단어를 선택해주세요");
                   }}
                 />
               </div>
-              <Link
-                to="/NodeSelect"
-                className="next"
-                state={{ mindmap: select.length !== 0 ? make_mind() : "" }}
-              >
-                <p className="save" ref={next}>
-                  save & quit
-                </p>
-              </Link>
+
+
+ 
             </div>
+
+
+
           </div>
         </div>
+        <p className="save" ref={next} 
+
+        onClick={()=>{
+
+          let mindmap = make_mind()
+          console.log(mindmap)
+          //navigate("/NodeSelect",{state: mindmap})
+
+        }}
+
+        onMouseOver={() => {
+            next.current.style.background = "#3CAEFF";
+            next.current.style.color = "#ffffff";
+        }}
+
+        onMouseLeave={() => {
+            next.current.style.background = "gray";
+            next.current.style.color = "#000000";
+        }}>
+        save & quit
+        </p>
+
+
       </div>
     </BrainStormingCss>
   );
