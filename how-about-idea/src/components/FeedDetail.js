@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
-import thumbsUp from "../images/thumbs-up-regular.svg";
-import thumbsDown from "../images/thumbs-down-regular.svg";
-import share from "../images/share.png";
 import download from "../images/download.svg";
 import html2canvas from "html2canvas";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import faRegularStar from "../images/star-regular.svg";
 import StarRating from "./UI/StarRating";
 
 const ContentBlock = styled.div`
@@ -22,6 +17,9 @@ const ContentBlock = styled.div`
   .mindmap {
     background-color: #ebf5ff;
     border-radius: 20px;
+    & .star-total {
+      padding: 10px;
+    }
   }
   .detail {
     margin-top: 2%;
@@ -29,12 +27,6 @@ const ContentBlock = styled.div`
       img {
         &.fa-download {
           cursor: pointer;
-          height: 16px;
-        }
-        &.fa-star {
-          height: 16px;
-        }
-        &.fa-star-fill {
           height: 16px;
         }
       }
@@ -77,7 +69,11 @@ const FeedDetail = (props) => {
   const [modalHeight, setModalHeight] = useState(window.innerHeight);
   const sentence = props.feedData.sentence;
   const rootWord = props.feedData.root_word;
-  const star_rating = props.feedData.star_rating;
+
+  // [수정 필요] Backend API 호출 및 계산 or FeedItem에서 값 받아오기
+  const star_rating_total = 3;
+
+  const star_rating_user = props.feedData.star_rating;
   const combineWord1 = props.feedData.combine_word1;
   const combineWord2 = props.feedData.combine_word2;
 
@@ -122,71 +118,13 @@ const FeedDetail = (props) => {
     makeDivToImageFile(captureDiv);
   };
 
-  // 별점 표시
-  // const [starRating, setStarRating] = {
-  //   star1: "false",
-  //   star2: "false",
-  //   star3: "false",
-  //   star4: "false",
-  //   star5: "false",
-  // };
-
-  // const handleStarRating = (starNum) => {
-  //   if (starNum === "1") {
-  //     setStarRating({
-  //       star1: true,
-  //       star2: false,
-  //       star3: false,
-  //       star4: false,
-  //       star5: false,
-  //     });
-  //   } else if (starNum === "2") {
-  //     setStarRating({
-  //       star1: true,
-  //       star2: true,
-  //       star3: false,
-  //       star4: false,
-  //       star5: false,
-  //     });
-  //   } else if (starNum === "3") {
-  //     setStarRating({
-  //       star1: true,
-  //       star2: true,
-  //       star3: true,
-  //       star4: false,
-  //       star5: false,
-  //     });
-  //   } else if (starNum === "4") {
-  //     setStarRating({
-  //       star1: true,
-  //       star2: true,
-  //       star3: true,
-  //       star4: true,
-  //       star5: false,
-  //     });
-  //   } else if (starNum === "5") {
-  //     setStarRating({
-  //       star1: true,
-  //       star2: true,
-  //       star3: true,
-  //       star4: true,
-  //       star5: true,
-  //     });
-  //   } else if (props === "0") {
-  //     setStarRating({
-  //       star1: false,
-  //       star2: false,
-  //       star3: false,
-  //       star4: false,
-  //       star5: false,
-  //     });
-  //   }
-  // };
-
   return (
     <Modal onClick={props.onHideFeedDetail}>
       <ContentBlock id="DetailContent" height={modalHeight}>
         <div className="mindmap">
+          <div className="star-total">
+            <StarRating starNum={star_rating_total} isDisabled={true} />
+          </div>
           <Mind
             width={mindWidth}
             height={mindHeight}
@@ -198,7 +136,7 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <StarRating starNum={star_rating} />
+            <StarRating starNum={star_rating_user} isDisabled={false} />
             <img
               src={download}
               className="fa-download"
