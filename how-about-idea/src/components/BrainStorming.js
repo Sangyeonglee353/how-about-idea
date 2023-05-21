@@ -182,7 +182,7 @@ function Node(props) {
           <p
             className="add"
             onClick={() => {
-              props.setClick([props.word, props.root]);
+              props.setClick([props.word, props.root,props.level,props.word_id,props.root_id]);
               menu.current.style.transform = "translate(0%)";
               props.setMenu(true);
             }}
@@ -381,7 +381,7 @@ function BrainStorming() {
   const [prev, setPrev] = useState(-1);
   const [select, setSelect] = useState([]);
   const [print, setPrint] = useState([]);
-  const [click, setClick] = useState(["단어를 선택해주세요", ""]);
+  const [click, setClick] = useState(["단어를 선택해주세요", "",-1,-1,-1]);
   const printIdx = useRef([])
   const wordWeight  = useRef({})
   const isExist = useRef({})
@@ -456,7 +456,7 @@ function BrainStorming() {
       } 
       
       else {
-        if(buf.length===word.current.length)
+        if(print_buf.length===word.current.length)
           isExist.current["-1,-1"] = i
 
         print_idx.push(-1)
@@ -580,6 +580,9 @@ function BrainStorming() {
                     <Node
                       word={e[0]}
                       root={e[1] === -1 ? "시작단어" : e[1]}
+                      level={e[2]}
+                      word_id={e[3]}
+                      root_id={e[4]}
                       setMenu={setMenu}
                       key={idx}
                       setClick={setClick}
@@ -611,10 +614,10 @@ function BrainStorming() {
                       add.current.value !== null &&
                       click[0] !== "단어를 선택해주세요") 
                     {
-
-                      setPrev([add.current.value, click[0]]);
+                      setPrev([add.current.value, click[0],click[2]+1,previd + 1,click[3]]);
 
                       add.current.value = "";
+                      setPrevId(previd + 1)
                       setClick(["단어를 선택해주세요", ""]);
 
                     } 
