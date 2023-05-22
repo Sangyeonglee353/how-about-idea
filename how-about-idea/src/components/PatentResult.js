@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "./UI/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faRegularStar from "../images/star-regular.svg";
-import { makeSentence } from "../Api";
+import { makeSentence, createMemberStar } from "../Api";
 
 const PatentResultCSS = styled.div`
   /* display: flex;
@@ -392,86 +392,35 @@ const PatentResult = (props) => {
     }
   };
 
-  // 별점 개수_버전 1
-  // const countStarRating = () => {
-  //   if (
-  //     starRating.star1 == false &&
-  //     starRating.star2 == false &&
-  //     starRating.star3 == false &&
-  //     starRating.star4 == false &&
-  //     starRating.star5 == false
-  //   ) {
-  //     return 0;
-  //   } else if (
-  //     starRating.star1 == true &&
-  //     starRating.star2 == false &&
-  //     starRating.star3 == false &&
-  //     starRating.star4 == false &&
-  //     starRating.star5 == false
-  //   ) {
-  //     return 1;
-  //   } else if (
-  //     starRating.star1 == true &&
-  //     starRating.star2 == true &&
-  //     starRating.star3 == false &&
-  //     starRating.star4 == false &&
-  //     starRating.star5 == false
-  //   ) {
-  //     return 2;
-  //   } else if (
-  //     starRating.star1 == true &&
-  //     starRating.star2 == true &&
-  //     starRating.star3 == true &&
-  //     starRating.star4 == false &&
-  //     starRating.star5 == false
-  //   ) {
-  //     return 3;
-  //   } else if (
-  //     starRating.star1 == true &&
-  //     starRating.star2 == true &&
-  //     starRating.star3 == true &&
-  //     starRating.star4 == true &&
-  //     starRating.star5 == false
-  //   ) {
-  //     return 4;
-  //   } else if (
-  //     starRating.star1 == true &&
-  //     starRating.star2 == true &&
-  //     starRating.star3 == true &&
-  //     starRating.star4 == true &&
-  //     starRating.star5 == true
-  //   ) {
-  //     return 5;
-  //   }
-  // };
-
   // 별점 개수
-  // const countStarRating = () => {
-  //   const trueValues = [...starRating].filter((value) => value === true);
-  //   return trueValues.length;
-  // };
-
-  // const runCounting = () => {
-  //   const starCount = countStarRating();
-  //   console.log("별점 개수: ", starCount);
-  // };
+  const countStarRating = () => {
+    const trueValues = [
+      starRating.star1,
+      starRating.star2,
+      starRating.star3,
+      starRating.star4,
+      starRating.star5,
+    ].filter((value) => value === true);
+    return trueValues.length;
+  };
 
   const [privateOn, setPrivateOn] = useState(false); // 공개/비공개 아이콘 on/off
   const [refreshOn, setRefreshOn] = useState(false); // 다시 생성 아이콘 on/off
 
-  const words = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
-    console.log(words.state["word1"]);
-    console.log(words.state["word2"]);
+    console.log(location.state["word1"]);
+    console.log(location.state["word2"]);
     getSentence();
-  }, [words.state]);
+  }, [location.state]);
 
   // [인공지능]_[문장 생성 API]
   const getSentence = () => {
     const data = {
       // firstWord: selectedNode[0].label,
-      firstWord: words.state["word1"],
-      secondWord: words.state["word2"],
+      firstWord: location.state["word1"],
+      secondWord: location.state["word2"],
     };
     // 문장 생성 1회차만
     // setLoading(true);
@@ -499,17 +448,30 @@ const PatentResult = (props) => {
       });
   };
 
-  // [백엔드]_[결과 저장 API]_수정중
-  // const saveSentence = () => {
-  //   const data = {
-  //     sentence: output.data["gsentence"],
-  //     combineWord1: words.state["word1"],
-  //     combineWore2: words.state["word2"],
-  //     starRating: 4,
-  //     show: 1,
-  //     patentRelation: output.data["relationPatentList"],
-  //   };
-  // };
+  //[백엔드]_[결과 저장 API]
+  async function saveSentence() {
+    const data = {
+      sentence: output.data["gsentence"],
+      combineWord1: location.state["word1"],
+      combineWord2: location.state["word2"],
+      show: privateOn ? 1 : 0,
+      patentSentence: output.data["relationPatentList"],
+      mindMapEntityId: location.state["mindmapId"],
+    };
+    let res = await makeSentence({ ...data });
+
+    let res1 = await createMemberStar(res.data.data.id, {
+      starRating: countStarRating(),
+    });
+
+    try {
+      alert("저장이 완료되었습니다.");
+      navigate("/");
+    } catch {
+      alert("에러가 발생하였습니다. 다시 시도해 주세요");
+    }
+  }
+
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -674,7 +636,7 @@ const PatentResult = (props) => {
             </div>
           </div>
 
-          <div className="result-save">
+          <div className="result-save" onClick={saveSentence}>
             {/* <Link to="/"> */}
             <span>Save & Quit</span>
             {/* </Link> */}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -160,6 +160,8 @@ const NodeSelect = () => {
   // 처음 선택시 중복 선택 에러 해결
   useEffect(resetSelectedNode, []);
 
+  // 마인드맵 아이디 넘김용
+  const location = useLocation();
   return (
     <NodeSelectCSS>
       {console.log("NodeSelect_selectedNode: ", selectedNode)}
@@ -210,6 +212,7 @@ const NodeSelect = () => {
                 state={{
                   word1: selectedNode[0].label,
                   word2: selectedNode[1].label,
+                  mindmapId: location.state.id,
                 }}
               >
                 <button className="activeBtn" id="nextPage">

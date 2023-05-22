@@ -46,7 +46,7 @@ const MindStore = () => {
   ];
   // [백엔드]_내 마인드맵 정보 가져오기
   useEffect(() => {
-    // const res = getMyMindMap();
+    // let res = getMyMindMap();
     // res
     //   .then((res) => {
     //     console.log("Get My Mindmap Sucess!!");
@@ -57,9 +57,10 @@ const MindStore = () => {
     //     console.log("Get My Mindmap Falied!");
     //   });
 
-    console.log("TEMP_FEED_Data: ", TEMP_FEED);
+    // console.log("TEMP_FEED_Data: ", TEMP_FEED);
     setMindmapData(TEMP_FEED);
-    console.log("MindStore.js & mindmapData: ", mindmapData);
+    console.log("TEMP_FEED: ", TEMP_FEED);
+    // console.log("MindStore.js & mindmapData: ", mindmapData);
   }, []);
 
   return (

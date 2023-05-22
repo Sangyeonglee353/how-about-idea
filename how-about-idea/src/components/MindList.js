@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Feeds from "./Feeds.js";
+import FeedsList from "./FeedsList";
 import { useState } from "react";
 import FeedDetail from "./FeedDetail";
 import styled from "styled-components";
@@ -106,15 +106,19 @@ const MindList = (props) => {
   };
 
   useEffect(() => {
-    if (props.mindmapData) {
-      setMindmapAll(props.mindmapData["TEMP_FEED"]);
-      console.log("props.mindmapData: ", props.mindmapData); // 객체
-      console.log("success: ", mindmapAll);
+    if (props.mindmapData !== undefined) {
+      // setMindmapAll(props.mindmapData["TEMP_FEED"]);
+      setMindmapAll(props.mindmapData);
+      console.log("props.mindmapData: ", props.mindmapData);
     } else {
       setMindmapAll(DUMMY_FEED);
       console.log("fail: ", mindmapAll);
     }
-  }, []);
+  }, [props.mindmapData]);
+
+  useEffect(() => {
+    console.log("success: ", mindmapAll);
+  }, [mindmapAll]);
 
   return (
     <MindListCss>
@@ -124,7 +128,7 @@ const MindList = (props) => {
           onHideFeedDetail={hideFeedDetailHandler}
         />
       )}
-      <Feeds
+      <FeedsList
         items={DUMMY_FEED}
         // items={mindmapAll}
         onShowFeedDetail={showFeedDetailHandler}

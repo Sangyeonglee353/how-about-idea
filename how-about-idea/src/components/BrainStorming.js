@@ -397,23 +397,67 @@ function BrainStorming() {
   const renew_print_all = () => {
     let buf = [];
     let idx_buf = [];
+    let word_idx = {};
+    let word_exp = {};
+    let sum = 0;
     isExist.current["-1,-1"] = 0;
+
+    Object.keys(wordWeight.current).forEach((e, idx) => {
+      sum += wordWeight.current[e];
+      word_idx[e] = idx;
+    });
+
+    let exp_sum = 0;
+    Object.keys(wordWeight.current).forEach((e) => {
+      word_exp[e] = Math.exp(wordWeight.current[e] / sum);
+      exp_sum += word_exp[e];
+    });
+
     for (let i = 0; i < 15; i++) {
       if (buf.length < word.current.length) {
-        const rand = Math.floor(Math.random() * word.current.length);
-
-        if (idx_buf.indexOf(rand) === -1 && rand !== -1) {
-          idx_buf.push(rand);
-          buf.push(word.current[rand]);
-          isExist.current[word.current[rand][1] + "," + word.current[rand][0]] =
-            rand;
-        } else i--;
+        const rand = Math.floor(Math.random() * exp_sum);
+        let loc = 0;
+        for (let k in word_exp) {
+          loc += word_exp[k];
+          if (rand <= loc) {
+            if (idx_buf.indexOf(word_idx[k]) === -1) {
+              idx_buf.push(word_idx[k]);
+              buf.push(word.current[word_idx[k]]);
+              isExist.current[
+                word.current[word_idx[k]][1] +
+                  "," +
+                  word.current[word_idx[k]][0]
+              ] = word_idx[k];
+            } else {
+              i--;
+            }
+            break;
+          }
+        }
       } else {
         if (buf.length === word.current.length) isExist.current["-1,-1"] = i;
         idx_buf.push(-1);
         buf.push([-1, -1]);
       }
     }
+
+    // for (let i = 0; i < 15; i++) {
+    //   if (buf.length < word.current.length) {
+    //     const rand = Math.floor(Math.random() * word.current.length);
+
+    //     if (idx_buf.indexOf(rand) === -1 && rand !== -1) {
+    //       idx_buf.push(rand);
+    //       buf.push(word.current[rand]);
+    //       isExist.current[word.current[rand][1] + "," + word.current[rand][0]] =
+    //         rand;
+    //     } else i--;
+    //   } else {
+    //     if (buf.length === word.current.length) isExist.current["-1,-1"] = i;
+    //     idx_buf.push(-1);
+    //     buf.push([-1, -1]);
+    //   }
+    // }
+
     setPrint(buf);
     printIdx.current = [...idx_buf];
   };
@@ -448,23 +492,49 @@ function BrainStorming() {
     let res = await getWordRelation(prev[0]);
 
     for (let i = 0; i < res.data.length; i++) {
-      wordWeight.current[prev[0] + "," + res.data[i]["word"]] = Math.exp(
-        res.data[i]["weight"]
-      );
+      wordWeight.current[prev[0] + "," + res.data[i]["word"]] =
+        res.data[i]["weight"];
       tmp.push([res.data[i]["word"], prev[0], prev[2] + 1, -1, prev[3]]);
     }
 
     word_buf = [...word_buf, ...tmp];
+
+    let word_idx = {};
+    let word_exp = {};
+    let sum = 0;
+    let exp_sum = 0;
+    Object.keys(wordWeight.current).forEach((e, idx) => {
+      sum += wordWeight.current[e];
+      word_idx[e] = idx;
+    });
+
+    Object.keys(wordWeight.current).forEach((e) => {
+      word_exp[e] = Math.exp(wordWeight.current[e] / sum);
+      exp_sum += word_exp[e];
+    });
+
     const len = 15 - print_buf.length;
     for (let i = 0; i < len; i++) {
       if (print_buf.length < word_buf.length) {
-        const rand = Math.floor(Math.random() * word_buf.length);
-
-        if (print_idx.indexOf(rand) === -1 && rand !== -1) {
-          print_idx.push(rand);
-          print_buf.push(word_buf[rand]);
-          isExist.current[word_buf[rand][1] + "," + word_buf[rand][0]] = rand;
-        } else i--;
+        const rand = Math.floor(Math.random() * exp_sum);
+        let loc = 0;
+        for (let k in word_exp) {
+          loc += word_exp[k];
+          if (rand <= loc) {
+            if (print_idx.indexOf(word_idx[k]) === -1) {
+              print_idx.push(word_idx[k]);
+              print_buf.push(word.current[word_idx[k]]);
+              isExist.current[
+                word.current[word_idx[k]][1] +
+                  "," +
+                  word.current[word_idx[k]][0]
+              ] = word_idx[k];
+            } else {
+              i--;
+            }
+            break;
+          }
+        }
       } else {
         if (print_buf.length === word.current.length)
           isExist.current["-1,-1"] = i;
@@ -547,25 +617,41 @@ function BrainStorming() {
     return false;
   };
 
-  function softMax() {
+  function softMax(current_idx) {
     let word_idx = {};
     let sum = 0;
+    let word_exp = {};
 
     Object.keys(wordWeight.current).forEach((e, idx) => {
       sum += wordWeight.current[e];
       word_idx[e] = idx;
     });
 
-    const rand = Math.floor(Math.random() * sum);
-    let loc = 0;
-    for (let i in wordWeight.current) {
-      loc += wordWeight.current[i];
-      if (rand <= loc) {
-        return word_idx[i];
+    sum = Math.exp(sum);
+
+    Object.keys(wordWeight.current).forEach((e) => {
+      word_exp[e] = Math.exp(wordWeight.current[e]) / sum;
+    });
+
+    const len = 15 - current_idx.length;
+
+    for (let i = 0; i < len; i++) {
+      const rand = Math.floor(Math.random() * sum);
+      let loc = 0;
+      for (let i in word_exp) {
+        loc += word_exp[i];
+        if (rand <= loc) {
+          if (current_idx.indexOf(word_idx[i]) === -1) {
+            current_idx.push(word_idx[i]);
+          } else {
+            i--;
+            break;
+          }
+        }
       }
     }
 
-    return -1;
+    return current_idx;
   }
 
   useEffect(() => {
@@ -576,9 +662,8 @@ function BrainStorming() {
     let res = getWordRelation(root);
     res.then((e) => {
       for (let i = 0; i < e.data.length; i++) {
-        wordWeight.current[root + "," + e.data[i]["word"]] = Math.exp(
-          e.data[i]["weight"]
-        );
+        wordWeight.current[root + "," + e.data[i]["word"]] =
+          e.data[i]["weight"];
         buf.push([e.data[i]["word"], root, 2, -1, 1]);
       }
 
@@ -598,9 +683,8 @@ function BrainStorming() {
         let res = getWordRelation(prev[0]);
         res.then((e) => {
           for (let i = 0; i < e.data.length; i++) {
-            wordWeight.current[prev[0] + "," + e.data[i]["word"]] = Math.exp(
-              e.data[i]["weight"]
-            );
+            wordWeight.current[prev[0] + "," + e.data[i]["word"]] =
+              e.data[i]["weight"];
             buf.push([e.data[i]["word"], prev[0], 2, -1, 1]);
           }
           word.current = [...buf];

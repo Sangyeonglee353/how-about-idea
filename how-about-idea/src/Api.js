@@ -78,12 +78,13 @@ export async function makeSentence(data) {
   //     "patentSentence" :  ["문장1","문장2", "문장3"],
   //     "mindMapEntityId" : 3
   // }
-
 }
 
 //트리즈 문장 불러오기
 export async function getSentence(makeSentenceId) {
-  const res = await axios.get(`${origin}/api/auth/makeSentence/${makeSentenceId}`);
+  const res = await axios.get(
+    `${origin}/api/auth/makeSentence/${makeSentenceId}`
+  );
 
   return res;
 }
@@ -105,6 +106,10 @@ export async function searchWord(str) {
 
   return res;
 }
+
+// (1) 김치 검색 -> searchSentence & searchWord
+// (2) mindmapid 중복 제거
+// (3) 마인드맵 개별 조회
 
 //mindMap
 //마인드맵 생성
@@ -157,7 +162,6 @@ export async function getMindMapAll() {
   const res = await axios.get(`${origin}/api/auth/mindMap`);
 
   return res;
-  
 }
 
 //자신의 마인드맵 전체조회
@@ -181,94 +185,81 @@ export async function getMindMap(mindMapId) {
 //patentRelation
 //트리즈 문장 아이디로 관련 특허 문장 조회
 export async function getPatentSentence(makeSentenceId) {
-  const res = await axios.get(`${origin}/api/auth/patentSentence/1/${makeSentenceId}`);
+  const res = await axios.get(
+    `${origin}/api/auth/patentSentence/1/${makeSentenceId}`
+  );
 
   return res;
 }
 
 //wordRelation
 //wordRelation생성
-export async function createWordRelation(data){
-
-  const res  = await axios.post(`${origin}/api/auth/saveWord`,
-  {
-
-    ...data
-  },
-  {
-
-    headers:{
-
-      Authorization:sessionStorage.getItem("token")            
-
+export async function createWordRelation(data) {
+  const res = await axios.post(
+    `${origin}/api/auth/saveWord`,
+    {
+      ...data,
+    },
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
     }
+  );
 
-  })
-
-  return res
+  return res;
 
   // {
   //   "rootWord": "개",
   //   "word": "시츄",
   //   "weight": 10
   // }
-
 }
 
-
 //wordRelation 중복 검사
-export async function CheckWordRelation(rootword, word){
+export async function CheckWordRelation(rootword, word) {
+  const res = await axios.get(
+    `${origin}/api/auth/wordRelation/${rootword}/${word}`
+  );
 
-  const res  = await axios.get(`${origin}/api/auth/wordRelation/${rootword}/${word}`)
-
-  return res
-
+  return res;
 }
 
 //word 의 연관단어 get
-export async function getWordRelation(word){
+export async function getWordRelation(word) {
+  const res = await axios.get(`${origin}/api/auth/wordRelation/${word}`);
 
-  const res  = await axios.get(`${origin}/api/auth/wordRelation/${word}`)
-
-  return res
-
+  return res;
 }
 
 //memberStar
 
 //별점 등록
-export async function createMemberStar(makeSentenceId, data){
-
-  const res  = await axios.post(`${origin}/api/auth/saveWord/${makeSentenceId}`,
-  {
-    ...data
-  },
-  {
-
-    headers:{
-
-      Authorization:sessionStorage.getItem("token")            
-
+export async function createMemberStar(makeSentenceId, data) {
+  const res = await axios.post(
+    `${origin}/api/auth/saveMemberStar/${makeSentenceId}`,
+    {
+      ...data,
+    },
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
     }
+  );
 
-  })
-
-  return res
+  return res;
 
   // {
   //   "starRating":5
   // }
-
 }
-
-
 
 //makeSentence의 별점 조회
-export async function getStarRating(makeSentenceId){
+export async function getStarRating(makeSentenceId) {
+  const res = await axios.get(
+    `${origin}/api/auth/memberStar/total/${makeSentenceId}`
+  );
 
-  const res  = await axios.get(`${origin}/api/auth/memberStar/total/${makeSentenceId}`)
-
-  return res
-
+  return res;
 }
-

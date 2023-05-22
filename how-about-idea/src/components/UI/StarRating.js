@@ -27,7 +27,7 @@ const StarRating = (props, { totalStars = 5 }) => {
 
   useEffect(() => {
     setStars(getData);
-  }, []);
+  }, [getData]);
 
   const Star = ({
     selected = false,
