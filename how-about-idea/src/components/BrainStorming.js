@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {CheckWordRelation, createWordRelation, getWordRelation} from '../Api'
+import {CheckWordRelation, createWordRelation, getWordRelation, createMindMap} from '../Api'
 const PrintedWordCss = styled.div`
   width: 25%;
   height: 25%;
@@ -395,7 +395,7 @@ function BrainStorming() {
 
         const rand = Math.floor(Math.random() * word.current.length);
 
-        if(buf.indexOf(rand)===-1){
+        if(buf_idx.indexOf(rand)===-1&&rand!==-1){
           idx_buf.push(rand)
           buf.push(word.current[rand]);
           isExist.current[word.current[rand][1]+","+word.current[rand][0]] = rand
@@ -414,7 +414,6 @@ function BrainStorming() {
     }
     setPrint(buf);
     printIdx.current = [...idx_buf]
-
   };
 
   async function renew_word(){
@@ -423,19 +422,37 @@ function BrainStorming() {
     let print_buf = [...print];
     let tmp = [];
     let print_idx = [...printIdx.current]
-    let idx = print_idx.indexOf(isExist.current[prev[1]+","+prev[0]])
-    print_idx.splice(idx,1)
-    print_buf.splice(idx, 1);
+    let idx = isExist.current[prev[1]+","+prev[0]]
+    if(idx===undefined){
+      for(let i=0;i<word_buf.length;i++){
+        
+        if(word_buf[i][0]===prev[0]&&word_buf[i][1]===prev[1]){
+          word_buf.splice(i, 1);
+        }
+
+      }
+      word.current =  [...word_buf]
+      return
+    }
+
+    else{
+
+      idx = print_idx.indexOf(isExist.current[prev[1]+","+prev[0]])
+      print_idx.splice(idx,1)
+      print_buf.splice(idx, 1);
+    }
 
     if(isExist.current["-1,-1"]>0)
       print_buf = print_buf.splice(0, isExist.current["-1,-1"]);
 
     word_buf.splice(isExist[prev[1]+","+prev[0]], 1);
-    
+
+    delete wordWeight.current[prev[1]+","+prev[0]]
+
     let res = await getWordRelation(prev[0])
 
     for (let i = 0; i < res.data.length; i++) {
-      wordWeight.current[prev[0]+","+res.data[i]["word"]] =res.data[i]["weight"]
+      wordWeight.current[prev[0]+","+res.data[i]["word"]] =Math.exp(res.data[i]["weight"])
       tmp.push([res.data[i]["word"],prev[0], prev[2] + 1, -1, prev[3]]);
     }
 
@@ -446,7 +463,7 @@ function BrainStorming() {
 
         const rand = Math.floor(Math.random() * word_buf.length);
 
-        if(print_idx.indexOf(rand)===-1){
+        if(print_idx.indexOf(rand)===-1&&rand!==-1){
           print_idx.push(rand)
           print_buf.push(word_buf[rand]);
           isExist.current[word_buf[rand][1]+","+word_buf[rand][0]] = rand
@@ -471,19 +488,24 @@ function BrainStorming() {
 
   };
 
-  async function creatWord(){
+  async function creatWord(rootword,word){
 
-    CheckWordRelation()
-
-
-
+    let res1 = await CheckWordRelation(rootword,word)
+    if(!res1.data){
+      await createWordRelation({
+        rootWord:rootword,
+        word:word,
+        weight:10
+      })
+    }
   }
 
-  const make_mind = () => {
+  async function make_mind(){
+    const root = decodeURI(location.search.split("root=")[1]);
     let node = [];
-
+    let node_api=[]
     let edge = [];
-
+    let edge_api=[]
     select.map((e) => {
 
       node.push({
@@ -494,7 +516,13 @@ function BrainStorming() {
         },
       });
 
-      if (e[4] !== -1)
+      node_api.push({
+        id: e[3].toString(),
+        label: e[0].toString(),
+        type: "level" + e[2],
+      })
+
+      if (e[4] !== -1){
 
         edge.push({
           data: {
@@ -504,11 +532,66 @@ function BrainStorming() {
           },
         });
 
+        edge_api.push({
+          id: e[4] + "->" + e[3],
+          source: e[3].toString(),
+          target: e[4].toString(),
+        })
+
+      }
+
     });
 
-    return [...node, ...edge];
+   let res = await createMindMap({
+      highestWord:root,
+      mindMapNode:node_api, 
+      mindMapEdge:edge_api
+    })
+
+    return {mindMap:[...node, ...edge] ,id:res.data.data.id};
+
   };
 
+  const exist_select=()=>{
+
+    for(let i=0; i<select.length;i++){
+
+      if(select[i][0]===prev[0]&&select[i][1]===prev[1]){
+
+        return true
+
+      }
+    }
+  
+    return false
+
+  }
+
+  function softMax(){
+    
+    let word_idx={}
+    let sum=0
+    
+    Object.keys(wordWeight.current).forEach((e,idx)=>{
+
+        sum+=wordWeight.current[e]
+        word_idx[e]=idx
+    })
+
+    const rand = Math.floor(Math.random() * sum);
+    let loc=0
+    for (let i in wordWeight.current){
+
+      loc+=wordWeight.current[i]
+      if(rand<=loc){
+        return word_idx[i]
+      }   
+
+    }
+
+    return -1
+
+  }
 
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
@@ -517,9 +600,8 @@ function BrainStorming() {
 
     let res = getWordRelation(root)
     res.then((e)=>{
- 
       for (let i = 0; i < e.data.length; i++) {
-        wordWeight.current[e.data[root+","+e.data[i]["word"]]] =e.data[i]["weight"]
+        wordWeight.current[root+","+e.data[i]["word"]] =Math.exp(e.data[i]["weight"])
         buf.push([e.data[i]["word"], root, 2, -1, 1]);
       }
   
@@ -534,9 +616,21 @@ function BrainStorming() {
   }, []);
 
   useEffect(() => {
-    if (enter.current) {
+    if (enter.current&&!exist_select()) {
+
       setSelect([...select, prev]);
-      renew_word();
+      if(wordWeight.current[prev[1]+","+prev[0]]!==undefined)
+        renew_word();
+      else{
+        let res = getWordRelation(prev[0])
+        res.then((e)=>{
+            for (let i = 0; i < e.data.length; i++) {
+              wordWeight.current[prev[0]+","+e.data[i]["word"]] =Math.exp(e.data[i]["weight"])
+              buf.push([e.data[i]["word"], prev[0], 2, -1, 1]);
+            }
+            word.current = [...buf];
+          })
+      }
     } 
     else {
       enter.current = true;
@@ -616,11 +710,11 @@ function BrainStorming() {
                       click[0] !== "단어를 선택해주세요") 
                     {
                       setPrev([add.current.value, click[0],click[2]+1,previd + 1,click[3]]);
-
+                      creatWord(click[0],add.current.value)
                       add.current.value = "";
                       setPrevId(previd + 1)
                       setClick(["단어를 선택해주세요", ""]);
-
+                     
                     } 
 
                     else 
@@ -642,8 +736,12 @@ function BrainStorming() {
         onClick={()=>{
 
           let mindmap = make_mind()
-          console.log(mindmap)
-          navigate("/NodeSelect",{state: mindmap})
+          mindmap.then((e)=>{
+            navigate("/NodeSelect",{state: {mindMap: e.mindMap, id: e.id}})
+          }).catch(()=>{
+            alert("에러 발생, 다시 시도해 주세요")
+          })
+
 
         }}
 
