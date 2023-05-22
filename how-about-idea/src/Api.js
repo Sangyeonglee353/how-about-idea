@@ -46,9 +46,9 @@ export async function signIn(data) {
   // }
 }
 
-//유저 정보
-export async function getUser(id) {
-  const res = await axios.get(`${origin}/api/auth/user/${id}`);
+//유저 정보(유저 번호)
+export async function getUser(userId) {
+  const res = await axios.get(`${origin}/api/auth/user/${userId}`);
 
   return res;
 }
@@ -70,25 +70,25 @@ export async function makeSentence(data) {
 
   return res;
 
-  // {
+  //   {
   //     "sentence": "개와 고양이는 멋져",
   //     "combineWord1" : "개",
   //     "combineWord2" : "고양이",
-  //     "starRating" : 4,
   //     "show" : 1,
-  //     "patentRelation" :  ["문장1","문장2", "문장3"]
-
+  //     "patentSentence" :  ["문장1","문장2", "문장3"],
+  //     "mindMapEntityId" : 3
   // }
+
 }
 
 //트리즈 문장 불러오기
-export async function getSentence(id) {
-  const res = await axios.get(`${origin}/api/auth/makeSentence/${id}`);
+export async function getSentence(makeSentenceId) {
+  const res = await axios.get(`${origin}/api/auth/makeSentence/${makeSentenceId}`);
 
   return res;
 }
 
-//트리즈 문장 검색(트리즈 문장 포함여부)
+//트리즈 문장 검색(트리즈 문장에 str 포함여부)
 export async function searchSentence(str) {
   const res = await axios.get(
     `${origin}/api/auth/makeSentence/searchSentence/${str}`
@@ -96,7 +96,6 @@ export async function searchSentence(str) {
 
   return res;
 }
-// 문장 불러오면 이제 거기에 마인드맵 id => 다시 마인드맵 데이터를 get => 이 데이터로 mind
 
 //트리즈 문장 검색(선택단어 포함여부)
 export async function searchWord(str) {
@@ -158,7 +157,7 @@ export async function getMindMapAll() {
   const res = await axios.get(`${origin}/api/auth/mindMap`);
 
   return res;
-  //노드 에지 둘다?
+  
 }
 
 //자신의 마인드맵 전체조회
@@ -172,18 +171,23 @@ export async function getMyMindMap() {
   return res;
 }
 
-//마인드맵 단일 조회 ,백엔드 아직 구현안됨
-export async function getMindMap(id) {
-  const res = await axios.get(`${origin}/api/auth/mindMap/${id}`);
+//마인드맵 단일 조회
+export async function getMindMap(mindMapId) {
+  const res = await axios.get(`${origin}/api/auth/mindMap/${mindMapId}`);
 
   return res;
 }
 
 //patentRelation
+//트리즈 문장 아이디로 관련 특허 문장 조회
+export async function getPatentSentence(makeSentenceId) {
+  const res = await axios.get(`${origin}/api/auth/patentSentence/1/${makeSentenceId}`);
 
-//memberStar
+  return res;
+}
 
 //wordRelation
+//wordRelation생성
 export async function createWordRelation(data){
 
   const res  = await axios.post(`${origin}/api/auth/saveWord`,
@@ -203,19 +207,68 @@ export async function createWordRelation(data){
 
   return res
 
+  // {
+  //   "rootWord": "개",
+  //   "word": "시츄",
+  //   "weight": 10
+  // }
+
 }
 
-export async function CheckWordRelation(rootword,word){
+
+//wordRelation 중복 검사
+export async function CheckWordRelation(rootword, word){
 
   const res  = await axios.get(`${origin}/api/auth/wordRelation/${rootword}/${word}`)
 
   return res
+
 }
 
+//word 의 연관단어 get
 export async function getWordRelation(word){
 
-    const res  = await axios.get(`${origin}/api/auth/wordRelation/${word}`)
+  const res  = await axios.get(`${origin}/api/auth/wordRelation/${word}`)
 
-    return res
+  return res
+
+}
+
+//memberStar
+
+//별점 등록
+export async function createMemberStar(makeSentenceId, data){
+
+  const res  = await axios.post(`${origin}/api/auth/saveWord/${makeSentenceId}`,
+  {
+    ...data
+  },
+  {
+
+    headers:{
+
+      Authorization:sessionStorage.getItem("token")            
+
+    }
+
+  })
+
+  return res
+
+  // {
+  //   "starRating":5
+  // }
+
+}
+
+
+
+//makeSentence의 별점 조회
+export async function getStarRating(makeSentenceId){
+
+  const res  = await axios.get(`${origin}/api/auth/memberStar/total/${makeSentenceId}`)
+
+  return res
+
 }
 
