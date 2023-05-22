@@ -636,6 +636,7 @@ function BrainStorming() {
         else{
             return word_idx[i]
         }
+        
     }
 
   }
