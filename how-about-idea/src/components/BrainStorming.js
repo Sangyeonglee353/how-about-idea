@@ -393,9 +393,9 @@ function BrainStorming() {
     for (let i = 0; i < 15;i++) {
       if (buf.length < word.current.length) {
 
-        const rand = softMax()
+        const rand = Math.floor(Math.random() * word.current.length);
 
-        if(buf.indexOf(rand)===-1&&rand!==-1){
+        if(buf_idx.indexOf(rand)===-1&&rand!==-1){
           idx_buf.push(rand)
           buf.push(word.current[rand]);
           isExist.current[word.current[rand][1]+","+word.current[rand][0]] = rand
@@ -414,7 +414,6 @@ function BrainStorming() {
     }
     setPrint(buf);
     printIdx.current = [...idx_buf]
-
   };
 
   async function renew_word(){
@@ -462,7 +461,7 @@ function BrainStorming() {
     for (let i = 0; i < len; i++ ) {
       if (print_buf.length < word_buf.length) {
 
-        const rand = softMax()
+        const rand = Math.floor(Math.random() * word_buf.length);
 
         if(print_idx.indexOf(rand)===-1&&rand!==-1){
           print_idx.push(rand)
@@ -568,6 +567,31 @@ function BrainStorming() {
 
   }
 
+  function softMax(){
+    
+    let word_idx={}
+    let sum=0
+    
+    Object.keys(wordWeight.current).forEach((e,idx)=>{
+
+        sum+=wordWeight.current[e]
+        word_idx[e]=idx
+    })
+
+    const rand = Math.floor(Math.random() * sum);
+    let loc=0
+    for (let i in wordWeight.current){
+
+      loc+=wordWeight.current[i]
+      if(rand<=loc){
+        return word_idx[i]
+      }   
+
+    }
+
+    return -1
+
+  }
 
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
@@ -612,36 +636,6 @@ function BrainStorming() {
       enter.current = true;
     }
   }, [prev]);
-
-
-  function softMax(){
-    
-    let word_idx={}
-    let sum=0
-    
-    Object.keys(wordWeight.current).forEach((e,idx)=>{
-
-        sum+=wordWeight.current[e]
-        word_idx[e]=idx
-    })
-
-    const rand = Math.floor(Math.random() * sum);
-    let loc=0
-    for (i in wordWeight.current){
-
-        if(rand>loc){
-            loc+=wordWeight.current[i]
-        }
-
-        else{
-            return word_idx[i]
-        }
-        
-    }
-
-    return -1
-
-  }
 
   return (
     <BrainStormingCss menu={menu}>
