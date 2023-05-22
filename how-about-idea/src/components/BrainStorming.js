@@ -393,9 +393,9 @@ function BrainStorming() {
     for (let i = 0; i < 15;i++) {
       if (buf.length < word.current.length) {
 
-        const rand = Math.floor(Math.random() * word.current.length);
+        const rand = softMax()
 
-        if(buf.indexOf(rand)===-1){
+        if(buf.indexOf(rand)===-1&&rand!==-1){
           idx_buf.push(rand)
           buf.push(word.current[rand]);
           isExist.current[word.current[rand][1]+","+word.current[rand][0]] = rand
@@ -462,9 +462,9 @@ function BrainStorming() {
     for (let i = 0; i < len; i++ ) {
       if (print_buf.length < word_buf.length) {
 
-        const rand = Math.floor(Math.random() * word_buf.length);
+        const rand = softMax()
 
-        if(print_idx.indexOf(rand)===-1){
+        if(print_idx.indexOf(rand)===-1&&rand!==-1){
           print_idx.push(rand)
           print_buf.push(word_buf[rand]);
           isExist.current[word_buf[rand][1]+","+word_buf[rand][0]] = rand
@@ -638,6 +638,8 @@ function BrainStorming() {
         }
         
     }
+
+    return -1
 
   }
 
