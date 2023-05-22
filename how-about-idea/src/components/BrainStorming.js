@@ -415,7 +415,7 @@ function BrainStorming() {
 
     for (let i = 0; i < 15; i++) {
       if (buf.length < word.current.length) {
-        const rand = Math.floor(Math.random() * exp_sum);
+        const rand = Math.random() * exp_sum;
         let loc = 0;
         for (let k in word_exp) {
           loc += word_exp[k];
@@ -441,22 +441,7 @@ function BrainStorming() {
       }
     }
 
-    // for (let i = 0; i < 15; i++) {
-    //   if (buf.length < word.current.length) {
-    //     const rand = Math.floor(Math.random() * word.current.length);
 
-    //     if (idx_buf.indexOf(rand) === -1 && rand !== -1) {
-    //       idx_buf.push(rand);
-    //       buf.push(word.current[rand]);
-    //       isExist.current[word.current[rand][1] + "," + word.current[rand][0]] =
-    //         rand;
-    //     } else i--;
-    //   } else {
-    //     if (buf.length === word.current.length) isExist.current["-1,-1"] = i;
-    //     idx_buf.push(-1);
-    //     buf.push([-1, -1]);
-    //   }
-    // }
 
     setPrint(buf);
     printIdx.current = [...idx_buf];
@@ -516,7 +501,7 @@ function BrainStorming() {
     const len = 15 - print_buf.length;
     for (let i = 0; i < len; i++) {
       if (print_buf.length < word_buf.length) {
-        const rand = Math.floor(Math.random() * exp_sum);
+        const rand = Math.random() * exp_sum;
         let loc = 0;
         for (let k in word_exp) {
           loc += word_exp[k];
@@ -617,42 +602,6 @@ function BrainStorming() {
     return false;
   };
 
-  function softMax(current_idx) {
-    let word_idx = {};
-    let sum = 0;
-    let word_exp = {};
-
-    Object.keys(wordWeight.current).forEach((e, idx) => {
-      sum += wordWeight.current[e];
-      word_idx[e] = idx;
-    });
-
-    sum = Math.exp(sum);
-
-    Object.keys(wordWeight.current).forEach((e) => {
-      word_exp[e] = Math.exp(wordWeight.current[e]) / sum;
-    });
-
-    const len = 15 - current_idx.length;
-
-    for (let i = 0; i < len; i++) {
-      const rand = Math.floor(Math.random() * sum);
-      let loc = 0;
-      for (let i in word_exp) {
-        loc += word_exp[i];
-        if (rand <= loc) {
-          if (current_idx.indexOf(word_idx[i]) === -1) {
-            current_idx.push(word_idx[i]);
-          } else {
-            i--;
-            break;
-          }
-        }
-      }
-    }
-
-    return current_idx;
-  }
 
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
