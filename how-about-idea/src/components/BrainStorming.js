@@ -447,11 +447,13 @@ function BrainStorming() {
       print_buf = print_buf.splice(0, isExist.current["-1,-1"]);
 
     word_buf.splice(isExist[prev[1]+","+prev[0]], 1);
-    
+
+    delete wordWeight.current[prev[1]+","+prev[0]]
+
     let res = await getWordRelation(prev[0])
 
     for (let i = 0; i < res.data.length; i++) {
-      wordWeight.current[prev[0]+","+res.data[i]["word"]] =res.data[i]["weight"]
+      wordWeight.current[prev[0]+","+res.data[i]["word"]] =Math.exp(res.data[i]["weight"])
       tmp.push([res.data[i]["word"],prev[0], prev[2] + 1, -1, prev[3]]);
     }
 
@@ -575,7 +577,7 @@ function BrainStorming() {
     let res = getWordRelation(root)
     res.then((e)=>{
       for (let i = 0; i < e.data.length; i++) {
-        wordWeight.current[root+","+e.data[i]["word"]] =e.data[i]["weight"]
+        wordWeight.current[root+","+e.data[i]["word"]] =Math.exp(e.data[i]["weight"])
         buf.push([e.data[i]["word"], root, 2, -1, 1]);
       }
   
@@ -595,12 +597,48 @@ function BrainStorming() {
       setSelect([...select, prev]);
       if(wordWeight.current[prev[1]+","+prev[0]]!==undefined)
         renew_word();
-
+      else{
+        let res = getWordRelation(prev[0])
+        res.then((e)=>{
+            for (let i = 0; i < e.data.length; i++) {
+              wordWeight.current[prev[0]+","+e.data[i]["word"]] =Math.exp(e.data[i]["weight"])
+              buf.push([e.data[i]["word"], prev[0], 2, -1, 1]);
+            }
+            word.current = [...buf];
+          })
+      }
     } 
     else {
       enter.current = true;
     }
   }, [prev]);
+
+
+  function softMax(){
+    
+    let word_idx={}
+    let sum=0
+    
+    Object.keys(wordWeight.current).forEach((e,idx)=>{
+
+        sum+=wordWeight.current[e]
+        word_idx[e]=idx
+    })
+
+    const rand = Math.floor(Math.random() * sum);
+    let loc=0
+    for (i in wordWeight.current){
+
+        if(rand>loc){
+            loc+=wordWeight.current[i]
+        }
+
+        else{
+            return word_idx[i]
+        }
+    }
+
+  }
 
   return (
     <BrainStormingCss menu={menu}>
