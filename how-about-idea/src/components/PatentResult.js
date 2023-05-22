@@ -392,58 +392,70 @@ const PatentResult = (props) => {
     }
   };
 
+  // 별점 개수_버전 1
+  // const countStarRating = () => {
+  //   if (
+  //     starRating.star1 == false &&
+  //     starRating.star2 == false &&
+  //     starRating.star3 == false &&
+  //     starRating.star4 == false &&
+  //     starRating.star5 == false
+  //   ) {
+  //     return 0;
+  //   } else if (
+  //     starRating.star1 == true &&
+  //     starRating.star2 == false &&
+  //     starRating.star3 == false &&
+  //     starRating.star4 == false &&
+  //     starRating.star5 == false
+  //   ) {
+  //     return 1;
+  //   } else if (
+  //     starRating.star1 == true &&
+  //     starRating.star2 == true &&
+  //     starRating.star3 == false &&
+  //     starRating.star4 == false &&
+  //     starRating.star5 == false
+  //   ) {
+  //     return 2;
+  //   } else if (
+  //     starRating.star1 == true &&
+  //     starRating.star2 == true &&
+  //     starRating.star3 == true &&
+  //     starRating.star4 == false &&
+  //     starRating.star5 == false
+  //   ) {
+  //     return 3;
+  //   } else if (
+  //     starRating.star1 == true &&
+  //     starRating.star2 == true &&
+  //     starRating.star3 == true &&
+  //     starRating.star4 == true &&
+  //     starRating.star5 == false
+  //   ) {
+  //     return 4;
+  //   } else if (
+  //     starRating.star1 == true &&
+  //     starRating.star2 == true &&
+  //     starRating.star3 == true &&
+  //     starRating.star4 == true &&
+  //     starRating.star5 == true
+  //   ) {
+  //     return 5;
+  //   }
+  // };
+
   // 별점 개수
-  const countStarRating = () => {
-    if (
-      starRating.star1 == false &&
-      starRating.star2 == false &&
-      starRating.star3 == false &&
-      starRating.star4 == false &&
-      starRating.star5 == false
-    ) {
-      return 0;
-    } else if (
-      starRating.star1 == true &&
-      starRating.star2 == false &&
-      starRating.star3 == false &&
-      starRating.star4 == false &&
-      starRating.star5 == false
-    ) {
-      return 1;
-    } else if (
-      starRating.star1 == true &&
-      starRating.star2 == true &&
-      starRating.star3 == false &&
-      starRating.star4 == false &&
-      starRating.star5 == false
-    ) {
-      return 2;
-    } else if (
-      starRating.star1 == true &&
-      starRating.star2 == true &&
-      starRating.star3 == true &&
-      starRating.star4 == false &&
-      starRating.star5 == false
-    ) {
-      return 3;
-    } else if (
-      starRating.star1 == true &&
-      starRating.star2 == true &&
-      starRating.star3 == true &&
-      starRating.star4 == true &&
-      starRating.star5 == false
-    ) {
-      return 4;
-    } else if (
-      starRating.star1 == true &&
-      starRating.star2 == true &&
-      starRating.star3 == true &&
-      starRating.star4 == true &&
-      starRating.star5 == true
-    ) {
-      return 5;
-    }
-  };
+  // const countStarRating = () => {
+  //   const trueValues = [...starRating].filter((value) => value === true);
+  //   return trueValues.length;
+  // };
+
+  // const runCounting = () => {
+  //   const starCount = countStarRating();
+  //   console.log("별점 개수: ", starCount);
+  // };
+
   const [privateOn, setPrivateOn] = useState(false); // 공개/비공개 아이콘 on/off
   const [refreshOn, setRefreshOn] = useState(false); // 다시 생성 아이콘 on/off
 
@@ -488,16 +500,16 @@ const PatentResult = (props) => {
   };
 
   // [백엔드]_[결과 저장 API]_수정중
-  const saveSentence = () => {
-    const data = {
-      sentence: output.data["gsentence"],
-      combineWord1: words.state["word1"],
-      combineWore2: words.state["word2"],
-      starRating: 4,
-      show: 1,
-      patentRelation: output.data["relationPatentList"],
-    };
-  };
+  // const saveSentence = () => {
+  //   const data = {
+  //     sentence: output.data["gsentence"],
+  //     combineWord1: words.state["word1"],
+  //     combineWore2: words.state["word2"],
+  //     starRating: 4,
+  //     show: 1,
+  //     patentRelation: output.data["relationPatentList"],
+  //   };
+  // };
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -508,33 +520,34 @@ const PatentResult = (props) => {
           </div>
 
           <div className="result-content-wrapper">
-            <div className="result-sentence">
-              <div className="gsentence-wrapper">
-                {/* <span className="gsentence">{output.data}</span> */}
-                <span className="gsentence">{output.data["gsentence"]}</span>
+            {output.data !== undefined && (
+              <div className="result-sentence">
+                <div className="gsentence-wrapper">
+                  {/* <span className="gsentence">{output.data}</span> */}
+                  <span className="gsentence">{output.data["gsentence"]}</span>
+                </div>
+                <table className="idea-table">
+                  <tr>
+                    <th>유사한 아이디어(특허)</th>
+                  </tr>
+                  <tr>
+                    <td>{output.data["relationPatentList"][0]}</td>
+                  </tr>
+                  <tr>
+                    <td>{output.data["relationPatentList"][1]}</td>
+                  </tr>
+                  <tr>
+                    <td>{output.data["relationPatentList"][2]}</td>
+                  </tr>
+                  <tr>
+                    <td>{output.data["relationPatentList"][3]}</td>
+                  </tr>
+                  <tr>
+                    <td>{output.data["relationPatentList"][4]}</td>
+                  </tr>
+                </table>
               </div>
-              <table className="idea-table">
-                <tr>
-                  <th>유사한 아이디어(특허)</th>
-                </tr>
-                <tr>
-                  <td>{output.data["relationPatentList"][0]}</td>
-                </tr>
-                <tr>
-                  <td>{output.data["relationPatentList"][1]}</td>
-                </tr>
-                <tr>
-                  <td>{output.data["relationPatentList"][2]}</td>
-                </tr>
-                <tr>
-                  <td>{output.data["relationPatentList"][3]}</td>
-                </tr>
-                <tr>
-                  <td>{output.data["relationPatentList"][4]}</td>
-                </tr>
-              </table>
-            </div>
-
+            )}
             <div className="result-evaluation">
               <div className="result-evaluation__satisfy">
                 <div className="result-evaluation__satisfy-star">
