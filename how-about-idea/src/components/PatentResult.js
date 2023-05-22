@@ -5,6 +5,7 @@ import axios from "axios";
 import Loading from "./UI/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import faRegularStar from "../images/star-regular.svg";
+import { makeSentence } from "../Api";
 
 const PatentResultCSS = styled.div`
   /* display: flex;
@@ -326,7 +327,8 @@ const PatentResultCSS = styled.div`
 `;
 
 const PatentResult = (props) => {
-  const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
+  // const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
+  const [output, setOutput] = useState({}); // 문장 생성 AI 데이터 전송
   const [loading, setLoading] = useState(true); // 로딩 관련
 
   const [starRating, setStarRating] = useState({
@@ -337,6 +339,7 @@ const PatentResult = (props) => {
     star5: false,
   }); // 문장 만족도 평가[별점 표시]
 
+  // 별점 컨트롤
   const handleStarRating = (props) => {
     if (props === "star1") {
       setStarRating({
@@ -389,20 +392,74 @@ const PatentResult = (props) => {
     }
   };
 
+  // 별점 개수
+  const countStarRating = () => {
+    if (
+      starRating.star1 == false &&
+      starRating.star2 == false &&
+      starRating.star3 == false &&
+      starRating.star4 == false &&
+      starRating.star5 == false
+    ) {
+      return 0;
+    } else if (
+      starRating.star1 == true &&
+      starRating.star2 == false &&
+      starRating.star3 == false &&
+      starRating.star4 == false &&
+      starRating.star5 == false
+    ) {
+      return 1;
+    } else if (
+      starRating.star1 == true &&
+      starRating.star2 == true &&
+      starRating.star3 == false &&
+      starRating.star4 == false &&
+      starRating.star5 == false
+    ) {
+      return 2;
+    } else if (
+      starRating.star1 == true &&
+      starRating.star2 == true &&
+      starRating.star3 == true &&
+      starRating.star4 == false &&
+      starRating.star5 == false
+    ) {
+      return 3;
+    } else if (
+      starRating.star1 == true &&
+      starRating.star2 == true &&
+      starRating.star3 == true &&
+      starRating.star4 == true &&
+      starRating.star5 == false
+    ) {
+      return 4;
+    } else if (
+      starRating.star1 == true &&
+      starRating.star2 == true &&
+      starRating.star3 == true &&
+      starRating.star4 == true &&
+      starRating.star5 == true
+    ) {
+      return 5;
+    }
+  };
   const [privateOn, setPrivateOn] = useState(false); // 공개/비공개 아이콘 on/off
   const [refreshOn, setRefreshOn] = useState(false); // 다시 생성 아이콘 on/off
 
   const words = useLocation();
   useEffect(() => {
     console.log(words.state["word1"]);
+    console.log(words.state["word2"]);
     getSentence();
   }, [words.state]);
 
-  // [문장 생성 API]
+  // [인공지능]_[문장 생성 API]
   const getSentence = () => {
     const data = {
       // firstWord: selectedNode[0].label,
       firstWord: words.state["word1"],
+      secondWord: words.state["word2"],
     };
     // 문장 생성 1회차만
     // setLoading(true);
@@ -415,7 +472,8 @@ const PatentResult = (props) => {
       .then((response) => {
         // 응답데이터 처리
         setOutput(response);
-        console.log("결과값: ", output);
+        // console.log("결과값: ", output);
+        console.log("결과값(output.data): ", output.data);
         // 문장 생성 1회차 완료 여부 처리
         setLoading(false);
         // 문장 생성 2회차
@@ -429,6 +487,17 @@ const PatentResult = (props) => {
       });
   };
 
+  // [백엔드]_[결과 저장 API]_수정중
+  const saveSentence = () => {
+    const data = {
+      sentence: output.data["gsentence"],
+      combineWord1: words.state["word1"],
+      combineWore2: words.state["word2"],
+      starRating: 4,
+      show: 1,
+      patentRelation: output.data["relationPatentList"],
+    };
+  };
   return (
     <>
       {loading ? <Loading /> : ""}
@@ -441,26 +510,27 @@ const PatentResult = (props) => {
           <div className="result-content-wrapper">
             <div className="result-sentence">
               <div className="gsentence-wrapper">
-                <span className="gsentence">{output.data}</span>
+                {/* <span className="gsentence">{output.data}</span> */}
+                <span className="gsentence">{output.data["gsentence"]}</span>
               </div>
               <table className="idea-table">
                 <tr>
                   <th>유사한 아이디어(특허)</th>
                 </tr>
                 <tr>
-                  <td>천안</td>
+                  <td>{output.data["relationPatentList"][0]}</td>
                 </tr>
                 <tr>
-                  <td>병천</td>
+                  <td>{output.data["relationPatentList"][1]}</td>
                 </tr>
                 <tr>
-                  <td>한기대</td>
+                  <td>{output.data["relationPatentList"][2]}</td>
                 </tr>
                 <tr>
-                  <td>컴퓨터공학부</td>
+                  <td>{output.data["relationPatentList"][3]}</td>
                 </tr>
                 <tr>
-                  <td>졸업작품!</td>
+                  <td>{output.data["relationPatentList"][4]}</td>
                 </tr>
               </table>
             </div>
@@ -592,9 +662,9 @@ const PatentResult = (props) => {
           </div>
 
           <div className="result-save">
-            <Link to="/">
-              <span>Save & Quit</span>
-            </Link>
+            {/* <Link to="/"> */}
+            <span>Save & Quit</span>
+            {/* </Link> */}
           </div>
         </div>
       </PatentResultCSS>
