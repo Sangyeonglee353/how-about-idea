@@ -107,6 +107,15 @@ export async function searchWord(str) {
   return res;
 }
 
+// 마인드맵 아이디로 트리즈 문장 검색 /api/auth/makeSentence/searchMindMap/{id}
+export async function searchMindMapSentence(id) {
+  const res = await axios.get(
+    `${origin}/api/auth/makeSentence/searchMindMap/${id}`
+  );
+
+  return res;
+}
+
 // (1) 김치 검색 -> searchSentence & searchWord
 // (2) mindmapid 중복 제거
 // (3) 마인드맵 개별 조회
@@ -157,12 +166,12 @@ export async function createMindMap(data) {
   // }
 }
 
-//마인드맵 전체조회
-export async function getMindMapAll() {
-  const res = await axios.get(`${origin}/api/auth/mindMap`);
+//마인드맵 전체조회[필요 x]
+// export async function getMindMapAll() {
+//   const res = await axios.get(`${origin}/api/auth/mindMap`);
 
-  return res;
-}
+//   return res;
+// }
 
 //자신의 마인드맵 전체조회
 export async function getMyMindMap() {
@@ -232,12 +241,56 @@ export async function getWordRelation(word) {
   return res;
 }
 
+//wordRelation 가중치 업데이트
+
+export async function updateWeight(id) {
+  const res = await axios.patch(
+    `${origin}/api/auth/wordRelation/${id}`,
+    {},
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
+    }
+  );
+
+  return res;
+
+  // {
+  //   "id": 1,
+  //   "rootWord": "개",
+  //   "word": "시츄",
+  //   "weight": 10
+  // }
+}
+
 //memberStar
 
 //별점 등록
 export async function createMemberStar(makeSentenceId, data) {
   const res = await axios.post(
     `${origin}/api/auth/saveMemberStar/${makeSentenceId}`,
+    {
+      ...data,
+    },
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
+    }
+  );
+
+  return res;
+
+  // {
+  //   "starRating":5
+  // }
+}
+
+//별점 업데이트
+export async function updateMemberStar(makeSentenceId, data) {
+  const res = await axios.patch(
+    `${origin}/api/auth/patchMemberStar/${makeSentenceId}`,
     {
       ...data,
     },
@@ -262,4 +315,38 @@ export async function getStarRating(makeSentenceId) {
   );
 
   return res;
+}
+
+//마인드맵 데이터 변환 함수
+
+export function convertApiData(data) {
+  let buf = [];
+  let MindMapId = [];
+  for (let i = 0; i < data.length; i += 2) {
+    let tmp = [];
+    MindMapId.push(data[i][0].mindMapEntity.id);
+    data[i].forEach((e) => {
+      tmp.push({
+        data: {
+          id: e.id,
+          label: e.label,
+          type: e.type,
+        },
+      });
+    });
+
+    data[i + 1].forEach((e) => {
+      tmp.push({
+        data: {
+          id: e.id,
+          source: e.source,
+          target: e.target,
+        },
+      });
+    });
+
+    buf.push(tmp);
+  }
+
+  return { id: MindMapId, data: buf };
 }

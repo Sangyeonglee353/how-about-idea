@@ -1,10 +1,10 @@
 import MindList from "./MindList";
 import React, { useEffect, useState } from "react";
-import { getMyMindMap } from "../Api";
+import { getMyMindMap, convertApiData, searchMindMapSentence } from "../Api";
 
 const MindStore = () => {
   const [mindmapData, setMindmapData] = useState([]);
-
+  const [sentence, setSentence] = useState([]);
   // [백엔드]_TEMP Data
   const TEMP_FEED = [
     {
@@ -25,47 +25,33 @@ const MindStore = () => {
       combine_word2: "주파수",
       sentence: "새들을 쫓아내는 주파수",
     },
-    {
-      id: "feed3",
-      name: "홍기범",
-      star_rating: 5,
-      root_word: "모니터",
-      combine_word1: "확장",
-      combine_word2: "모니터",
-      sentence: "확장 가능한 모니터",
-    },
-    {
-      id: "feed4",
-      name: "오준혁",
-      star_rating: 3,
-      root_word: "텀블러",
-      combine_word1: "온도",
-      combine_word2: "텀블러",
-      sentence: "온도를 표시해주는 텀블러",
-    },
   ];
   // [백엔드]_내 마인드맵 정보 가져오기
-  useEffect(() => {
-    // let res = getMyMindMap();
-    // res
-    //   .then((res) => {
-    //     console.log("Get My Mindmap Sucess!!");
-    //     if (res.data.result) {
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("Get My Mindmap Falied!");
-    //   });
+  // [호출할 것]
+  // (1) 사용자의 멤버 ID로 마인드맵 가져오기 -> mindmap id도 포함되어 있음
+  // (1) 내가 생성한 문장 정보
+  // (2) 내가 생성한 문장 ID에 따른 마인드맵
 
-    // console.log("TEMP_FEED_Data: ", TEMP_FEED);
-    setMindmapData(TEMP_FEED);
-    console.log("TEMP_FEED: ", TEMP_FEED);
-    // console.log("MindStore.js & mindmapData: ", mindmapData);
+  async function getMindstoreData() {
+    let res = await getMyMindMap();
+    let result = convertApiData(res.data.data);
+    let buf = [];
+    setMindmapData([...result.data]);
+    result.id.forEach((e) => {
+      buf.push(searchMindMapSentence(e));
+    });
+    setSentence([...buf]);
+    console.log("sentence:", buf, "\nmindMap", result.data);
+    //리턴 {id: [마인드맵 아이디 리스트] , data: [마인드맵데이터 리스트]}
+  }
+
+  useEffect(() => {
+    getMindstoreData();
   }, []);
 
   return (
     <>
-      <MindList mindmapData={mindmapData} />
+      <MindList mindmapData={mindmapData} sentence={sentence} />
     </>
   );
 };

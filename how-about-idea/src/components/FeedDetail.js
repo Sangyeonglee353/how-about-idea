@@ -82,6 +82,8 @@ const FeedDetail = (props) => {
       setMindHeight(window.innerHeight < 800 ? "150px" : "300px");
       setModalHeight(window.innerHeight);
     });
+
+    console.log(props);
   }, []);
 
   // 이미지로 저장

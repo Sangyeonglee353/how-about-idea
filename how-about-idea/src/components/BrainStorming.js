@@ -10,6 +10,7 @@ import {
   createWordRelation,
   getWordRelation,
   createMindMap,
+  updateWeight,
 } from "../Api";
 const PrintedWordCss = styled.div`
   width: 25%;
@@ -53,7 +54,9 @@ function PrintedWord(props) {
             props.level,
             props.previd + 1,
             props.root_id,
+            props.word_id,
           ]);
+          updateWeight(props.word_id);
           props.setPrevId(props.previd + 1);
         }
       }}
@@ -389,7 +392,14 @@ function BrainStorming() {
   const [prev, setPrev] = useState(-1);
   const [select, setSelect] = useState([]);
   const [print, setPrint] = useState([]);
-  const [click, setClick] = useState(["단어를 선택해주세요", "", -1, -1, -1]);
+  const [click, setClick] = useState([
+    "단어를 선택해주세요",
+    "",
+    -1,
+    -1,
+    -1,
+    -1,
+  ]);
   const printIdx = useRef([]);
   const wordWeight = useRef({});
   const isExist = useRef({});
@@ -441,8 +451,6 @@ function BrainStorming() {
       }
     }
 
-
-
     setPrint(buf);
     printIdx.current = [...idx_buf];
   };
@@ -475,11 +483,17 @@ function BrainStorming() {
     delete wordWeight.current[prev[1] + "," + prev[0]];
 
     let res = await getWordRelation(prev[0]);
-
     for (let i = 0; i < res.data.length; i++) {
       wordWeight.current[prev[0] + "," + res.data[i]["word"]] =
         res.data[i]["weight"];
-      tmp.push([res.data[i]["word"], prev[0], prev[2] + 1, -1, prev[3]]);
+      tmp.push([
+        res.data[i]["word"],
+        prev[0],
+        prev[2] + 1,
+        -1,
+        prev[3],
+        res.data[i].id,
+      ]);
     }
 
     word_buf = [...word_buf, ...tmp];
@@ -602,7 +616,6 @@ function BrainStorming() {
     return false;
   };
 
-
   useEffect(() => {
     const root = decodeURI(location.search.split("root=")[1]);
     setSelect([[root, -1, 1, 1, -1]]);
@@ -613,7 +626,7 @@ function BrainStorming() {
       for (let i = 0; i < e.data.length; i++) {
         wordWeight.current[root + "," + e.data[i]["word"]] =
           e.data[i]["weight"];
-        buf.push([e.data[i]["word"], root, 2, -1, 1]);
+        buf.push([e.data[i]["word"], root, 2, -1, 1, e.data[i].id]);
       }
 
       word.current = [...buf];
@@ -658,6 +671,7 @@ function BrainStorming() {
               previd={previd}
               setPrevId={setPrevId}
               root_id={e[4]}
+              word_id={e[5]}
             />
           );
         })}

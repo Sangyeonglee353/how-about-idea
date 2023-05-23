@@ -47,7 +47,7 @@ const StarRating = (props, { totalStars = 5 }) => {
             color={selected ? "#ffc807" : "gray"}
             // onClick={onSelect}
             className="fa-star-fill"
-            disabled="true"
+            disabled={true}
           />
         </button>
       </>

@@ -105,19 +105,32 @@ const MindList = (props) => {
     setFeedDetailShow(false);
   };
 
+  async function getFeedData() {
+    let res = await getMyMindMap();
+    console.log(res);
+  }
+
+  useEffect(() => {
+    getFeedData();
+  }, []);
+
   useEffect(() => {
     if (props.mindmapData !== undefined) {
       // setMindmapAll(props.mindmapData["TEMP_FEED"]);
-      setMindmapAll(props.mindmapData);
-      console.log("props.mindmapData: ", props.mindmapData);
+      // setMindmapAll(props.mindmapData);
+      console.log("MindList -> mindmap:", props.mindmapData);
+      // props.sentence[0].then((response) => {
+      //   console.log("response: ", response);
+      // });
+      console.log("MindList -> sentence:", props.sentence[0]);
     } else {
-      setMindmapAll(DUMMY_FEED);
-      console.log("fail: ", mindmapAll);
+      // setMindmapAll(DUMMY_FEED);
+      // console.log("fail: ", mindmapAll);
     }
   }, [props.mindmapData]);
 
   useEffect(() => {
-    console.log("success: ", mindmapAll);
+    // console.log("success: ", mindmapAll);
   }, [mindmapAll]);
 
   return (

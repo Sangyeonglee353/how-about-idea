@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -81,17 +81,31 @@ const PatentResultCSS = styled.div`
         justify-content: center;
         align-items: center;
         margin: 15px auto;
-        border: 2px solid var(--color-main-blue);
         border-radius: 20px;
         @media (max-width: 1300px) {
           width: 70vw;
         }
         & .gsentence {
           font-size: 20px;
+          border: 2px solid var(--color-main-blue);
+          width: 550px;
+          overflow: hidden;
+
+          @media (max-width: 1300px) {
+            width: 70vw;
+          }
+          padding: 1.5vh 2vw;
+          border-radius: 12px;
           color: var(--color-main-blue);
           margin: 15px auto;
           word-break: break-all;
-          padding: 5px;
+        }
+        & .gsentence:focus {
+          outline: none;
+        }
+
+        & .gsentence::placeholder {
+          color: #00000088;
         }
       }
       table.idea-table {
@@ -330,6 +344,7 @@ const PatentResult = (props) => {
   // const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
   const [output, setOutput] = useState({}); // 문장 생성 AI 데이터 전송
   const [loading, setLoading] = useState(true); // 로딩 관련
+  const sentence = useRef("");
 
   const [starRating, setStarRating] = useState({
     star1: false,
@@ -434,8 +449,9 @@ const PatentResult = (props) => {
         // 응답데이터 처리
         setOutput(response);
         // console.log("결과값: ", output);
-        console.log("결과값(output.data): ", output.data);
+        //console.log("결과값(output.data): ", output.data);
         // 문장 생성 1회차 완료 여부 처리
+        sentence.current.value = response.data["gsentence"];
         setLoading(false);
         // 문장 생성 2회차
         {
@@ -486,7 +502,17 @@ const PatentResult = (props) => {
               <div className="result-sentence">
                 <div className="gsentence-wrapper">
                   {/* <span className="gsentence">{output.data}</span> */}
-                  <span className="gsentence">{output.data["gsentence"]}</span>
+                  <textarea
+                    className="gsentence"
+                    defaultValue={output.data["gsentence"]}
+                    placeholder={"문장을 입력해 주세요"}
+                    ref={sentence}
+                    onChange={(e) => {
+                      setOutput({
+                        data: { ...output.data, gsentence: e.target.value },
+                      });
+                    }}
+                  ></textarea>
                 </div>
                 <table className="idea-table">
                   <tr>
