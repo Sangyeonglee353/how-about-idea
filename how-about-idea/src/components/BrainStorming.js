@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -549,13 +549,18 @@ function BrainStorming() {
   }
 
   async function creatWord(rootword, word) {
-    let res1 = await CheckWordRelation(rootword, word);
-    if (!res1.data) {
+    let res = await CheckWordRelation(rootword, word);
+    if (res.data!=="") {
       await createWordRelation({
         rootWord: rootword,
         word: word,
         weight: 10,
       });
+    }
+    else{
+      
+      await getWordRelation(res.data.id)
+
     }
   }
 
@@ -633,6 +638,7 @@ function BrainStorming() {
 
       if (word.length !== 0) renew_print_all();
     });
+
   }, []);
 
   useEffect(() => {
