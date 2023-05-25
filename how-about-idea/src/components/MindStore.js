@@ -4,7 +4,7 @@ import { getMyMindMap, convertApiData, searchMindMapSentence } from "../Api";
 
 const MindStore = () => {
   const [mindmapData, setMindmapData] = useState([]);
-  const [sentence, setSentence] = useState([]);
+  const [sentenceInfo, setSentenceInfo] = useState([]);
   // [백엔드]_TEMP Data
   const TEMP_FEED = [
     {
@@ -32,17 +32,31 @@ const MindStore = () => {
   // (1) 내가 생성한 문장 정보
   // (2) 내가 생성한 문장 ID에 따른 마인드맵
 
+  // [추가]
+  // (1) 별점
+  // (2) root 단어
   async function getMindstoreData() {
     let res = await getMyMindMap();
     let result = convertApiData(res.data.data);
     let buf = [];
     setMindmapData([...result.data]);
-    result.id.forEach((e) => {
-      buf.push(searchMindMapSentence(e));
-    });
-    setSentence([...buf]);
-    console.log("sentence:", buf, "\nmindMap", result.data);
-    //리턴 {id: [마인드맵 아이디 리스트] , data: [마인드맵데이터 리스트]}
+    let promises = result.id.map((e) => searchMindMapSentence(e));
+    return Promise.all(promises)
+      .then((responses) => {
+        buf = responses.map((response) => response.data);
+        setSentenceInfo([...buf]);
+        // console.log("sentence:", buf, "\nmindMap", result.data);
+        //리턴 {id: [마인드맵 아이디 리스트] , data: [마인드맵데이터 리스트]}
+      })
+      .catch((error) => {
+        console.log("getMindMapSetence Error: ", error);
+      });
+    // result.id.forEach((e) => {
+    //   buf.push(searchMindMapSentence(e));
+    // });
+    // setSentenceInfo([...buf]);
+    // console.log("sentence:", buf, "\nmindMap", result.data);
+    // //리턴 {id: [마인드맵 아이디 리스트] , data: [마인드맵데이터 리스트]}
   }
 
   useEffect(() => {
@@ -51,7 +65,7 @@ const MindStore = () => {
 
   return (
     <>
-      <MindList mindmapData={mindmapData} sentence={sentence} />
+      <MindList mindmapData={mindmapData} sentenceInfo={sentenceInfo} />
     </>
   );
 };

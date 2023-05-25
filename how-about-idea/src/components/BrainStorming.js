@@ -548,19 +548,24 @@ function BrainStorming() {
     printIdx.current = [...print_idx];
   }
 
-  async function creatWord(rootword, word) {
-    let res = await CheckWordRelation(rootword, word);
-    if (res.data!=="") {
+  async function creatWord(rootword, word1) {
+    let res = await CheckWordRelation(rootword, word1);
+    if (res.data !== "") {
       await createWordRelation({
         rootWord: rootword,
-        word: word,
+        word: word1,
         weight: 10,
       });
-    }
-    else{
-      
-      await getWordRelation(res.data.id)
+    } else {
+      let res1 = await getWordRelation(res.data.id);
+      let buf = [];
+      for (let i = 0; i < res1.data.length; i++) {
+        wordWeight.current[rootword + "," + res1.data[i]["word"]] =
+          res1.data[i]["weight"];
+        buf.push([res1.data[i]["word"], rootword, 2, -1, 1, res1.data[i].id]);
+      }
 
+      word.current = [...buf];
     }
   }
 
@@ -638,7 +643,6 @@ function BrainStorming() {
 
       if (word.length !== 0) renew_print_all();
     });
-
   }, []);
 
   useEffect(() => {

@@ -17,8 +17,8 @@ const MindListCss = styled.div`
 
 const MindList = (props) => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
-  const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 선택용
-  const [mindmapAll, setMindmapAll] = useState([]); // 전체 마인드맵 데이터 상태
+  const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 변경용
+  const [feedGraph, setFeedGraph] = useState([]); // FeedDetail에 표시될 그래프 변경용
 
   // 마인드맵 데이터가 없을 때 임시로 보여주는 데이터
   const DUMMY_FEED = [
@@ -105,48 +105,49 @@ const MindList = (props) => {
     setFeedDetailShow(false);
   };
 
-  async function getFeedData() {
-    let res = await getMyMindMap();
-    console.log(res);
-  }
+  // async function getFeedData() {
+  //   let res = await getMyMindMap();
+  //   console.log(res);
+  // }
 
-  useEffect(() => {
-    getFeedData();
-  }, []);
+  // useEffect(() => {
+  //   getFeedData();
+  // }, []);
 
-  useEffect(() => {
-    if (props.mindmapData !== undefined) {
-      // setMindmapAll(props.mindmapData["TEMP_FEED"]);
-      // setMindmapAll(props.mindmapData);
-      console.log("MindList -> mindmap:", props.mindmapData);
-      // props.sentence[0].then((response) => {
-      //   console.log("response: ", response);
-      // });
-      console.log("MindList -> sentence:", props.sentence[0]);
-    } else {
-      // setMindmapAll(DUMMY_FEED);
-      // console.log("fail: ", mindmapAll);
-    }
-  }, [props.mindmapData]);
-
-  useEffect(() => {
-    // console.log("success: ", mindmapAll);
-  }, [mindmapAll]);
+  // useEffect(() => {
+  //   if (props.mindmapData !== undefined && props.sentenceInfo !== undefined) {
+  //     console.log("MindList -> mindmap:", props.mindmapData);
+  //     // console.log("MindList -> sentence:", props.sentenceInfo);
+  //     // console.log("MindList -> sentence:", props.sentenceInfo[0]);
+  //   } else {
+  //     // setMindmapAll(DUMMY_FEED);
+  //     // console.log("fail: ", mindmapAll);
+  //   }
+  // }, [props.mindmapData]);
 
   return (
     <MindListCss>
       {feedDetailShow && (
         <FeedDetail
           feedData={feedData}
+          feedGraph={feedGraph}
           onHideFeedDetail={hideFeedDetailHandler}
         />
       )}
       <FeedsList
+        items={props.sentenceInfo} // 문장 정보
+        mindmaps={props.mindmapData} // 마인드맵 정보
+        // items={mindmapAll}
+        onShowFeedDetail={showFeedDetailHandler}
+        onSetFeedData={setFeedData}
+        onSetFeedGraph={setFeedGraph}
+      />
+      {/* <FeedsList
         items={DUMMY_FEED}
         // items={mindmapAll}
         onShowFeedDetail={showFeedDetailHandler}
         onSetFeedData={setFeedData}
-      />
+      /> */}
     </MindListCss>
   );
 };

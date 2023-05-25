@@ -5,6 +5,7 @@ import Mind from "./MindMap/Mind";
 import download from "../images/download.svg";
 import html2canvas from "html2canvas";
 import StarRating from "./UI/StarRating";
+import { getPatentSentence } from "../Api";
 
 const ContentBlock = styled.div`
   /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
@@ -74,16 +75,24 @@ const FeedDetail = (props) => {
   const star_rating_total = 3;
 
   const star_rating_user = props.feedData.star_rating;
-  const combineWord1 = props.feedData.combine_word1;
-  const combineWord2 = props.feedData.combine_word2;
+  const combineWord1 = props.feedData.combineWord1;
+  const combineWord2 = props.feedData.combineWord2;
 
+  const [patentSentenceList, setPatentSentenceList] = useState([]);
+
+  // [백 엔드]_연관 특허 문장 가져오기
+  async function getPatentData() {
+    let res = await getPatentSentence(props.feedData.id);
+    setPatentSentenceList(res.data.data);
+  }
   useEffect(() => {
     window.addEventListener("resize", () => {
       setMindHeight(window.innerHeight < 800 ? "150px" : "300px");
       setModalHeight(window.innerHeight);
     });
 
-    console.log(props);
+    // console.log(props);
+    getPatentData();
   }, []);
 
   // 이미지로 저장
@@ -134,6 +143,7 @@ const FeedDetail = (props) => {
             onRefreshBtn={true}
             onUnSelect={true}
             onUnNodeMove={true}
+            mindmapData={props.feedGraph}
           />
         </div>
         <div className="detail">
@@ -156,13 +166,15 @@ const FeedDetail = (props) => {
 
           <div className="detail-patent">
             <h3>관련 특허</h3>
-            <ul>
-              <li>날개없는 선풍기</li>
-              <li>기압으로 전기를 생산하는 선풍기</li>
-              <li>공기의 흐름을 측정하는 유체</li>
-              <li>회전하는 선풍기</li>
-              <li>무소음 선풍기</li>
-            </ul>
+            {patentSentenceList[0] !== undefined && (
+              <ul>
+                <li>{patentSentenceList[0]["patentSentence"]}</li>
+                <li>{patentSentenceList[1]["patentSentence"]}</li>
+                <li>{patentSentenceList[2]["patentSentence"]}</li>
+                <li>{patentSentenceList[3]["patentSentence"]}</li>
+                <li>{patentSentenceList[4]["patentSentence"]}</li>
+              </ul>
+            )}
           </div>
         </div>
       </ContentBlock>

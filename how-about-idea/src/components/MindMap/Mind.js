@@ -43,10 +43,16 @@ const Mind = (props) => {
   ]);
 
   useEffect(() => {
+    // 브레인스토밍시 마인드맵 생성
     if (location.state != null) {
       setGraphData(location.state.mindMap);
     }
-  }, [location.state]);
+
+    // 저장소와 검색에서 마인드맵 생성
+    if (props.mindmapData !== undefined) {
+      setGraphData(props.mindmapData);
+    }
+  }, [location.state, props.mindmapData]);
 
   return (
     <MindCss>

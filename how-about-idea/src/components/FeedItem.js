@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Mind from "./MindMap/Mind";
 import StarRating from "./UI/StarRating";
+import { getStarRating } from "../Api";
 
 const FeedItemCSS = styled.li`
   flex: auto;
@@ -82,12 +83,38 @@ const FeedItem = (props) => {
   const [mindHeight, setMindHeight] = useState("200px");
 
   const showAndSetFeed = () => {
-    props.onSetFeedData(props.feedData);
+    props.onSetFeedData(props.feedData); // 상세보기(모달) 데이터 변경
+    props.onSetFeedGraph(props.mindmapData); // 상세보기(모달) 그래프 변경
     props.onShowFeedDetail();
   };
 
-  // [수정 필요] Backend API 호출 및 계산
-  const star_rating_total = 3;
+  // [백엔드]_총 별점 및 별점 메긴 사람 호출
+  const [avgStarRating, setAvgStarRating] = useState("");
+  async function getStarRatingData() {
+    let res = await getStarRating(props.id);
+    res = res.data;
+    let starRatingTotal = +res.data["totalRating"];
+    let memberTotal = +res.data["memberTotal"];
+    let avgStarRatingRound = Math.round(starRatingTotal / memberTotal);
+    setAvgStarRating(avgStarRatingRound); // 평균 별점 계산
+  }
+
+  useEffect(() => {
+    getStarRatingData();
+  }, []);
+
+  // [형식변환]_날짜
+  const dateTimeFormat = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}년 ${month}월 ${day}일`;
+    return formattedDate;
+  };
+
+  const createDate = dateTimeFormat(props.createDate);
 
   return (
     <FeedItemCSS onClick={showAndSetFeed}>
@@ -99,14 +126,16 @@ const FeedItem = (props) => {
           onRefreshBtn={false}
           onUnSelect={true}
           onUnNodeMove={true}
+          mindmapData={props.mindmapData}
         />
       </div>
       <div className="summary">
         <div className="summary-btn">
-          <StarRating starNum={star_rating_total} isDisabled={true} />
+          {console.log(props.mindmapData)}
+          <StarRating starNum={avgStarRating} isDisabled={true} />
         </div>
         <p className="summary-sentence">{props.sentence}</p>
-        <p className="summary-date">2023년 04월 15일</p>
+        <p className="summary-date">{createDate}</p>
       </div>
     </FeedItemCSS>
   );

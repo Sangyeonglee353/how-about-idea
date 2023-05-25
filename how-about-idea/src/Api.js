@@ -98,6 +98,9 @@ export async function searchSentence(str) {
   return res;
 }
 
+//여기서 검색을하면 makesentence 아이디를 불러올 수가 있어요 => 아이디를 리스트로 만들어서
+//여기서 받은 id로 다시 getSentence 하면 마인드맵 불러올 수 있어요
+
 //트리즈 문장 검색(선택단어 포함여부)
 export async function searchWord(str) {
   const res = await axios.get(
@@ -195,7 +198,7 @@ export async function getMindMap(mindMapId) {
 //트리즈 문장 아이디로 관련 특허 문장 조회
 export async function getPatentSentence(makeSentenceId) {
   const res = await axios.get(
-    `${origin}/api/auth/patentSentence/1/${makeSentenceId}`
+    `${origin}/api/auth/patentSentence/${makeSentenceId}`
   );
 
   return res;

@@ -44,15 +44,36 @@ const FeedsListCSS = styled.ul`
 `;
 
 const FeedsList = (props) => {
-  let feedContent = <p>Feed don't found.</p>;
+  // let feedContent = <p>Feed don't found.</p>;
 
-  if (props.items.length === 0) {
-    return { feedContent };
-  }
+  // if (props.items.length === 0) {
+  //   return { feedContent };
+  // }
 
   return (
     <FeedsListCSS>
       {props.items.length > 0 &&
+        props.items.map((item, index) => (
+          <>
+            {console.log("item: ", item[0])}
+
+            <FeedItem
+              key={index}
+              id={item[0].id}
+              // root_word={item[0].root_word}
+              // combine_word1={item[0].combineWord1}
+              // combine_word2={item[0].combineWord2}
+              createDate={item[0].nowDataTime}
+              sentence={item[0].sentence}
+              onShowFeedDetail={props.onShowFeedDetail}
+              onSetFeedData={props.onSetFeedData}
+              onSetFeedGraph={props.onSetFeedGraph}
+              feedData={item[0]} // FeedDetail 데이터 전달용
+              mindmapData={props.mindmaps[index]} // MindmapGraph
+            />
+          </>
+        ))}
+      {/* {props.items.length > 0 &&
         props.items.map((feed) => (
           <FeedItem
             key={feed.id}
@@ -66,7 +87,7 @@ const FeedsList = (props) => {
             onSetFeedData={props.onSetFeedData}
             feedData={feed}
           />
-        ))}
+        ))} */}
       <div className="padding"></div>
     </FeedsListCSS>
   );
