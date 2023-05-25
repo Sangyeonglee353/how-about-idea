@@ -17,8 +17,8 @@ const MindListCss = styled.div`
 
 const MindList = (props) => {
   const [feedDetailShow, setFeedDetailShow] = useState(false);
-  const [feedData, setFeedData] = useState({}); // FeedDetail에 표시될 데이터 변경용
-  const [feedGraph, setFeedGraph] = useState([]); // FeedDetail에 표시될 그래프 변경용
+  const [feedDetailData, setFeedDetailData] = useState({}); // FeedDetail에 표시될 데이터 변경용
+  const [feedDetailGraph, setFeedDetailGraph] = useState([]); // FeedDetail에 표시될 그래프 변경용
 
   // 마인드맵 데이터가 없을 때 임시로 보여주는 데이터
   const DUMMY_FEED = [
@@ -129,18 +129,17 @@ const MindList = (props) => {
     <MindListCss>
       {feedDetailShow && (
         <FeedDetail
-          feedData={feedData}
-          feedGraph={feedGraph}
+          feedDetailData={feedDetailData}
+          feedDetailGraph={feedDetailGraph}
           onHideFeedDetail={hideFeedDetailHandler}
         />
       )}
       <FeedsList
         items={props.sentenceInfo} // 문장 정보
         mindmaps={props.mindmapData} // 마인드맵 정보
-        // items={mindmapAll}
         onShowFeedDetail={showFeedDetailHandler}
-        onSetFeedData={setFeedData}
-        onSetFeedGraph={setFeedGraph}
+        onSetFeedDetailData={setFeedDetailData}
+        onSetFeedDetailGraph={setFeedDetailGraph}
       />
       {/* <FeedsList
         items={DUMMY_FEED}

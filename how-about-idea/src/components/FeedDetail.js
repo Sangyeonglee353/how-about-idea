@@ -68,21 +68,21 @@ const FeedDetail = (props) => {
     window.innerHeight < 800 ? "150px" : "300px"
   );
   const [modalHeight, setModalHeight] = useState(window.innerHeight);
-  const sentence = props.feedData.sentence;
-  const rootWord = props.feedData.root_word;
+  const sentence = props.feedDetailData.sentence;
+  const rootWord = props.feedDetailData.root_word;
 
   // [수정 필요] Backend API 호출 및 계산 or FeedItem에서 값 받아오기
   const star_rating_total = 3;
 
-  const star_rating_user = props.feedData.star_rating;
-  const combineWord1 = props.feedData.combineWord1;
-  const combineWord2 = props.feedData.combineWord2;
+  const star_rating_user = props.feedDetailData.star_rating;
+  const combineWord1 = props.feedDetailData.combineWord1;
+  const combineWord2 = props.feedDetailData.combineWord2;
 
   const [patentSentenceList, setPatentSentenceList] = useState([]);
 
   // [백 엔드]_연관 특허 문장 가져오기
   async function getPatentData() {
-    let res = await getPatentSentence(props.feedData.id);
+    let res = await getPatentSentence(props.feedDetailData.id);
     setPatentSentenceList(res.data.data);
   }
   useEffect(() => {
@@ -143,7 +143,7 @@ const FeedDetail = (props) => {
             onRefreshBtn={true}
             onUnSelect={true}
             onUnNodeMove={true}
-            mindmapData={props.feedGraph}
+            mindmapData={props.feedDetailGraph}
           />
         </div>
         <div className="detail">

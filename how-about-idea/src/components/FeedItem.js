@@ -83,8 +83,8 @@ const FeedItem = (props) => {
   const [mindHeight, setMindHeight] = useState("200px");
 
   const showAndSetFeed = () => {
-    props.onSetFeedData(props.feedData); // 상세보기(모달) 데이터 변경
-    props.onSetFeedGraph(props.mindmapData); // 상세보기(모달) 그래프 변경
+    props.onSetFeedDetailData(props.sentenceData); // 상세보기(모달) 데이터 변경
+    props.onSetFeedDetailGraph(props.mindmapData); // 상세보기(모달) 그래프 변경
     props.onShowFeedDetail();
   };
 
@@ -131,7 +131,6 @@ const FeedItem = (props) => {
       </div>
       <div className="summary">
         <div className="summary-btn">
-          {console.log(props.mindmapData)}
           <StarRating starNum={avgStarRating} isDisabled={true} />
         </div>
         <p className="summary-sentence">{props.sentence}</p>

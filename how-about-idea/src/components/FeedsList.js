@@ -66,10 +66,10 @@ const FeedsList = (props) => {
               createDate={item[0].nowDataTime}
               sentence={item[0].sentence}
               onShowFeedDetail={props.onShowFeedDetail}
-              onSetFeedData={props.onSetFeedData}
-              onSetFeedGraph={props.onSetFeedGraph}
-              feedData={item[0]} // FeedDetail 데이터 전달용
-              mindmapData={props.mindmaps[index]} // MindmapGraph
+              onSetFeedDetailData={props.onSetFeedDetailData}
+              onSetFeedDetailGraph={props.onSetFeedDetailGraph}
+              sentenceData={item[0]} // FeedDetail 전달용(데이터)
+              mindmapData={props.mindmaps[index]} // FeedDetail 전달용(그래프)
             />
           </>
         ))}
