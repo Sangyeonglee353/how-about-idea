@@ -189,70 +189,70 @@ const MindMap = (props) => {
       style: {
         // backgroundColor: "#FF7C80",
         backgroundColor: randomColor(),
-        color: "white",
+        // color: "white",
       },
     },
     {
       selector: "node[type='level2']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level3']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level4']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level5']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level6']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level7']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level8']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level9']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
       selector: "node[type='level10']",
       style: {
-        color: "white",
         backgroundColor: randomColor(),
+        // color: "white",
       },
     },
     {
@@ -277,7 +277,8 @@ const MindMap = (props) => {
       style: {
         width: 5,
         // "line-color": "#6774cb",
-        "line-color": "#E1E1E1",
+        // "line-color": "#E1E1E1",
+        "line-color": "black",
         // "target-arrow-color": "#6774cb",
         // "target-arrow-shape": "triangle",
         "curve-style": "bezier",
