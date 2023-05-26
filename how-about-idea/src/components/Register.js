@@ -257,14 +257,6 @@ function Register() {
       .catch((error) => {
         console.log("SignUp Faild!!");
       });
-    // axios
-    //   .post("http://localhost:8080/", data)
-    //   .then((response) => {
-    //     console.log("SignUp Success!!");
-    //   })
-    //   .catch((error) => {
-    //     console.log("SignUp Faild!!");
-    //   });
   };
 
   // [백엔드]_token 받아와 저장 후 로그인

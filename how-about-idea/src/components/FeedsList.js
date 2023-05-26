@@ -55,20 +55,18 @@ const FeedsList = (props) => {
       {props.items.length > 0 &&
         props.items.map((item, index) => (
           <>
-            {console.log("item: ", item[0])}
-
             <FeedItem
               key={index}
-              id={item[0].id}
+              id={item.sentenceInfo.id}
               // root_word={item[0].root_word}
               // combine_word1={item[0].combineWord1}
               // combine_word2={item[0].combineWord2}
-              createDate={item[0].nowDataTime}
-              sentence={item[0].sentence}
+              createDate={item.sentenceInfo.nowDataTime}
+              sentence={item.sentenceInfo.sentence}
               onShowFeedDetail={props.onShowFeedDetail}
               onSetFeedDetailData={props.onSetFeedDetailData}
               onSetFeedDetailGraph={props.onSetFeedDetailGraph}
-              sentenceData={item[0]} // FeedDetail 전달용(데이터)
+              sentenceData={item} // FeedDetail 전달용(데이터)
               mindmapData={props.mindmaps[index]} // FeedDetail 전달용(그래프)
             />
           </>

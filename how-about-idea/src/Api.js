@@ -98,18 +98,6 @@ export async function searchSentence(str) {
   return res;
 }
 
-//여기서 검색을하면 makesentence 아이디를 불러올 수가 있어요 => 아이디를 리스트로 만들어서
-//여기서 받은 id로 다시 getSentence 하면 마인드맵 불러올 수 있어요
-
-//트리즈 문장 검색(선택단어 포함여부)
-export async function searchWord(str) {
-  const res = await axios.get(
-    `${origin}/api/auth/makeSentence/searchWord/${str}`
-  );
-
-  return res;
-}
-
 // 마인드맵 아이디로 트리즈 문장 검색 /api/auth/makeSentence/searchMindMap/{id}
 export async function searchMindMapSentence(id) {
   const res = await axios.get(
@@ -189,7 +177,7 @@ export async function getMyMindMap() {
 
 //마인드맵 단일 조회
 export async function getMindMap(mindMapId) {
-  const res = await axios.get(`${origin}/api/auth/mindMap/${mindMapId}`);
+  const res = await axios.get(`${origin}/api/auth/minMap/search/${mindMapId}`);
 
   return res;
 }
@@ -311,13 +299,38 @@ export async function updateMemberStar(makeSentenceId, data) {
   // }
 }
 
-//makeSentence의 별점 조회
+//makeSentence의 전체 별점 및 평가자수 조회
 export async function getStarRating(makeSentenceId) {
   const res = await axios.get(
-    `${origin}/api/auth/memberStar/total/${makeSentenceId}`
+    `${origin}/api/auth/memberStar/total/${makeSentenceId}`,
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
+    }
   );
 
   return res;
+}
+
+//memberStar의 사용자가 메긴 별점 조회
+// 조건 1_사용자가 메긴 별점이 없는 경우_=="" => 별점 등록
+// 조건 2_사용자가 메긴 별점이 있는 경우_!=="" => 별점 패치(업데이트)
+export async function getUserStarRating(makeSentenceId) {
+  const res = await axios.get(
+    `${origin}/api/auth/memberStar/${makeSentenceId}`,
+    {
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
+    }
+  );
+
+  return res;
+  // {
+  //   "id": 97,
+  //   "starRating":5
+  // }
 }
 
 //마인드맵 데이터 변환 함수
@@ -325,9 +338,11 @@ export async function getStarRating(makeSentenceId) {
 export function convertApiData(data) {
   let buf = [];
   let MindMapId = [];
+  let RootWord = [];
   for (let i = 0; i < data.length; i += 2) {
     let tmp = [];
     MindMapId.push(data[i][0].mindMapEntity.id);
+    RootWord.push(data[i][0].mindMapEntity.highestWord);
     data[i].forEach((e) => {
       tmp.push({
         data: {
@@ -351,5 +366,5 @@ export function convertApiData(data) {
     buf.push(tmp);
   }
 
-  return { id: MindMapId, data: buf };
+  return { id: MindMapId, data: buf, rootWord: RootWord };
 }

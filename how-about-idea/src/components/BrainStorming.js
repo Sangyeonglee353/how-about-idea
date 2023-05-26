@@ -478,7 +478,7 @@ function BrainStorming() {
     if (isExist.current["-1,-1"] > 0)
       print_buf = print_buf.splice(0, isExist.current["-1,-1"]);
 
-    word_buf.splice(isExist[prev[1] + "," + prev[0]], 1);
+    word_buf.splice(isExist.current[prev[1] + "," + prev[0]], 1);
 
     delete wordWeight.current[prev[1] + "," + prev[0]];
 
@@ -522,11 +522,9 @@ function BrainStorming() {
           if (rand <= loc) {
             if (print_idx.indexOf(word_idx[k]) === -1) {
               print_idx.push(word_idx[k]);
-              print_buf.push(word.current[word_idx[k]]);
+              print_buf.push(word_buf[word_idx[k]]);
               isExist.current[
-                word.current[word_idx[k]][1] +
-                  "," +
-                  word.current[word_idx[k]][0]
+                word_buf[word_idx[k]][1] + "," + word_buf[word_idx[k]][0]
               ] = word_idx[k];
             } else {
               i--;

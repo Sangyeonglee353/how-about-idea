@@ -88,7 +88,7 @@ const FeedItem = (props) => {
     props.onShowFeedDetail();
   };
 
-  // [백엔드]_총 별점 및 별점 메긴 사람 호출
+  // [백 엔드]_별점 조회 및 평균 별점 계산
   const [avgStarRating, setAvgStarRating] = useState("");
   async function getStarRatingData() {
     let res = await getStarRating(props.id);
@@ -101,7 +101,7 @@ const FeedItem = (props) => {
 
   useEffect(() => {
     getStarRatingData();
-  }, []);
+  });
 
   // [형식변환]_날짜
   const dateTimeFormat = (dateString) => {

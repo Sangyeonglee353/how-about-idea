@@ -5,7 +5,7 @@ import Mind from "./MindMap/Mind";
 import download from "../images/download.svg";
 import html2canvas from "html2canvas";
 import StarRating from "./UI/StarRating";
-import { getPatentSentence } from "../Api";
+import { getPatentSentence, getStarRating, getUserStarRating } from "../Api";
 
 const ContentBlock = styled.div`
   /* margin: ${(props) => (props.height < 700 ? "10" : "30")}px; */
@@ -68,30 +68,55 @@ const FeedDetail = (props) => {
     window.innerHeight < 800 ? "150px" : "300px"
   );
   const [modalHeight, setModalHeight] = useState(window.innerHeight);
-  const sentence = props.feedDetailData.sentence;
-  const rootWord = props.feedDetailData.root_word;
 
-  // [수정 필요] Backend API 호출 및 계산 or FeedItem에서 값 받아오기
-  const star_rating_total = 3;
+  // [변수] 간소화
+  let feedDetailData_SentenceInfo = props.feedDetailData.sentenceInfo;
+  let feedDetailData_RootWord = props.feedDetailData.rootWord;
 
-  const star_rating_user = props.feedDetailData.star_rating;
-  const combineWord1 = props.feedDetailData.combineWord1;
-  const combineWord2 = props.feedDetailData.combineWord2;
+  const sentence = feedDetailData_SentenceInfo.sentence;
+  const rootWord = feedDetailData_RootWord;
 
-  const [patentSentenceList, setPatentSentenceList] = useState([]);
+  const combineWord1 = feedDetailData_SentenceInfo.combineWord1;
+  const combineWord2 = feedDetailData_SentenceInfo.combineWord2;
+
+  // [백 엔드] 별점 조회 및 평균 별점 계산
+  const [avgStarRating, setAvgStarRating] = useState("");
+
+  async function getStarRatingData() {
+    let res = await getStarRating(feedDetailData_SentenceInfo.id);
+    res = res.data;
+    let starRatingTotal = +res.data["totalRating"];
+    let memberTotal = +res.data["memberTotal"];
+    let avgStarRatingRound = Math.round(starRatingTotal / memberTotal);
+    setAvgStarRating(avgStarRatingRound); // 평균 별점 계산
+  }
+
+  // [백 엔드] 사용자 별점 조회
+  const [userStarRating, setUserStarRating] = useState("");
+  async function getUserStarRatingData() {
+    let res = await getUserStarRating(feedDetailData_SentenceInfo.id);
+    if (res.data !== "") {
+      console.log(res.data);
+      setUserStarRating(res.data["starRating"]);
+    }
+  }
 
   // [백 엔드]_연관 특허 문장 가져오기
+  const [patentSentenceList, setPatentSentenceList] = useState([]);
+
   async function getPatentData() {
-    let res = await getPatentSentence(props.feedDetailData.id);
+    let res = await getPatentSentence(feedDetailData_SentenceInfo.id);
     setPatentSentenceList(res.data.data);
   }
+
   useEffect(() => {
     window.addEventListener("resize", () => {
       setMindHeight(window.innerHeight < 800 ? "150px" : "300px");
       setModalHeight(window.innerHeight);
     });
 
-    // console.log(props);
+    getStarRatingData();
+    getUserStarRatingData();
     getPatentData();
   }, []);
 
@@ -134,7 +159,11 @@ const FeedDetail = (props) => {
       <ContentBlock id="DetailContent" height={modalHeight}>
         <div className="mindmap">
           <div className="star-total">
-            <StarRating starNum={star_rating_total} isDisabled={true} />
+            <StarRating
+              starNum={avgStarRating}
+              sentenceId={feedDetailData_SentenceInfo.id}
+              isDisabled={true}
+            />
           </div>
           <Mind
             width={mindWidth}
@@ -148,7 +177,11 @@ const FeedDetail = (props) => {
         </div>
         <div className="detail">
           <div className="detail-btn">
-            <StarRating starNum={star_rating_user} isDisabled={false} />
+            <StarRating
+              starNum={userStarRating}
+              sentenceId={feedDetailData_SentenceInfo.id}
+              isDisabled={false}
+            />
             <img
               src={download}
               className="fa-download"

@@ -448,8 +448,7 @@ const PatentResult = (props) => {
       .then((response) => {
         // 응답데이터 처리
         setOutput(response);
-        // console.log("결과값: ", output);
-        //console.log("결과값(output.data): ", output.data);
+
         // 문장 생성 1회차 완료 여부 처리
         sentence.current.value = response.data["gsentence"];
         setLoading(false);

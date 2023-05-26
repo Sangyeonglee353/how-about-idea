@@ -132,22 +132,6 @@ const Login = () => {
       .catch((error) => {
         console.log("SignIn Faild!!");
       });
-
-    // axios
-    //   .post("http://localhost:8080/api/auth/signIn", data)
-    //   .then((response) => {
-    //     console.log("SignIn Success!!");
-    //     if (response.data.result) {
-    //       sessionStorage.setItem("howai_id", id.current.value);
-    //       alert(id.current.value + "님 환영합니다.");
-    //       window.location.href = "/how-about-idea/";
-    //     } else {
-    //       alert("아이디와 비밀번호가 틀립니다!");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("SignIn Faild!!");
-    //   });
   };
 
   useEffect(() => {

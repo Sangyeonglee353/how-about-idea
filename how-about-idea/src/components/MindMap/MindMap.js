@@ -333,15 +333,7 @@ const MindMap = (props) => {
     myCyRef.fit(15); // padding: 15
   };
 
-  /* Automatic Resize Graph*/
-  // let resizeTimer;
-  // console.log("resizeTimer: ", resizeTimer);
-
   window.addEventListener("resize", () => {
-    // this.clearTimeout(resizeTimer);
-    // resizeTimer = this.setTimeout(() => {
-    //   refreshGraph();
-    // }, 200);
     refreshGraph();
   });
 
@@ -365,16 +357,14 @@ const MindMap = (props) => {
           stylesheet={styleSheet}
           cy={(cy) => {
             myCyRef = cy;
-            // console.log("EVT", cy);
+
             // 각 노드 클릭시 데이터 출력
             cy.one("tap", "node", (evt) => {
               var node = evt.target;
-              // console.log("EVT", evt);
-              // console.log("TARGET", node.data());
+
               if (typeof props.onSelectNodeHandler != "undefined") {
                 props.onSelectNodeHandler(node.data());
               }
-              // console.log("TARGET TYkPE", typeof node[0]);
             });
           }}
         />
