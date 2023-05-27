@@ -189,7 +189,7 @@ const PatentResultCSS = styled.div`
 
         .fa-star {
           /* width: 20%; */
-          height: 90%;
+          height: 80%;
           filter: invert(47%) sepia(90%) saturate(2417%) hue-rotate(170deg)
             brightness(110%) contrast(101%);
           &:hover {
@@ -198,7 +198,7 @@ const PatentResultCSS = styled.div`
           }
         }
         .fa-star-fill {
-          height: 90%;
+          height: 80%;
           filter: invert(70%) sepia(52%) saturate(853%) hue-rotate(353deg)
             brightness(109%) contrast(103%);
         }
@@ -474,8 +474,7 @@ const PatentResult = (props) => {
       mindMapEntityId: location.state["mindmapId"],
     };
     let res = await makeSentence({ ...data });
-
-    let res1 = await createMemberStar(res.data.data.id, {
+    let res1 = await createMemberStar(res.data.data.makeSentenceId, {
       starRating: countStarRating(),
     });
 

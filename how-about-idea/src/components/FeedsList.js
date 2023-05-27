@@ -55,6 +55,7 @@ const FeedsList = (props) => {
       {props.items.length > 0 &&
         props.items.map((item, index) => (
           <>
+            {console.log("item.sentenceInfo.id: ", item.sentenceInfo)}
             <FeedItem
               key={index}
               id={item.sentenceInfo.id}
