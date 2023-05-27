@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
-import logo from "./images/howai_logo.jpg";
 import styled from "styled-components";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import MindStore from "./components/MindStore";
 import MindSearch from "./components/MindSearch";
-import MindList from "./components/MindList";
 // import GoMind from "./components/MindMap/GoMind";
 import Mind from "./components/MindMap/Mind";
 import BrainStorming from "./components/BrainStorming";
 import NodeSelect from "./components/NodeSelect";
-import TrizSelect from "./components/TrizSelect";
-import PatentAnalysis from "./components/PatentAnalysis";
 import PatentResult from "./components/PatentResult";
 import Header from "./components/Header";
 /* icon */
@@ -177,10 +167,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/mindstore" element={<MindStore />} />
           <Route path="/mindsearch" element={<MindSearch />} />
-          {/* <Route path="/mind" element={<Mind />} /> */}
           <Route path="/nodeselect" element={<NodeSelect />} />
-          <Route path="/trizselect" element={<TrizSelect />} />
-          <Route path="/patentanalysis" element={<PatentAnalysis />} />
           <Route path="/patentresult" element={<PatentResult />} />
           <Route path="/BrainStorming" element={<BrainStorming />} />
         </Routes>

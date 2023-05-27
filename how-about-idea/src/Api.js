@@ -233,7 +233,6 @@ export async function getWordRelation(word) {
 }
 
 //wordRelation 가중치 업데이트
-
 export async function updateWeight(id) {
   const res = await axios.patch(
     `${origin}/api/auth/wordRelation/${id}`,
