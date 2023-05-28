@@ -77,7 +77,6 @@ const MindSearch = () => {
     let keyWord = search.current.value;
     if (keyWord !== "" && keyWord !== " ") {
       let res = await searchSentence(keyWord);
-      console.log(res.data);
       res.data.forEach((e) => {
         let res1 = mindMapId.push(e.mindMapEntityId);
         if (e.show === 0) sentence.push(e);
@@ -96,7 +95,6 @@ const MindSearch = () => {
         });
       });
 
-      console.log("but: ", buf);
       console.log(buf[0]);
 
       setSentenceInfo([...buf]);

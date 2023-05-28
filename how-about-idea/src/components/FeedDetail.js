@@ -163,6 +163,9 @@ const FeedDetail = (props) => {
               starNum={avgStarRating}
               sentenceId={feedDetailData_SentenceInfo.id}
               isDisabled={true}
+              sentence={sentence}
+              combineWord1={combineWord1}
+              combineWord2={combineWord2}
             />
           </div>
           <Mind
@@ -181,6 +184,9 @@ const FeedDetail = (props) => {
               starNum={userStarRating}
               sentenceId={feedDetailData_SentenceInfo.id}
               isDisabled={false}
+              sentence={sentence}
+              combineWord1={combineWord1}
+              combineWord2={combineWord2}
             />
             <img
               src={download}

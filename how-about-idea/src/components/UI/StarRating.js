@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { createMemberStar, updateMemberStar, getStarRating } from "../../Api";
+import axios from "axios";
 
 const StarRatingCSS = styled.div`
   display: inline-block;
@@ -43,7 +44,28 @@ const StarRating = (props, { totalStars = 5 }) => {
       res = await updateMemberStar(id, data);
       alert("별점 평가가 반영되었습니다.");
     }
+
+    updateModel(); // 인공지능 재학습 실행
+    // console.log("props: ", props);
   }
+
+  // [인공지능]_[문장 생성 AI 재학습]
+  const updateModel = () => {
+    const data = {
+      sentence: props.sentence,
+      userStarRating: props.starNum,
+      combineWord1: props.combineWord1,
+      combineWord2: props.combineWord2,
+    };
+    axios
+      .post("http://localhost:5000/api/modelUpdate", data)
+      .then(() => {
+        console.log("AI Model Update Success");
+      })
+      .catch((error) => {
+        console.log("AI Model Update Error: ", error);
+      });
+  };
 
   useEffect(() => {
     setStars(props.starNum === "" ? 0 : props.starNum);
