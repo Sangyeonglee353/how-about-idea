@@ -661,9 +661,7 @@ const PatentResult = (props) => {
           </div>
 
           <div className="result-save" onClick={saveSentence}>
-            {/* <Link to="/"> */}
             <span>Save & Quit</span>
-            {/* </Link> */}
           </div>
         </div>
       </PatentResultCSS>

@@ -2,7 +2,18 @@ import React from "react";
 import FeedItem from "./FeedItem";
 import styled from "styled-components";
 
-const FeedsListCSS = styled.ul`
+const MessageCSS = styled.div`
+  .nothing {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: gray;
+  }
+`;
+const FeedsListCSS = styled.div`
   list-style-type: none;
   /* margin-top: 150px; */
 
@@ -46,22 +57,22 @@ const FeedsListCSS = styled.ul`
 const FeedsList = (props) => {
   // let feedContent = <p>Feed don't found.</p>;
 
-  // if (props.items.length === 0) {
-  //   return { feedContent };
-  // }
+  if (props.items.length === 0) {
+    return (
+      <MessageCSS>
+        <p className="nothing">Mindmap Not Found</p>
+      </MessageCSS>
+    );
+  }
 
   return (
     <FeedsListCSS>
       {props.items.length > 0 &&
         props.items.map((item, index) => (
           <>
-            {console.log("item.sentenceInfo.id: ", item.sentenceInfo)}
             <FeedItem
               key={index}
               id={item.sentenceInfo.id}
-              // root_word={item[0].root_word}
-              // combine_word1={item[0].combineWord1}
-              // combine_word2={item[0].combineWord2}
               createDate={item.sentenceInfo.nowDataTime}
               sentence={item.sentenceInfo.sentence}
               onShowFeedDetail={props.onShowFeedDetail}
