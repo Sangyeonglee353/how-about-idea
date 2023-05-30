@@ -53,7 +53,7 @@ const StarRating = (props, { totalStars = 5 }) => {
   const updateModel = () => {
     const data = {
       sentence: props.sentence,
-      userStarRating: props.starNum,
+      userStarRating: stars,
       combineWord1: props.combineWord1,
       combineWord2: props.combineWord2,
     };
