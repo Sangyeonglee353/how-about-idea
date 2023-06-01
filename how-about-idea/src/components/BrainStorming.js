@@ -778,7 +778,7 @@ function BrainStorming() {
             next.current.style.color = "#000000";
           }}
         >
-          save & quit
+          Save & Next
         </p>
       </div>
     </BrainStormingCss>
