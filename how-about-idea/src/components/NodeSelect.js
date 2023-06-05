@@ -216,7 +216,7 @@ const NodeSelect = () => {
                 }}
               >
                 <button className="activeBtn" id="nextPage">
-                  문장 생성
+                  아이디어 생성
                 </button>
               </Link>
             )}

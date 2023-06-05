@@ -49,7 +49,7 @@ const StarRating = (props, { totalStars = 5 }) => {
     // console.log("props: ", props);
   }
 
-  // [인공지능]_[문장 생성 AI 재학습]
+  // [인공지능]_[아이디어 생성 AI 재학습]
   const updateModel = () => {
     const data = {
       sentence: props.sentence,

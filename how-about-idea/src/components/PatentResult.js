@@ -341,8 +341,8 @@ const PatentResultCSS = styled.div`
 `;
 
 const PatentResult = (props) => {
-  // const [output, setOutput] = useState([]); // 문장 생성 AI 데이터 전송
-  const [output, setOutput] = useState({}); // 문장 생성 AI 데이터 전송
+  // const [output, setOutput] = useState([]); // 아이디어 생성 AI 데이터 전송
+  const [output, setOutput] = useState({}); // 아이디어 생성 AI 데이터 전송
   const [loading, setLoading] = useState(true); // 로딩 관련
   const sentence = useRef("");
 
@@ -352,7 +352,7 @@ const PatentResult = (props) => {
     star3: false,
     star4: false,
     star5: false,
-  }); // 문장 만족도 평가[별점 표시]
+  }); // 아이디어 만족도 평가[별점 표시]
 
   // 별점 컨트롤
   const handleStarRating = (props) => {
@@ -430,16 +430,16 @@ const PatentResult = (props) => {
     getSentence();
   }, [location.state]);
 
-  // [인공지능]_[문장 생성 API]
+  // [인공지능]_[아이디어 생성 API]
   const getSentence = () => {
     const data = {
       // firstWord: selectedNode[0].label,
       firstWord: location.state["word1"],
       secondWord: location.state["word2"],
     };
-    // 문장 생성 1회차만
+    // 아이디어 생성 1회차만
     // setLoading(true);
-    // 문장 생성 2회차부터
+    // 아이디어 생성 2회차부터
     {
       !loading && setRefreshOn(true);
     }
@@ -448,11 +448,11 @@ const PatentResult = (props) => {
       .then((response) => {
         // 응답데이터 처리
         setOutput(response);
-        
-        // 문장 생성 1회차 완료 여부 처리
+
+        // 아이디어 생성 1회차 완료 여부 처리
         sentence.current.value = response.data["gsentence"];
         setLoading(false);
-        // 문장 생성 2회차
+        // 아이디어 생성 2회차
         {
           !loading && setRefreshOn(false);
         }
@@ -492,7 +492,7 @@ const PatentResult = (props) => {
       <PatentResultCSS>
         <div className="result-wrapper">
           <div className="result-title">
-            <span>문장 생성 결과</span>
+            <span>아이디어 생성 결과</span>
           </div>
 
           <div className="result-content-wrapper">
@@ -503,7 +503,7 @@ const PatentResult = (props) => {
                   <textarea
                     className="gsentence"
                     defaultValue={output.data["gsentence"]}
-                    placeholder={"문장을 입력해 주세요"}
+                    placeholder={"아이디어을 입력해 주세요"}
                     ref={sentence}
                     onChange={(e) => {
                       setOutput({
@@ -609,7 +609,7 @@ const PatentResult = (props) => {
                   )}
                 </div>
                 <div className="result-evaluation__satisfy-label">
-                  <span>문장 만족도</span>
+                  <span>아이디어 만족도</span>
                 </div>
               </div>
               <div className="result-evaluation__setting">
